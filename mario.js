@@ -275,9 +275,9 @@ class Mario {
                                 that.game.camera.loadBonusLevelOne();
                             }
                         }
-                        if ((entity instanceof Goomba || entity instanceof Koopa) // squish Goomba
+                        if ((entity instanceof skeleton || entity instanceof Koopa) // squish skeleton
                             && (that.lastBB.bottom) <= entity.BB.top // was above last tick
-                            && !entity.dead) { // can't squish an already squished Goomba
+                            && !entity.dead) { // can't squish an already squished skeleton
                             entity.dead = true;
                             that.velocity.y = -240; // bounce
                         }
