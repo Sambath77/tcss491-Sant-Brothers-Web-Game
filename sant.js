@@ -49,6 +49,10 @@ class Sant {
 
   update() {}
 
+  drawMinimap() {
+
+  }
+
   draw(ctx) {
     this.animation[0].drawFrame(this.game.clockTick, ctx, 100, 100, 3);
     this.animation[1].drawFrame(this.game.clockTick, ctx, 100, 300, 3);
