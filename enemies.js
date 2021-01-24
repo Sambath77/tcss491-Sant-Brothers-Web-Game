@@ -1,14 +1,14 @@
 class Skeleton {
     constructor(game) {
         Object.assign(this, {game});
-       
+
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
-        
+
 
         this.animation = new Animator(this.spritesheet, 85, 135, 20, 60, 6, 0.2, 44, false, true);
         this.animation2 = new Animator(this.spritesheet, 15, 197, 30, 60, 9, 0.25, 34, false, true);
         this.animation3 = new Animator(this.spritesheet, 463, 143, 50, 50, 2, 1.0, 10, false, true);
-        
+
     };
 
 
@@ -16,7 +16,7 @@ class Skeleton {
 
     };
 
- 
+
     draw(ctx) {
 
         this.animation.drawFrame(this.game.clockTick, ctx, 50, 50, 2);
@@ -25,6 +25,10 @@ class Skeleton {
 
 
     };
+
+    drawMinimap() {
+
+    }
 };
 
 class Koopa {
