@@ -1,47 +1,50 @@
 class AssetManager {
-  constructor() {
-    this.successCount = 0;
-    this.errorCount = 0;
-    this.cache = [];
-    this.downloadQueue = [];
-  }
 
-  queueDownload(path) {
-    console.log("Queueing " + path);
-    this.downloadQueue.push(path);
-  }
+    constructor() {
+        this.successCount = 0;
+        this.errorCount = 0;
+        this.cache = [];
+        this.downloadQueue = [];
+    };
 
-  isDone() {
-    return this.downloadQueue.length === this.successCount + this.errorCount;
-  }
+    queueDownload(path) {
+        console.log("Queueing " + path);
+        this.downloadQueue.push(path);
+    };
 
-  downloadAll(callback) {
-    if (this.downloadQueue.length === 0) setTimeout(callback, 10);
-    for (var i = 0; i < this.downloadQueue.length; i++) {
-      var img = new Image();
-      var that = this;
+    isDone() {
+        return this.downloadQueue.length === this.successCount + this.errorCount;
+    };
 
-      var path = this.downloadQueue[i];
-      console.log(path);
+    downloadAll(callback) {
+        if (this.downloadQueue.length === 0) setTimeout(callback, 10);
+        for (var i = 0; i < this.downloadQueue.length; i++) {
+            var img = new Image();
+            var that = this;
 
-      img.addEventListener("load", function () {
-        console.log("Loaded " + this.src);
-        that.successCount++;
-        if (that.isDone()) callback();
-      });
+            var path = this.downloadQueue[i];
+            console.log(path);
 
-      img.addEventListener("error", function () {
-        console.log("Error loading " + this.src);
-        that.errorCount++;
-        if (that.isDone()) callback();
-      });
+            img.addEventListener("load", function () {
+                console.log("Loaded " + this.src);
+                that.successCount++;
+                if (that.isDone()) callback();
+            });
 
-      img.src = path;
-      this.cache[path] = img;
-    }
-  }
+            img.addEventListener("error", function () {
+                console.log("Error loading " + this.src);
+                that.errorCount++;
+                if (that.isDone()) callback();
+            });
 
-  getAsset(path) {
-    return this.cache[path];
-  }
-}
+            img.src = path;
+            this.cache[path] = img;
+        }
+    };
+
+    getAsset(path) {
+        return this.cache[path];
+    };
+};
+
+

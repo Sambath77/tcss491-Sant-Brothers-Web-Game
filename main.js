@@ -1,3 +1,4 @@
+
 var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./sprites/gunfire.png");
@@ -17,4 +18,5 @@ ASSET_MANAGER.downloadAll(function () {
   new SceneManager(gameEngine);
 
   gameEngine.start();
+
 });
