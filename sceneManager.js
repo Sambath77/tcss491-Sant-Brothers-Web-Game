@@ -22,7 +22,7 @@ class SceneManager {
             this.lives++;
         }
     };
-    
+
     loadLevelOne(x,y) {
         this.game.entities = [];
         this.x = 0;
@@ -290,6 +290,9 @@ class SceneManager {
         goomba = new Goomba(this.game, 128.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(goomba);
 
+        let flyingEye = new FlyingEye(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+        this.game.addEntity(flyingEye);
+
         this.mario.x = x;
         this.mario.y = this.mario.size ? y - PARAMS.BLOCKWIDTH : y;
         this.game.addEntity(this.mario);
@@ -449,7 +452,7 @@ class SceneManager {
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.BLOCKWIDTH / 2;
 
         if (this.x < this.mario.x - midpoint) this.x = this.mario.x - midpoint;
-    
+
         if (this.mario.dead && this.mario.y > PARAMS.BLOCKWIDTH * 16) {
             this.mario.dead = false;
             this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
