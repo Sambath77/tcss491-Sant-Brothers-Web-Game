@@ -1,32 +1,24 @@
 class SceneManager {
-    constructor(game) {
-        this.game = game;
-        this.game.camera = this;
-        this.x = 0;
-        this.score = 0;
-        this.coins = 0;
-        this.lives = 3;
 
-        this.coinAnimation = new Animator(ASSET_MANAGER.getAsset("./sprites/coins.png"), 0, 160, 8, 8, 4, 0.2, 0, false, true);
+  constructor(game) {
+    this.game = game;
+    this.game.camera = this;
+    this.x = 0;
+    this.loadLevelOne();
+  }
 
-        this.minimap = new Minimap(this.game, 1.5 * PARAMS.BLOCKWIDTH, 3.5 * PARAMS.BLOCKWIDTH, 224 * PARAMS.SCALE);
+  loadLevelOne() {
+    this.game.entities = [];
 
-        this.mario = new Mario(this.game, 2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+    let sant = new Sant(this.game, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
+    this.game.addEntity(sant);
+  }
 
-        this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
-    };
+  draw() {}
+}
 
-    addCoin() {
-        if (this.coins++ === 100) {
-            this.coins = 0;
-            this.lives++;
-        }
-    };
-    
-    loadLevelOne(x,y) {
-        this.game.entities = [];
-        this.x = 0;
 
+<<<<<<< HEAD
         let background = new BigHill(this.game, 0, 11.5 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(background);
         background = new Bush(this.game, 11.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH, 3);
@@ -534,3 +526,4 @@ class Minimap {
         }
     };
 };
+
