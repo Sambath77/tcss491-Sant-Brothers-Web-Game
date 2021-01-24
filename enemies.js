@@ -1,79 +1,29 @@
-class Goomba {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y });
-        this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies.png");
-        this.animation = new Animator(this.spritesheet, 0, 4, 16, 16, 2, 0.2, 14, false, true);
-        this.paused = true;
-        this.dead = false;
-        this.deadCounter = 0;
-        this.flickerFlag = true;
-        this.updateBB();
+class Skeleton {
+    constructor(game) {
+        Object.assign(this, {game});
+       
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
+        
+
+        this.animation = new Animator(this.spritesheet, 85, 135, 20, 60, 6, 0.2, 44, false, true);
+        this.animation2 = new Animator(this.spritesheet, 15, 197, 30, 60, 9, 0.25, 34, false, true);
+        this.animation3 = new Animator(this.spritesheet, 463, 143, 50, 50, 2, 1.0, 10, false, true);
+        
     };
 
-    updateBB() {
-        this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
-    };
 
     update() {
-        const FALL_ACC = 1800;
 
-        if (this.dead) {
-            if (this.deadCounter === 0) this.game.addEntity(new Score(this.game, this.x, this.y, 100));
-            this.deadCounter += this.game.clockTick;
-            if (this.deadCounter > 0.5) this.removeFromWorld = true;  // flicker for half a second
-        }
-        if (this.paused && this.game.camera.x > this.x - PARAMS.CANVAS_WIDTH) {
-            this.paused = false;
-        }
-        if (!this.paused && !this.dead) {
-            this.velocity.y += FALL_ACC * this.game.clockTick;
-            this.x += this.game.clockTick * this.velocity.x * PARAMS.SCALE;
-            this.y += this.game.clockTick * this.velocity.y * PARAMS.SCALE;
-            this.updateBB();
-
-            var that = this;
-            this.game.entities.forEach(function (entity) {
-                if (entity.BB && that.BB.collide(entity.BB)) {
-                    if (entity instanceof Mario || entity instanceof Mushroom) {
-
-                    } else if ((entity instanceof Ground || entity instanceof Brick || entity instanceof Block || entity instanceof Tube)
-                        && that.lastBB.bottom <= entity.BB.top) {
-                        that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
-                        that.velocity.y = 0;
-                        that.updateBB();
-                    } else if (entity !== that) {
-                        that.velocity.x = -that.velocity.x;
-                    }
-                };
-            });
-       }
-     };
-
-    drawMinimap(ctx, mmX, mmY) {
-        ctx.fillStyle = "Tan";
-        ctx.fillRect(mmX + this.x / PARAMS.BITWIDTH, mmY + this.y / PARAMS.BITWIDTH, PARAMS.SCALE, PARAMS.SCALE);
     };
 
+ 
     draw(ctx) {
-        if (this.dead) {
-            if (this.flickerFlag) {
-                ctx.drawImage(this.spritesheet,
-                    0, 4, //source from sheet
-                    16, 16,
-                    this.x - this.game.camera.x, this.y + PARAMS.BLOCKWIDTH * 3 / 4,
-                    PARAMS.BLOCKWIDTH,
-                    PARAMS.BLOCKWIDTH / 4);
-            }
-            this.flickerFlag = !this.flickerFlag;
-        } else {
-            this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE)
-            if (PARAMS.DEBUG) {
-                ctx.strokeStyle = 'Red';
-                ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
-            }
-       }
+
+        this.animation.drawFrame(this.game.clockTick, ctx, 50, 50, 2);
+        this.animation2.drawFrame(this.game.clockTick, ctx, 50, 200, 2);
+        this.animation3.drawFrame(this.game.clockTick, ctx, 50, 350, 2);
+
+
     };
 };
 

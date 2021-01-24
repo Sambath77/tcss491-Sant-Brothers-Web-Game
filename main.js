@@ -11,20 +11,23 @@ ASSET_MANAGER.queueDownload("./sprites/coins.png");
 ASSET_MANAGER.queueDownload("./sprites/flying-eye/attack.png");
 ASSET_MANAGER.queueDownload("./sprites/flying-eye/death.png");
 ASSET_MANAGER.queueDownload("./sprites/flying-eye/walk.png");
+ASSET_MANAGER.queueDownload("./sprites/skeleton.png");
+ASSET_MANAGER.queueDownload("./sprites/gunfire.png");
 
 ASSET_MANAGER.downloadAll(function () {
-	const gameEngine = new GameEngine();
+  var gameEngine = new GameEngine();
 
-	PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
+  PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
 
 	const canvas = document.getElementById('gameWorld');
 	const ctx = canvas.getContext('2d');
 
-	PARAMS.CANVAS_WIDTH = canvas.width;
+  PARAMS.CANVAS_WIDTH = canvas.width;
 
-	gameEngine.init(ctx);
+  gameEngine.init(ctx);
 
-	new SceneManager(gameEngine);
+  new SceneManager(gameEngine);
 
-	gameEngine.start();
+  gameEngine.start();
+
 });

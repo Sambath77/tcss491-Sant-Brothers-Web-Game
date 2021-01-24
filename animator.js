@@ -1,4 +1,5 @@
 class Animator {
+
     constructor(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePadding, reverse, loop) {
         Object.assign(this, { spritesheet, xStart, yStart, height, width, frameCount, frameDuration, framePadding, reverse, loop });
 
@@ -46,3 +47,4 @@ class Animator {
         return (this.elapsedTime >= this.totalTime);
     };
 };
+
