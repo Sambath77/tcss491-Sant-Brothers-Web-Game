@@ -10,7 +10,6 @@ class Skeleton {
         this.deadCounter = 0;
         this.attackCounter = 0;
         this.updateBoundingBox();
-        console.log(this.currentMode, this.assetsMap, this.animations);
 
         // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
 
@@ -59,7 +58,7 @@ class Skeleton {
 
         }
 
-        
+
     }
     updateBoundingBox() {
         this.lastBB = this.BB;
@@ -104,7 +103,7 @@ class Skeleton {
             const that = this;
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
-                    if (entity instanceof Mario) {
+                    if (entity instanceof Sant) {
                         that.currentMode = "attack";
                     } else if ((entity instanceof Ground || entity instanceof Brick || entity instanceof Block || entity instanceof Tube)
                       && that.lastBB.bottom <= entity.BB.top) {
@@ -187,7 +186,6 @@ class FlyingEye {
         this.deadCounter = 0;
         this.attackCounter = 0;
         this.updateBoundingBox();
-        console.log(this.currentMode, this.assetsMap, this.animations);
     };
 
     constructAssetMap() {
