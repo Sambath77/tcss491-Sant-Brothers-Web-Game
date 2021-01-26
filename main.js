@@ -13,6 +13,8 @@ ASSET_MANAGER.queueDownload("./sprites/flying-eye/death.png");
 ASSET_MANAGER.queueDownload("./sprites/flying-eye/walk.png");
 ASSET_MANAGER.queueDownload("./sprites/skeleton.png");
 ASSET_MANAGER.queueDownload("./sprites/gunfire.png");
+ASSET_MANAGER.queueDownload("./sprites/zombies.png");
+
 
 ASSET_MANAGER.downloadAll(function () {
   var gameEngine = new GameEngine();
