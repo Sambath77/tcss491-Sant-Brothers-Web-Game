@@ -256,7 +256,7 @@ class FlyingEye {
             const that = this;
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
-                    if (entity instanceof Mario) {
+                    if (entity instanceof Sant) {
                         that.currentMode = "attack";
                     } else if ((entity instanceof Ground || entity instanceof Brick || entity instanceof Block || entity instanceof Tube)
                       && that.lastBB.bottom <= entity.BB.top) {

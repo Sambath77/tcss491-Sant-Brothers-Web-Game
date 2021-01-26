@@ -8,7 +8,7 @@ class Coin {
     };
 
     update() {
-       
+
     };
 
     drawMinimap(ctx, mmX, mmY) {
@@ -115,7 +115,7 @@ class Mushroom {
             var that = this;
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
-                    if (entity instanceof Mario) {
+                    if (entity instanceof Sant) {
 
                     } else if ((entity instanceof Ground || entity instanceof Brick || entity instanceof Block || entity instanceof Tube)
                         && (that.BB.bottom - that.velocity.y * that.game.clockTick * PARAMS.SCALE) <= entity.BB.top) {

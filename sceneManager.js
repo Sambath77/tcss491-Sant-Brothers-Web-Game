@@ -11,7 +11,7 @@ class SceneManager {
 
         this.minimap = new Minimap(this.game, 1.5 * PARAMS.BLOCKWIDTH, 3.5 * PARAMS.BLOCKWIDTH, 224 * PARAMS.SCALE);
 
-        this.mario = new Mario(this.game, 2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+        this.sant = new Sant(this.game, 2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
 
         this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
     };
@@ -26,9 +26,6 @@ class SceneManager {
     loadLevelOne(x,y) {
         this.game.entities = [];
         this.x = 0;
-
-        let sant = new Sant(this.game, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
-        this.game.addEntity(sant);
 
         let background = new BigHill(this.game, 0, 11.5 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(background);
@@ -280,9 +277,9 @@ class SceneManager {
 
 
 
-        this.mario.x = x;
-        this.mario.y = this.mario.size ? y - PARAMS.BLOCKWIDTH : y;
-        this.game.addEntity(this.mario);
+        this.sant.x = x;
+        this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
+        this.game.addEntity(this.sant);
 
 
 
@@ -430,10 +427,10 @@ class SceneManager {
         tube = new SideTube(this.game, 13 * PARAMS.BLOCKWIDTH, 12 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(tube);
 
-        this.mario.x = 2.5 * PARAMS.BLOCKWIDTH;
-        this.mario.y = 0 * PARAMS.BLOCKWIDTH;
-        this.mario.state = 4; // falling
-        this.game.addEntity(this.mario);
+        this.sant.x = 2.5 * PARAMS.BLOCKWIDTH;
+        this.sant.y = 0 * PARAMS.BLOCKWIDTH;
+        this.sant.state = 4; // falling
+        this.game.addEntity(this.sant);
     };
 
     update() {
@@ -441,10 +438,10 @@ class SceneManager {
 
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.BLOCKWIDTH / 2;
 
-        if (this.x < this.mario.x - midpoint) this.x = this.mario.x - midpoint;
+        if (this.x < this.sant.x - midpoint) this.x = this.sant.x - midpoint;
 
-        if (this.mario.dead && this.mario.y > PARAMS.BLOCKWIDTH * 16) {
-            this.mario.dead = false;
+        if (this.sant.dead && this.sant.y > PARAMS.BLOCKWIDTH * 16) {
+            this.sant.dead = false;
             this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
         };
     };

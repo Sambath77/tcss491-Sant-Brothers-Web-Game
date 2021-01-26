@@ -1,6 +1,6 @@
 const ASSET_MANAGER = new AssetManager();
 
-ASSET_MANAGER.queueDownload("./sprites/mario.png");
+ASSET_MANAGER.queueDownload("./sprites/sant.png");
 ASSET_MANAGER.queueDownload("./sprites/luigi.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles.png");
@@ -12,7 +12,8 @@ ASSET_MANAGER.queueDownload("./sprites/flying-eye/attack.png");
 ASSET_MANAGER.queueDownload("./sprites/flying-eye/death.png");
 ASSET_MANAGER.queueDownload("./sprites/flying-eye/walk.png");
 ASSET_MANAGER.queueDownload("./sprites/skeleton.png");
-ASSET_MANAGER.queueDownload("./sprites/gunfire.png");
+ASSET_MANAGER.queueDownload("./sprites/sant/sant-left.png");
+ASSET_MANAGER.queueDownload("./sprites/sant/sant-right.png");
 ASSET_MANAGER.queueDownload("./sprites/zombies.png");
 
 
