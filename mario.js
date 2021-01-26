@@ -275,7 +275,7 @@ class Mario {
                                 that.game.camera.loadBonusLevelOne();
                             }
                         }
-                        if ((entity instanceof Skeleton || entity instanceof Koopa) // squish skeleton
+                        if ((entity instanceof Skeleton || entity instanceof Zombie) // squish skeleton
                             && (that.lastBB.bottom) <= entity.BB.top // was above last tick
                             && !entity.dead) { // can't squish an already squished skeleton
                             entity.dead = true;

@@ -297,19 +297,19 @@ class SceneManager {
         this.game.addEntity(flyingEye);
 
 
-        //zombie - Tung
-        let Zombie = new zombie(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(Zombie);
+        //Zombie - Tung
+        let zombie = new Zombie(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+        this.game.addEntity(zombie);
 
 
-        
+
 
         this.mario.x = x;
         this.mario.y = this.mario.size ? y - PARAMS.BLOCKWIDTH : y;
         this.game.addEntity(this.mario);
 
 
-        
+
     };
 
     loadBonusLevelOne() {
