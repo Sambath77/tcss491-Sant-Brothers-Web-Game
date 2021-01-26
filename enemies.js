@@ -32,17 +32,17 @@ class Skeleton {
 };
 
 //enemies
-class zombie {
+class Zombie {
     constructor(game, x, y) {
         Object.assign(this,{game, x, y});
         //spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/zombies.png");
 
-        // zombie state variable
+        // Zombie state variable
         this.facing = 0; // 0 = right, 1 == left
         this.state = 0; //0 = idle, 1 = walking, 2 = running, 3= attacking, 4 = die
         this.dead = false;
-        //zombie idling
+        //Zombie idling
         this.animation = [];
         //idle
         this.animation[0]= new Animator(this.spritesheet, 146, 15, 35, 40 , 5, 0.33, 60, false, true);
@@ -61,8 +61,12 @@ class zombie {
         this.animation[1].drawFrame(this.game.clockTick, ctx, 0, 150, 2);
         this.animation[2].drawFrame(this.game.clockTick, ctx, 0, 300, 2);
     };
-    
-    update() {    
+
+    drawMinimap() {
+
+    }
+
+    update() {
     }
 
 };
