@@ -266,6 +266,8 @@ class SceneManager {
         this.game.addEntity(skeleton);
         skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(skeleton);
+        skeleton = new Skeleton(this.game, 17 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
+        this.game.addEntity(skeleton);
 
         let flyingEye = new FlyingEye(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(flyingEye);

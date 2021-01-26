@@ -49,9 +49,9 @@ class Skeleton {
                 15,
                 197,
                 30,
-                60,
+                50,
                 9,
-                0.2,
+                0.1,
                 34,
                 true,
                 mode !== "death"
@@ -126,10 +126,10 @@ class Skeleton {
     draw(ctx) {
         this.animations[this.animationModes.indexOf(this.currentMode)]
           .drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE)
-        if (PARAMS.DEBUG) {
-            ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
-        }
+        // if (PARAMS.DEBUG) {
+        //     ctx.strokeStyle = 'Red';
+        //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+        // }
     };
 
 };
