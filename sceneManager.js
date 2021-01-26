@@ -262,35 +262,9 @@ class SceneManager {
         block = new Block(this.game, 185 * PARAMS.BLOCKWIDTH, 6 * PARAMS.BLOCKWIDTH, 2 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(block);
 
-        let skeleton = new Skeleton(this.game, 22 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
+        let skeleton = new Skeleton(this.game, 10 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 40 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 51 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 52.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 80 * PARAMS.BLOCKWIDTH, 5 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 82 * PARAMS.BLOCKWIDTH, 5 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 96 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 97.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 106 * PARAMS.BLOCKWIDTH, 12.5 * PARAMS.BLOCKWIDTH, 1);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 113 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 114.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 123 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 124.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 127 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 128.5 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
+        skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(skeleton);
 
         let flyingEye = new FlyingEye(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
