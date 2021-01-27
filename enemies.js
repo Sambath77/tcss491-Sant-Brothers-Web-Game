@@ -204,7 +204,7 @@ class FlyingEye {
           42,
           42,
           8,
-          0.2,
+          0.05,
           108,
           true,
           mode !== "death"

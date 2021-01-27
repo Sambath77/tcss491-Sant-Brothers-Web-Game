@@ -22,6 +22,10 @@ class Sant {
         this.velocity = { x: 0, y: 0 };
         this.fallAcc = 562.5;
 
+        this.hurtCounter = 0;
+        this.isEnabledHurtCooldown = false;
+        this.hurtCooldownCounter = 0;
+
         // sant's animations
         this.animations = [];
         this.loadAnimations();
@@ -29,11 +33,11 @@ class Sant {
     };
 
     loadAnimations() {
-        for (var i = 0; i < 6; i++) { // six states
+        for (let i = 0; i < 8; i++) { // six states
             this.animations.push([]);
-            for (var j = 0; j < 3; j++) { // three sizes (star-power not implemented yet)
+            for (let j = 0; j < 3; j++) { // three sizes (star-power not implemented yet)
                 this.animations[i].push([]);
-                for (var k = 0; k < 2; k++) { // two directions
+                for (let k = 0; k < 2; k++) { // two directions
                     this.animations[i][j].push([]);
                 }
             }
@@ -42,59 +46,82 @@ class Sant {
             this.loadIdleAnimation(i);
             this.loadWalkAnimation(i);
             this.loadRunAnimation(i);
-            this.loadAttackAnimation(i);
+            this.loadSkidAnimation(i);
             this.loadJumpAnimation(i);
+            this.loadDuckAnimation(i);
+            this.loadAttackAnimation(i);
+            this.loadHurtAnimation(i);
         }
-        this.deadAnim = new Animator(this.spritesheets, 0, 16, 16, 16, 1, 0.33, 0, false, true);
+        this.deadAnim = [
+            this.createNewSantAnimator({ facingDirection: 0, xStart: 158, yStart: 268, frameCount: 1, width: 58}),
+            this.createNewSantAnimator({ facingDirection: 1, xStart: 148, yStart: 268, frameCount: 1, width: 58}),
+        ];
     };
 
     loadIdleAnimation(i) {
-        this.animations[0][i][0] = this.createNewSantAnimator(0, 28, 38, 1);
-        this.animations[0][i][1] = this.createNewSantAnimator(1, 276, 38, 1);
+        this.animations[0][i][0] = this.createNewSantAnimator({ facingDirection: 0, xStart: 28, yStart: 38, frameCount: 1});
+        this.animations[0][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 276, yStart: 38, frameCount: 1});
     }
 
     loadWalkAnimation(i) {
-        this.animations[1][i][0] = this.createNewSantAnimator(0, 28, 38, 4);
-        this.animations[1][i][1] = this.createNewSantAnimator(1, 150, 38, 4);
+        this.animations[1][i][0] = this.createNewSantAnimator({ facingDirection: 0, xStart: 28, yStart: 38, frameCount: 4});
+        this.animations[1][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 150, yStart: 38, frameCount: 4});
     }
 
     loadRunAnimation(i) {
-        this.animations[2][i][0] = this.createNewSantAnimator(0, 28, 38, 4);
-        this.animations[2][i][1] = this.createNewSantAnimator(1, 150, 38, 4);
+        this.animations[2][i][0] = this.createNewSantAnimator({ facingDirection: 0, xStart: 28, yStart: 38, frameCount: 4});
+        this.animations[2][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 150, yStart: 38, frameCount: 4});
     }
 
-    loadAttackAnimation(i) {
-        this.animations[3][i][0] = this.createNewSantAnimator(0, 28, 82, 4);
-        this.animations[3][i][1] = this.createNewSantAnimator(1, 150, 42, 4);
+    loadSkidAnimation(i) {
+        this.animations[3][i][0] = this.createNewSantAnimator({ facingDirection: 0, xStart: 28, yStart: 38, frameCount: 4});
+        this.animations[3][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 150, yStart: 38, frameCount: 4});
     }
 
     loadJumpAnimation(i) {
-        this.animations[4][i][0] = this.createNewSantAnimator(0, 158, 122, 1, 34);
-        this.animations[4][i][1] = this.createNewSantAnimator(1, 144, 122, 1, 34);
+        this.animations[4][i][0] = this.createNewSantAnimator({ facingDirection: 0, xStart: 158, yStart: 122, frameCount: 1, width: 34});
+        this.animations[4][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 144, yStart: 122, frameCount: 1, width: 34});
     }
 
-    createNewSantAnimator(facingDirection, xStart, yStart, frameCount, width = 32, height = 49) {
+    loadDuckAnimation(i) {
+        this.animations[5][i][0] = this.createNewSantAnimator({ facingDirection: 0, xStart: 28, yStart: 38, frameCount: 1});
+        this.animations[5][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 276, yStart: 38, frameCount: 1});
+    }
+
+    loadAttackAnimation(i) {
+        this.animations[6][i][0] =  this.createNewSantAnimator({ facingDirection: 0, xStart: 28, yStart: 118, frameCount: 2, width: 42, padding: 16});
+        this.animations[6][i][1] = this.createNewSantAnimator({ facingDirection: 1, xStart: 208, yStart: 118, frameCount: 2, width: 42, padding: 16});
+    }
+
+    loadHurtAnimation(i) {
+        this.animations[7][i][0] =  this.createNewSantAnimator({ facingDirection: 0, xStart: 114, yStart: 268, frameCount: 1, width: 38});
+        this.animations[7][i][1] =  this.createNewSantAnimator({ facingDirection: 1, xStart: 184, yStart: 268, frameCount: 1, width: 38});
+    }
+
+    createNewSantAnimator({facingDirection, xStart, yStart, frameCount, width = 32, padding = 10, loop = true}) {
         return new Animator(
           this.spritesheets[facingDirection],
           xStart,
           yStart,
           width,
-          height,
+          49,
           frameCount,
           0.2,
-          10,
+          padding,
           facingDirection === 1,
-          true
+          loop
         );
     }
 
     updateBB() {
         this.lastBB = this.BB;
+        const currentSantWidth = this.animations[this.state][0][this.facing].width;
+        const currentSantHeight = this.animations[this.state][0][this.facing].height;
         if (this.size === 0 || this.size === 3) {
-            this.BB = new BoundingBox(this.x, this.y, this.animations[this.state][0][this.facing].width * PARAMS.SCALE, this.animations[this.state][0][this.facing].height * PARAMS.SCALE);
+            this.BB = new BoundingBox(this.x, this.y, currentSantWidth  * PARAMS.SCALE, currentSantHeight * PARAMS.SCALE);
         }
         else {
-            this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH * 1.9, PARAMS.BLOCKWIDTH * 2.8);
+            this.BB =new BoundingBox(this.x, this.y, currentSantWidth  * PARAMS.SCALE, currentSantHeight * PARAMS.SCALE);
         }
     };
 
@@ -194,8 +221,10 @@ class Sant {
                     }
                     this.state = 4;
                 }
-                if (this.game.B) {
-                    this.state = 3;
+                if (this.game.attack) {
+                    if (this.state !== 4) {
+                        this.state = 6;
+                    }
                 }
             } else {
                 // air physics
@@ -261,11 +290,16 @@ class Sant {
                                 that.game.camera.loadBonusLevelOne();
                             }
                         }
-                        if ((entity instanceof Skeleton || entity instanceof Zombie) // squish skeleton
-                            && (that.lastBB.bottom) <= entity.BB.top // was above last tick
+                        if ((entity instanceof Skeleton || entity instanceof Zombie || entity instanceof FlyingEye) // squish skeleton
+                            // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
                             && !entity.dead) { // can't squish an already squished skeleton
-                            entity.dead = true;
-                            that.velocity.y = -240; // bounce
+                            // that.dead = true;
+                            if (that.state !== 7 && !that.isEnabledHurtCooldown) {
+                                // that.velocity.y = -20; // bounce
+                                // that.velocity.x += (that.facing === 0 ? 1 : -1) * 1;
+                                that.velocity.x = 0;
+                                that.state = 7;
+                            }
                         }
                     }
                     if (that.velocity.y < 0) { // jumping
@@ -279,7 +313,7 @@ class Sant {
                     if (entity instanceof Brick && entity.type // hit a visible brick
                         && that.BB.collide(entity.topBB) && that.BB.collide(entity.bottomBB)) { // hit the side
                         if (that.BB.collide(entity.leftBB)) {
-                            that.x = entity.BB.left - PARAMS.BLOCKWIDTH;
+                            that.x = entity.BB.left - that.BB.width;
                             if (that.velocity.x > 0) that.velocity.x = 0;
                         } else if (that.BB.collide(entity.rightBB)) {
                             that.x = entity.BB.right;
@@ -289,7 +323,7 @@ class Sant {
                     }
                     if ((entity instanceof Tube || entity instanceof SideTube || entity instanceof Block || entity instanceof Ground) && that.BB.bottom > entity.BB.top) {
                         if (that.BB.collide(entity.leftBB)) {
-                            that.x = entity.BB.left - PARAMS.BLOCKWIDTH;
+                            that.x = entity.BB.left - that.BB.width;
                             if (that.velocity.x > 0) that.velocity.x = 0;
                             if (entity instanceof SideTube && that.game.right)
                                 that.game.camera.loadLevelOne(162.5 * PARAMS.BLOCKWIDTH, 11 * PARAMS.BLOCKWIDTH)
@@ -302,7 +336,7 @@ class Sant {
                     if (entity instanceof Mushroom && !entity.emerging) {
                         entity.removeFromWorld = true;
                         if (entity.type === 'Growth') {
-                            that.y -= PARAMS.BLOCKWIDTH;
+                            that.y -= that.BB.height;
                             that.size = 1;
                             that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
                         } else {
@@ -316,10 +350,25 @@ class Sant {
                     }
                 }
             });
+            if (this.state === 7) {
+                this.hurtCounter += this.game.clockTick;
+                if (this.hurtCounter > 1) {
+                    this.state = 0;
+                    this.hurtCounter = 0.0;
+                    this.isEnabledHurtCooldown = true;
+                }
+            }
 
+            if (this.isEnabledHurtCooldown) {
+                this.hurtCooldownCounter += this.game.clockTick;
+                if (this.hurtCooldownCounter > 1) {
+                    this.hurtCooldownCounter = 0.0;
+                    this.isEnabledHurtCooldown = false;
+                }
+            }
 
             // update state
-            if (this.state !== 4) {
+            if (this.state !== 4 && this.state !== 6 && this.state !== 7) {
                 // if (this.game.down) this.state = 5;
                 if (Math.abs(this.velocity.x) > MAX_WALK) this.state = 2;
                 else if (Math.abs(this.velocity.x) >= MIN_WALK) this.state = 1;
@@ -329,8 +378,8 @@ class Sant {
             }
 
             // update direction
-            if (this.velocity.x < 0) this.facing = 1;
-            if (this.velocity.x > 0) this.facing = 0;
+            if (this.velocity.x < 0) this.facing = this.state !== 7 ? 1 : 0;
+            if (this.velocity.x > 0) this.facing = this.state !== 7 ? 0 : 1;
         }
     };
 
@@ -341,7 +390,7 @@ class Sant {
 
     draw(ctx) {
         if (this.dead) {
-            this.deadAnim.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE);
+            this.deadAnim[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE);
         } else {
             this.animations[this.state][this.size][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE);
         }
