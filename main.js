@@ -14,15 +14,16 @@ ASSET_MANAGER.queueDownload("./sprites/flying-eye/walk.png");
 ASSET_MANAGER.queueDownload("./sprites/skeleton.png");
 ASSET_MANAGER.queueDownload("./sprites/gunfire.png");
 ASSET_MANAGER.queueDownload("./sprites/zombies.png");
-
+ASSET_MANAGER.queueDownload("./sprites/place.png");
+ASSET_MANAGER.queueDownload("./sprites/background.png");
 
 ASSET_MANAGER.downloadAll(function () {
   var gameEngine = new GameEngine();
 
   PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
 
-	const canvas = document.getElementById('gameWorld');
-	const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById("gameWorld");
+  const ctx = canvas.getContext("2d");
 
   PARAMS.CANVAS_WIDTH = canvas.width;
 
@@ -31,5 +32,4 @@ ASSET_MANAGER.downloadAll(function () {
   new SceneManager(gameEngine);
 
   gameEngine.start();
-
 });
