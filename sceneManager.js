@@ -259,19 +259,19 @@ class SceneManager {
         block = new Block(this.game, 185 * PARAMS.BLOCKWIDTH, 6 * PARAMS.BLOCKWIDTH, 2 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(block);
 
-        let skeleton = new Skeleton(this.game, 10 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
-        skeleton = new Skeleton(this.game, 17 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(skeleton);
+        //let skeleton = new Skeleton(this.game, 10 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
+        //this.game.addEntity(skeleton);
+        //skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
+        //this.game.addEntity(skeleton);
+        //skeleton = new Skeleton(this.game, 17 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
+        //this.game.addEntity(skeleton);
 
-        let flyingEye = new FlyingEye(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-        this.game.addEntity(flyingEye);
+        //let flyingEye = new FlyingEye(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+        //this.game.addEntity(flyingEye);
 
 
         //Zombie - Tung
-        let zombie = new Zombie(this.game, 13 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+        let zombie = new Zombie(this.game, 7 * PARAMS.BLOCKWIDTH, 11.6 * PARAMS.BLOCKWIDTH);
         this.game.addEntity(zombie);
 
 
