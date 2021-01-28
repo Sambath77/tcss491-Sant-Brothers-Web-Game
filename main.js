@@ -14,6 +14,7 @@ ASSET_MANAGER.queueDownload("./sprites/skeleton.png");
 ASSET_MANAGER.queueDownload("./sprites/sant/sant-left.png");
 ASSET_MANAGER.queueDownload("./sprites/sant/sant-right.png");
 ASSET_MANAGER.queueDownload("./sprites/zombies.png");
+ASSET_MANAGER.queueDownload("./sprites/zombies_left.png");
 
 
 ASSET_MANAGER.downloadAll(function () {

@@ -137,8 +137,7 @@ class Skeleton {
 class Zombie {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
-        this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-        console.log("Velocity: ", this.velocity.x);
+        this.velocity = { x: -PARAMS.BITWIDTH * 2, y: 0 }; // pixels per second
         this.animationModes = ["running", "attack", "death"];
         this.currentMode = this.animationModes[0];
         this.assetsMap = this.constructAssetMap();
@@ -155,7 +154,7 @@ class Zombie {
        // this.animation[1]= new Animator(this.spritesheet, 146, 71, 35, 40 , 5, 0.1, 60, false, true);
         //hurting
         //this.animation[2] = new Animator(this.spritesheet, 146, 122, 35, 40 , 5, 0.1, 60, false, true);
-        //Attacking  
+        //Attacking
         //this.animation[2] = new Animator(this.spritesheet, 146, 296, 35, 40 , 5, 0.33, 60, false, true);
 
     };
@@ -163,47 +162,73 @@ class Zombie {
     constructAssetMap() {
         const assetMap = new Map();
         this.animationModes.forEach((mode) =>
-          assetMap.set(mode, ASSET_MANAGER.getAsset(`./sprites/zombies.png`))
+          assetMap.set(mode, ASSET_MANAGER.getAsset(`./sprites/zombies_left.png`))
         );
         return assetMap;
     };
 
     createZombieAnimator(mode) {
+        // if (mode == "running"){
+        //     return new Animator(
+        //         this.assetsMap.get(mode) ?? "running",
+        //         146,
+        //         71,
+        //         35,
+        //         40,
+        //         5,
+        //         0.1,
+        //         60,
+        //         true,
+        //         mode !== "death"
+        //       );
+        // } else if (mode == "attack") {
+        //     return new Animator(
+        //         this.assetsMap.get(mode) ?? "running",
+        //         146,
+        //         122,
+        //         35,
+        //         40,
+        //         5,
+        //         0.1,
+        //         60,
+        //         true,
+        //         mode !== "death"
+        //       );
+        //
+        // }
         if (mode == "running"){
             return new Animator(
-                this.assetsMap.get(mode) ?? "running",
-                146,
-                71,
-                35,
-                40,
-                5,
-                0.1,
-                60,
-                true,
-                mode !== "death"
-              );
+              this.assetsMap.get(mode) ?? "running",
+              58,
+              68,
+              35,
+              40,
+              5,
+              0.1,
+              58,
+              true,
+              mode !== "death"
+            );
         } else if (mode == "attack") {
             return new Animator(
-                this.assetsMap.get(mode) ?? "running",
-                146,
-                122,
-                35,
-                40,
-                5,
-                0.1,
-                60,
-                true,
-                mode !== "death"
-              );
+              this.assetsMap.get(mode) ?? "running",
+              58,
+              122,
+              35,
+              40,
+              5,
+              0.1,
+              58,
+              true,
+              mode !== "death"
+            );
 
         }
-
-
     }
 
     updateBoundingBox() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 1.3 * PARAMS.BLOCKWIDTH, 3.1 * PARAMS.BLOCKWIDTH);
+        this.BB = new BoundingBox(this.x, this.y, 2.2 * PARAMS.BLOCKWIDTH, 2.5 * PARAMS.BLOCKWIDTH);
     };
 
     isAttacking() {
@@ -268,10 +293,10 @@ class Zombie {
     draw(ctx) {
         this.animations[this.animationModes.indexOf(this.currentMode)]
           .drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE)
-        // if (PARAMS.DEBUG) {
-        //     ctx.strokeStyle = 'Red';
-        //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
-        // }
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+        }
     };
 
 };
