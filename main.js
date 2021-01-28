@@ -16,6 +16,10 @@ ASSET_MANAGER.queueDownload("./sprites/gunfire.png");
 ASSET_MANAGER.queueDownload("./sprites/zombies.png");
 ASSET_MANAGER.queueDownload("./sprites/place.png");
 ASSET_MANAGER.queueDownload("./sprites/background.png");
+ASSET_MANAGER.queueDownload("./sprites/block1.png");
+ASSET_MANAGER.queueDownload("./sprites/block3.png");
+ASSET_MANAGER.queueDownload("./sprites/block4.png");
+ASSET_MANAGER.queueDownload("./sprites/angel.png");
 
 ASSET_MANAGER.downloadAll(function () {
   var gameEngine = new GameEngine();

@@ -47,8 +47,8 @@ class SceneManager {
     this.game.entities = [];
     this.x = 0;
 
-    let sant = new Sant(this.game, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
-    this.game.addEntity(sant);
+    // let sant = new Sant(this.game, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
+    // this.game.addEntity(sant);
 
     let background = new Wall(this.game, 0, PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(background);
@@ -297,34 +297,55 @@ class SceneManager {
     );
     this.game.addEntity(background);
 
-    let ground = new Ground(
-      this.game,
-      0,
-      14 * PARAMS.BLOCKWIDTH,
-      69 * PARAMS.BLOCKWIDTH
-    );
+    // let ground = new Ground(
+    //   this.game,
+    //   0,
+    //   14 * PARAMS.BLOCKWIDTH,
+    //   69 * PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(ground);
+    // ground = new Ground(
+    //   this.game,
+    //   71 * PARAMS.BLOCKWIDTH,
+    //   14 * PARAMS.BLOCKWIDTH,
+    //   15 * PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(ground);
+    // ground = new Ground(
+    //   this.game,
+    //   89 * PARAMS.BLOCKWIDTH,
+    //   14 * PARAMS.BLOCKWIDTH,
+    //   63 * PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(ground);
+    // ground = new Ground(
+    //   this.game,
+    //   154 * PARAMS.BLOCKWIDTH,
+    //   14 * PARAMS.BLOCKWIDTH,
+    //   69 * PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(ground);
+
+    // ground = new Ground(
+    //   this.game,
+    //   174 * PARAMS.BLOCKWIDTH,
+    //   14 * PARAMS.BLOCKWIDTH,
+    //   69 * PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(ground);
+
+    let ground = new Nground(this.game, 0, 14 * PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(ground);
-    ground = new Ground(
-      this.game,
-      71 * PARAMS.BLOCKWIDTH,
-      14 * PARAMS.BLOCKWIDTH,
-      15 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(ground);
-    ground = new Ground(
-      this.game,
-      89 * PARAMS.BLOCKWIDTH,
-      14 * PARAMS.BLOCKWIDTH,
-      63 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(ground);
-    ground = new Ground(
-      this.game,
-      154 * PARAMS.BLOCKWIDTH,
-      14 * PARAMS.BLOCKWIDTH,
-      69 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(ground);
+
+    for (let i = 0; i < PARAMS.BLOCKWIDTH * 10; i++) {
+      background = new Nground(
+        this.game,
+        PARAMS.BLOCKWIDTH * i,
+        14 * PARAMS.BLOCKWIDTH,
+        25
+      );
+      this.game.addEntity(background);
+    }
 
     let brick = new Brick(
       this.game,
@@ -334,1088 +355,1128 @@ class SceneManager {
       "None"
     );
     this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      22 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      24 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      77 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      79 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      80 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      81 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      82 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      83 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      84 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      85 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      86 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      87 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      90 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      91 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      92 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      93 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "Coins"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      99 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      100 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "Star"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      117 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      120 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      121 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      122 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      127 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      128 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      129 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      130 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      167 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      168 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      170 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(brick);
 
-    let tube = new Tube(
-      this.game,
-      28 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1
-    );
-    this.game.addEntity(tube);
-    tube = new Tube(
-      this.game,
-      38 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      2
-    );
-    this.game.addEntity(tube);
-    tube = new Tube(
-      this.game,
-      46 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      3
-    );
-    this.game.addEntity(tube);
-    tube = new Tube(
-      this.game,
-      57 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      3,
-      true
-    );
-    this.game.addEntity(tube);
-    tube = new Tube(
-      this.game,
-      162 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1
-    );
-    this.game.addEntity(tube);
-    tube = new Tube(
-      this.game,
-      176 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1
-    );
-    this.game.addEntity(tube);
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+      brick = new Nblock(
+        this.game,
+        10 * i * PARAMS.BLOCKWIDTH + 400,
+        10 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(brick);
+    }
 
-    let box = new Brick(
-      this.game,
-      16 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      21 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Growth"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      23 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      22 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      64 * PARAMS.BLOCKWIDTH,
-      9 * PARAMS.BLOCKWIDTH,
-      0,
-      "1up"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      78 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Growth"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      93 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      2,
-      "Growth"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      105 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      108 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      108 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      2,
-      "Growth"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      111 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      128 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      129 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      169 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2,
-      "Coin"
-    );
-    this.game.addEntity(box);
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+      brick = new Nblock(
+        this.game,
+        10 * i * PARAMS.BLOCKWIDTH + 700,
+        8 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(brick);
+    }
 
-    let block = new Block(
-      this.game,
-      133 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      4 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      134 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      3 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      135 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      136 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      139 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      4 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      139 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      3 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      139 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      139 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      147 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      5 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      148 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      4 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      149 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      3 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      150 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      154 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      4 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      154 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      3 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      154 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      154 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      178 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      9 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      179 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      8 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      180 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      7 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      181 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      182 * PARAMS.BLOCKWIDTH,
-      9 * PARAMS.BLOCKWIDTH,
-      5 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      183 * PARAMS.BLOCKWIDTH,
-      8 * PARAMS.BLOCKWIDTH,
-      4 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      184 * PARAMS.BLOCKWIDTH,
-      7 * PARAMS.BLOCKWIDTH,
-      3 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
-    block = new Block(
-      this.game,
-      185 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(block);
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+      brick = new Blockground(
+        this.game,
+        9 * i * PARAMS.BLOCKWIDTH + 1600,
+        11 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(brick);
+    }
+    //     brick = new Brick(
+    //       this.game,
+    //       22 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       24 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       77 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       79 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       80 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       81 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       82 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       83 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       84 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       85 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       86 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       87 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       90 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       91 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       92 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       93 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "Coins"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       99 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       100 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "Star"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       117 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       120 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       121 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       122 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       127 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       128 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       129 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       130 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       167 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       168 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
+    //     brick = new Brick(
+    //       this.game,
+    //       170 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(brick);
 
-    let skeleton = new Skeleton(
-      this.game,
-      22 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      40 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      51 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      52.5 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      80 * PARAMS.BLOCKWIDTH,
-      5 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      82 * PARAMS.BLOCKWIDTH,
-      5 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      96 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      97.5 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      106 * PARAMS.BLOCKWIDTH,
-      12.5 * PARAMS.BLOCKWIDTH,
-      1
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      113 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      114.5 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      123 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      124.5 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      127 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      128.5 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
+    //     let tube = new Tube(
+    //       this.game,
+    //       28 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1
+    //     );
+    //     this.game.addEntity(tube);
+    //     tube = new Tube(
+    //       this.game,
+    //       38 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       2
+    //     );
+    //     this.game.addEntity(tube);
+    //     tube = new Tube(
+    //       this.game,
+    //       46 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       3
+    //     );
+    //     this.game.addEntity(tube);
+    //     tube = new Tube(
+    //       this.game,
+    //       57 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       3,
+    //       true
+    //     );
+    //     this.game.addEntity(tube);
+    //     tube = new Tube(
+    //       this.game,
+    //       162 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1
+    //     );
+    //     this.game.addEntity(tube);
+    //     tube = new Tube(
+    //       this.game,
+    //       176 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1
+    //     );
+    //     this.game.addEntity(tube);
 
-    let flyingEye = new FlyingEye(
-      this.game,
-      13 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(flyingEye);
+    //     let box = new Brick(
+    //       this.game,
+    //       16 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       21 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Growth"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       23 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       22 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       64 * PARAMS.BLOCKWIDTH,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       0,
+    //       "1up"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       78 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Growth"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       93 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Growth"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       105 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       108 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       108 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Growth"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       111 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       128 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       129 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       169 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2,
+    //       "Coin"
+    //     );
+    //     this.game.addEntity(box);
 
-    //Zombie - Tung
-    let zombie = new Zombie(
-      this.game,
-      13 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(zombie);
+    //     let block = new Block(
+    //       this.game,
+    //       133 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       4 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       134 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       3 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       135 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       2 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       136 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       139 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       4 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       139 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       3 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       139 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       2 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       139 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       147 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       5 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       148 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       4 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       149 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       3 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       150 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       2 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       154 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       4 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       154 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       3 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       154 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       2 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       154 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       178 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       9 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       179 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       8 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       180 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       7 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       181 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       182 * PARAMS.BLOCKWIDTH,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       5 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       183 * PARAMS.BLOCKWIDTH,
+    //       8 * PARAMS.BLOCKWIDTH,
+    //       4 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       184 * PARAMS.BLOCKWIDTH,
+    //       7 * PARAMS.BLOCKWIDTH,
+    //       3 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
+    //     block = new Block(
+    //       this.game,
+    //       185 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       2 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(block);
 
-    this.mario.x = x;
-    this.mario.y = this.mario.size ? y - PARAMS.BLOCKWIDTH : y;
-    this.game.addEntity(this.mario);
-  }
+    //     let skeleton = new Skeleton(
+    //       this.game,
+    //       22 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       40 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       51 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       52.5 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       80 * PARAMS.BLOCKWIDTH,
+    //       5 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       82 * PARAMS.BLOCKWIDTH,
+    //       5 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       96 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       97.5 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       106 * PARAMS.BLOCKWIDTH,
+    //       12.5 * PARAMS.BLOCKWIDTH,
+    //       1
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       113 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       114.5 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       123 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       124.5 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       127 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
+    //     skeleton = new Skeleton(
+    //       this.game,
+    //       128.5 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(skeleton);
 
-  loadBonusLevelOne() {
-    this.game.entities = [];
-    this.x = 0;
+    //     let flyingEye = new FlyingEye(
+    //       this.game,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(flyingEye);
 
-    let ground = new Ground(
-      this.game,
-      0,
-      14 * PARAMS.BLOCKWIDTH,
-      17 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(ground);
+    //     //Zombie - Tung
+    //     let zombie = new Zombie(
+    //       this.game,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(zombie);
 
-    let box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      1 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      2 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      3 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      4 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      5 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      6 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      7 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      8 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      9 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      0 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
+    //     this.mario.x = x;
+    //     this.mario.y = this.mario.size ? y - PARAMS.BLOCKWIDTH : y;
+    //     this.game.addEntity(this.mario);
+    //   }
 
-    box = new Brick(
-      this.game,
-      4 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      5 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      6 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      7 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      8 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      9 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      10 * PARAMS.BLOCKWIDTH,
-      0 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
+    //   loadBonusLevelOne() {
+    //     this.game.entities = [];
+    //     this.x = 0;
 
-    box = new Brick(
-      this.game,
-      4 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      5 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      6 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      7 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      8 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      9 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      10 * PARAMS.BLOCKWIDTH,
-      11 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
+    //     let ground = new Ground(
+    //       this.game,
+    //       0,
+    //       14 * PARAMS.BLOCKWIDTH,
+    //       17 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(ground);
 
-    box = new Brick(
-      this.game,
-      4 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      5 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      6 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      7 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      8 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      9 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      10 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
+    //     let box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       2 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       3 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       4 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       5 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       7 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       8 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
 
-    box = new Brick(
-      this.game,
-      4 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      5 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      6 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      7 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      8 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      9 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
-    box = new Brick(
-      this.game,
-      10 * PARAMS.BLOCKWIDTH,
-      13 * PARAMS.BLOCKWIDTH,
-      1,
-      "None"
-    );
-    this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       4 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       5 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       7 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       8 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       0 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
 
-    let coin = new Coin(
-      this.game,
-      4 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 5 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 6 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 7 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 8 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 9 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 10 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
+    //     box = new Brick(
+    //       this.game,
+    //       4 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       5 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       7 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       8 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       11 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
 
-    coin = new Coin(this.game, 4 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 5 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 6 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 7 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 8 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 9 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 10 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
+    //     box = new Brick(
+    //       this.game,
+    //       4 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       5 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       7 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       8 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
 
-    coin = new Coin(this.game, 5 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 6 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 7 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 8 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
-    coin = new Coin(this.game, 9 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
-    this.game.addEntity(coin);
+    //     box = new Brick(
+    //       this.game,
+    //       4 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       5 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       6 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       7 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       8 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       9 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
+    //     box = new Brick(
+    //       this.game,
+    //       10 * PARAMS.BLOCKWIDTH,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       1,
+    //       "None"
+    //     );
+    //     this.game.addEntity(box);
 
-    let tube = new Tube(
-      this.game,
-      15 * PARAMS.BLOCKWIDTH,
-      -1 * PARAMS.BLOCKWIDTH,
-      14
-    );
-    this.game.addEntity(tube);
-    tube = new SideTube(
-      this.game,
-      13 * PARAMS.BLOCKWIDTH,
-      12 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(tube);
+    //     let coin = new Coin(
+    //       this.game,
+    //       4 * PARAMS.BLOCKWIDTH,
+    //       10 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 5 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 6 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 7 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 8 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 9 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 10 * PARAMS.BLOCKWIDTH, 10 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+
+    //     coin = new Coin(this.game, 4 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 5 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 6 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 7 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 8 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 9 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 10 * PARAMS.BLOCKWIDTH, 9 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+
+    //     coin = new Coin(this.game, 5 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 6 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 7 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 8 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+    //     coin = new Coin(this.game, 9 * PARAMS.BLOCKWIDTH, 8 * PARAMS.BLOCKWIDTH);
+    //     this.game.addEntity(coin);
+
+    //     let tube = new Tube(
+    //       this.game,
+    //       15 * PARAMS.BLOCKWIDTH,
+    //       -1 * PARAMS.BLOCKWIDTH,
+    //       14
+    //     );
+    //     this.game.addEntity(tube);
+    //     tube = new SideTube(
+    //       this.game,
+    //       13 * PARAMS.BLOCKWIDTH,
+    //       12 * PARAMS.BLOCKWIDTH
+    //     );
+    //     this.game.addEntity(tube);
+
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+      brick = new Angel(
+        this.game,
+        9 * i * PARAMS.BLOCKWIDTH + 600,
+        10 * PARAMS.BLOCKWIDTH,
+        0
+      );
+      this.game.addEntity(brick);
+    }
+
+    // ground = new Angel(this.game, PARAMS.BLOCKWIDTH, 16 * PARAMS.BLOCKWIDTH, 0);
+    // this.game.addEntity(ground);
 
     this.mario.x = 2.5 * PARAMS.BLOCKWIDTH;
     this.mario.y = 0 * PARAMS.BLOCKWIDTH;
