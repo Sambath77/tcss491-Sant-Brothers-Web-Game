@@ -70,7 +70,7 @@ class Angel {
   constructor(game, x, y, w) {
     Object.assign(this, { game, x, y, w });
 
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/angel.png");
+    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/panda.png");
 
     this.BB = new BoundingBox(this.x, this.y, this.w, PARAMS.BLOCKWIDTH * 2);
     this.leftBB = new BoundingBox(
@@ -102,10 +102,10 @@ class Angel {
   draw(ctx) {
     ctx.drawImage(
       this.spritesheet,
-      0,
-      0,
-      22,
-      41,
+      160,
+      36,
+      44,
+      47,
       this.x - this.game.camera.x + PARAMS.BLOCKWIDTH * this.w,
       this.y + PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH * 3,

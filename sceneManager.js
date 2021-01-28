@@ -107,7 +107,7 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 10) {
       brick = new Angel(
         this.game,
         9 * i * PARAMS.BLOCKWIDTH + 600,
