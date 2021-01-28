@@ -61,6 +61,9 @@ class GameEngine {
                 case "Period":
                     that.A = true;
                     break;
+                case "KeyC":
+                    that.attack = true;
+                    break;
             }
         }, false);
 
@@ -89,6 +92,9 @@ class GameEngine {
                 case "KeyX":
                 case "Period":
                     that.A = false;
+                    break;
+                case "KeyC":
+                    that.attack = false;
                     break;
             }
         }, false);
@@ -131,4 +137,3 @@ class GameEngine {
         this.draw();
     };
 };
-
