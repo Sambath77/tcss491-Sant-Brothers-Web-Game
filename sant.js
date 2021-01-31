@@ -520,7 +520,7 @@ class Sant {
         this.attackCounter += this.game.clockTick;
         // attack counter is for restricting attack speed
         if (this.attackCounter > 0.2) {
-          const fireballX = this.x + (this.isFacingLeft ? 0 : 120)
+          const fireballX = this.x + (this.isFacingLeft ? -48 : 120)
           const fireballY = this.y + 54;
           this.game.addEntity(new Fireball(this.game, fireballX, fireballY, this.isFacingLeft));
           this.attackCounter = 0.0;

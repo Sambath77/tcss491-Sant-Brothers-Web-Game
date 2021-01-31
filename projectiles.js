@@ -3,8 +3,8 @@ class Fireball {
     Object.assign(this, { game, x, y });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
+      ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
     ];
 
     this.width = 8;
@@ -13,8 +13,8 @@ class Fireball {
     this.velocity = 8;
     this.isFacingLeft = isFacingLeft;
     this.animations = [
-      this.createNewFireballAnimator(1, 158, 142),
-      this.createNewFireballAnimator(0, 158, 142),
+      this.createNewFireballAnimator(0, 104, 204),
+      this.createNewFireballAnimator(1, 218, 204),
     ]
   }
 
@@ -23,7 +23,7 @@ class Fireball {
       this.spritesheets[facingDirection],
       xStart,
       yStart,
-      8,
+      16,
       8,
       1,
       0.2,
