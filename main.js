@@ -22,6 +22,7 @@ ASSET_MANAGER.queueDownload("./sprites/block3.png");
 ASSET_MANAGER.queueDownload("./sprites/block4.png");
 ASSET_MANAGER.queueDownload("./sprites/angel1.png");
 ASSET_MANAGER.queueDownload("./sprites/panda.png");
+ASSET_MANAGER.queueDownload("./sprites/terrorists.png");
 
 ASSET_MANAGER.downloadAll(function () {
   var gameEngine = new GameEngine();

@@ -474,3 +474,167 @@ class FlyingEye {
     }
   }
 }
+
+class Terrorists {
+  constructor(game, x, y) {
+    Object.assign(this, { game, x, y });
+    this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
+    this.animationModes = ["walk", "attack", "death"];
+    this.currentMode = this.animationModes[0];
+    this.assetsMap = this.constructAssetMap();
+    this.animations = this.animationModes.map((mode) =>
+      this.createTerroristsAnimator(mode)
+    );
+    this.paused = true;
+    this.deadCounter = 0;
+    this.attackCounter = 0;
+    this.updateBoundingBox();
+    this.isFacingLeft = 0;
+
+
+    // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
+
+    // this.animation = new Animator(this.spritesheet, 85, 135, 20, 60, 6, 0.2, 44, false, true);
+    // this.animation2 = new Animator(this.spritesheet, 15, 197, 30, 60, 9, 0.25, 34, false, true);
+    // this.animation3 = new Animator(this.spritesheet, 463, 143, 50, 50, 2, 1.0, 10, false, true);
+  }
+
+  constructAssetMap() {
+    const assetMap = new Map();
+    this.animationModes.forEach((mode) =>
+      assetMap.set(mode, ASSET_MANAGER.getAsset(`./sprites/terrorists.png`))
+    );
+    return assetMap;
+  }
+
+  createTerroristsAnimator(mode) {
+    // if (mode == "walk") {
+    //   return new Animator(
+    //     this.assetsMap.get(mode) ?? "walk",
+    //     283,
+    //     149,
+    //     41,
+    //     48,
+    //     6,
+    //     0.1,
+    //     0,
+    //     true,
+    //     mode !== "death"
+    //   );
+    // } else 
+    if (mode == "attack" || mode == "walk") {
+      return new Animator(
+        this.assetsMap.get(mode) ?? "walk",
+        336,
+        45,
+        48,
+        45,
+        4,
+        0.2,
+        0,
+        true,
+        mode !== "death"
+      );
+    }
+  }
+  updateBoundingBox() {
+    this.lastBB = this.BB;
+    this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      1.2 * PARAMS.BLOCKWIDTH,
+      3.1 * PARAMS.BLOCKWIDTH
+    );
+  }
+  isWalking() {
+    return this.currentMode === "walk";
+  }
+
+  isAttacking() {
+    return this.currentMode === "attack";
+  }
+
+  isDead() {
+    return this.currentMode === "death";
+  }
+
+  isInCameraView() {
+    return this.game.camera.x > this.x - PARAMS.CANVAS_WIDTH;
+  }
+
+  update() {
+    if (this.isWalking() || this.isAttacking()) {
+      this.attackCounter += this.game.clockTick;
+      console.log(this.attackCounter);
+          // attack counter is for restricting attack speed
+      if (this.attackCounter > 0.2) {
+        const bulletX = this.x + (1 ? -48 : 120)
+        const bulletY = this.y + 40;
+        this.game.addEntity(new Bullet(this.game, bulletX, bulletY, 1));
+        this.attackCounter = 0.0;
+      }
+      if (this.attackCounter > 1.6) {
+        this.currentMode = "walk";
+        this.attackCounter = 0.0;
+      }
+    }
+    if (this.isDead()) {
+      if (this.deadCounter === 0) {
+        this.game.addEntity(new Score(this.game, this.x, this.y, 100));
+      }
+      this.deadCounter += this.game.clockTick;
+      if (this.deadCounter > 0.5) {
+        this.removeFromWorld = true;
+      }
+    }
+    if (this.paused && this.isInCameraView()) {
+      this.paused = false;
+    }
+    if (!this.paused && !this.isDead()) {
+      this.x += this.game.clockTick * this.velocity.x * PARAMS.SCALE;
+      this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof Sant) {
+            that.currentMode = "attack";
+          } else if (
+            (entity instanceof Ground ||
+              entity instanceof Brick ||
+              entity instanceof Block) &&
+            that.lastBB.bottom <= entity.BB.top
+          ) {
+            that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
+            that.updateBoundingBox();
+          } else if (entity !== that) {
+            that.velocity.x = -that.velocity.x;
+          }
+        }
+      });
+    }
+  }
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = "Tan";
+    ctx.fillRect(
+      mmX + this.x / PARAMS.BITWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      PARAMS.SCALE,
+      PARAMS.SCALE
+    );
+  }
+
+  draw(ctx) {
+    this.animations[this.animationModes.indexOf(this.currentMode)].drawFrame(
+      this.game.clockTick,
+      ctx,
+      this.x - this.game.camera.x,
+      this.y,
+      PARAMS.SCALE
+    );
+    // if (PARAMS.DEBUG) {
+    //     ctx.strokeStyle = 'Red';
+    //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    // }
+  }
+}

@@ -147,6 +147,21 @@ class SceneManager {
     );
     this.game.addEntity(zombie);
 
+    //Terrorists
+    let terrorists = new Terrorists(
+      this.game,
+      30 * PARAMS.BLOCKWIDTH,
+      11.2 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(terrorists);
+ 
+    terrorists = new Terrorists(
+      this.game,
+      40 * PARAMS.BLOCKWIDTH,
+      11.2 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(terrorists);
+
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
     this.game.addEntity(this.sant);
