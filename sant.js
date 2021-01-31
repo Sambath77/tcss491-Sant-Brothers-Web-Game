@@ -14,7 +14,7 @@ class Sant {
 
     // sant's state variables
     this.size = 0; // 0 = little, 1 = big, 2 = super, 3 = little invincible, 4 = big invincible, 5 = super invincible
-    this.facing = 0; // 0 = right, 1 = left
+    this.isFacingLeft = 0; // 0 = right, 1 = left
     this.state = 0; // 0 = walking, 1 = walking, 2 = walking, 3 = attacking, 4 = jumping/falling, 5 = ducking
     this.dead = false;
 
@@ -24,6 +24,8 @@ class Sant {
     this.hurtCounter = 0;
     this.isEnabledHurtCooldown = false;
     this.hurtCooldownCounter = 0;
+
+    this.attackCounter = 0;
 
     // sant's animations
     this.animations = [];
@@ -225,8 +227,8 @@ class Sant {
 
   updateBB() {
     this.lastBB = this.BB;
-    const currentSantWidth = this.animations[this.state][0][this.facing].width;
-    const currentSantHeight = this.animations[this.state][0][this.facing]
+    const currentSantWidth = this.animations[this.state][0][this.isFacingLeft].width;
+    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft]
       .height;
     if (this.size === 0 || this.size === 3) {
       this.BB = new BoundingBox(
@@ -296,7 +298,7 @@ class Sant {
           }
         } else if (Math.abs(this.velocity.x) >= MIN_WALK) {
           // faster than a walk // accelerating or decelerating
-          if (this.facing === 0) {
+          if (this.isFacingLeft === 0) {
             if (this.game.right && !this.game.left) {
               if (this.game.B) {
                 this.velocity.x += ACC_RUN * TICK;
@@ -308,7 +310,7 @@ class Sant {
               this.velocity.x -= DEC_REL * TICK;
             }
           }
-          if (this.facing === 1) {
+          if (this.isFacingLeft === 1) {
             if (this.game.left && !this.game.right) {
               if (this.game.B) {
                 this.velocity.x -= ACC_RUN * TICK;
@@ -430,7 +432,7 @@ class Sant {
               // that.dead = true;
               if (that.state !== 7 && !that.isEnabledHurtCooldown) {
                 // that.velocity.y = -20; // bounce
-                // that.velocity.x += (that.facing === 0 ? 1 : -1) * 1;
+                // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
                 that.velocity.x = 0;
                 that.state = 7;
               }
@@ -514,6 +516,17 @@ class Sant {
         }
       }
 
+      if (this.state === 6) {
+        this.attackCounter += this.game.clockTick;
+        // attack counter is for restricting attack speed
+        if (this.attackCounter > 0.2) {
+          const fireballX = this.x + (this.isFacingLeft ? -48 : 120)
+          const fireballY = this.y + 54;
+          this.game.addEntity(new Fireball(this.game, fireballX, fireballY, this.isFacingLeft));
+          this.attackCounter = 0.0;
+        }
+      }
+
       // update state
       if (this.state !== 4 && this.state !== 6 && this.state !== 7) {
         // if (this.game.down) this.state = 5;
@@ -524,8 +537,8 @@ class Sant {
       }
 
       // update direction
-      if (this.velocity.x < 0) this.facing = this.state !== 7 ? 1 : 0;
-      if (this.velocity.x > 0) this.facing = this.state !== 7 ? 0 : 1;
+      if (this.velocity.x < 0) this.isFacingLeft = this.state !== 7 ? 1 : 0;
+      if (this.velocity.x > 0) this.isFacingLeft = this.state !== 7 ? 0 : 1;
     }
   }
 
@@ -541,7 +554,7 @@ class Sant {
 
   draw(ctx) {
     if (this.dead) {
-      this.deadAnim[this.facing].drawFrame(
+      this.deadAnim[this.isFacingLeft].drawFrame(
         this.game.clockTick,
         ctx,
         this.x - this.game.camera.x,
@@ -549,7 +562,7 @@ class Sant {
         PARAMS.SCALE
       );
     } else {
-      this.animations[this.state][this.size][this.facing].drawFrame(
+      this.animations[this.state][this.size][this.isFacingLeft].drawFrame(
         this.game.clockTick,
         ctx,
         this.x - this.game.camera.x,
