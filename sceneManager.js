@@ -118,35 +118,35 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    // let skeleton = new Skeleton(
-    //   this.game,
-    //   10 * PARAMS.BLOCKWIDTH,
-    //   10.85 * PARAMS.BLOCKWIDTH
-    // );
+    let skeleton = new Skeleton(
+      this.game,
+      10 * PARAMS.BLOCKWIDTH,
+      10.85 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(skeleton);
+    // skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
     // this.game.addEntity(skeleton);
-    // // skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
-    // // this.game.addEntity(skeleton);
-    // skeleton = new Skeleton(
-    //   this.game,
-    //   17 * PARAMS.BLOCKWIDTH,
-    //   10.85 * PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(skeleton);
+    skeleton = new Skeleton(
+      this.game,
+      17 * PARAMS.BLOCKWIDTH,
+      10.85 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(skeleton);
 
-    // let flyingEye = new FlyingEye(
-    //   this.game,
-    //   13 * PARAMS.BLOCKWIDTH,
-    //   10 * PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(flyingEye);
+    let flyingEye = new FlyingEye(
+      this.game,
+      13 * PARAMS.BLOCKWIDTH,
+      10 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(flyingEye);
 
-    // //Zombie - Tung
-    // let zombie = new Zombie(
-    //   this.game,
-    //   7 * PARAMS.BLOCKWIDTH,
-    //   11.5 * PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(zombie);
+    //Zombie - Tung
+    let zombie = new Zombie(
+      this.game,
+      7 * PARAMS.BLOCKWIDTH,
+      11.5 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(zombie);
 
     //Terrorists
     let terrorists = new Terrorists(
