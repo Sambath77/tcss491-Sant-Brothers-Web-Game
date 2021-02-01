@@ -563,7 +563,7 @@ class Terrorists {
   }
 
   update() {
-    if (this.isWalking() || this.isAttacking()) {
+    if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
       console.log(this.attackCounter);
           // attack counter is for restricting attack speed
@@ -589,6 +589,11 @@ class Terrorists {
     }
     if (this.paused && this.isInCameraView()) {
       this.paused = false;
+    }
+    if(this.game.camera.x > this.x - 900)  {
+      this.currentMode = "attack";
+    }else {
+      this.currentMode = "walk";
     }
     if (!this.paused && !this.isDead()) {
       this.x += this.game.clockTick * this.velocity.x * PARAMS.SCALE;
