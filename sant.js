@@ -483,21 +483,21 @@ class Sant {
             }
             that.updateBB();
           }
-          // if (entity instanceof Mushroom && !entity.emerging) {
-          //   entity.removeFromWorld = true;
-          //   if (entity.type === "Growth") {
-          //     that.y -= that.BB.height;
-          //     that.size = 1;
-          //     that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
-          //   } else {
-          //     that.game.camera.lives++;
-          //   }
-          // }
-          // if (entity instanceof Coin) {
-          //   entity.removeFromWorld = true;
-          //   that.game.camera.score += 200;
-          //   that.game.camera.addCoin();
-          // }
+          if (entity instanceof Mushroom && !entity.emerging) {
+            entity.removeFromWorld = true;
+            if (entity.type === "Growth") {
+              that.y -= that.BB.height;
+              that.size = 1;
+              that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
+            } else {
+              that.game.camera.lives++;
+            }
+          }
+          if (entity instanceof Coin) {
+            entity.removeFromWorld = true;
+            that.game.camera.score += 200;
+            that.game.camera.addCoin();
+          }
         }
       });
       if (this.state === 7) {
