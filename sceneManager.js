@@ -158,7 +158,7 @@ class SceneManager {
  
     terrorists = new Terrorists(
       this.game,
-      40 * PARAMS.BLOCKWIDTH,
+      60 * PARAMS.BLOCKWIDTH,
       11.2 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(terrorists);
