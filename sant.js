@@ -399,10 +399,12 @@ class Sant {
             if (
               (entity instanceof Ground ||
                 entity instanceof Brick ||
-                entity instanceof Block) && // landin
+                entity instanceof Block ||
+                entity instanceof Angel) && // landin
               that.lastBB.bottom <= entity.BB.top
             ) {
               // was above last tick
+              console.log(that.lastBB.bottom, entity.BB.top);
               if (that.size === 0 || that.size === 3) {
                 // small
                 that.y = entity.BB.top - that.BB.height;
@@ -451,6 +453,7 @@ class Sant {
           }
           if (
             entity instanceof Brick &&
+            entity instanceof Angel &&
             entity.type && // hit a visible brick
             that.BB.collide(entity.topBB) &&
             that.BB.collide(entity.bottomBB)
@@ -480,21 +483,21 @@ class Sant {
             }
             that.updateBB();
           }
-          if (entity instanceof Mushroom && !entity.emerging) {
-            entity.removeFromWorld = true;
-            if (entity.type === "Growth") {
-              that.y -= that.BB.height;
-              that.size = 1;
-              that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
-            } else {
-              that.game.camera.lives++;
-            }
-          }
-          if (entity instanceof Coin) {
-            entity.removeFromWorld = true;
-            that.game.camera.score += 200;
-            that.game.camera.addCoin();
-          }
+          // if (entity instanceof Mushroom && !entity.emerging) {
+          //   entity.removeFromWorld = true;
+          //   if (entity.type === "Growth") {
+          //     that.y -= that.BB.height;
+          //     that.size = 1;
+          //     that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
+          //   } else {
+          //     that.game.camera.lives++;
+          //   }
+          // }
+          // if (entity instanceof Coin) {
+          //   entity.removeFromWorld = true;
+          //   that.game.camera.score += 200;
+          //   that.game.camera.addCoin();
+          // }
         }
       });
       if (this.state === 7) {
