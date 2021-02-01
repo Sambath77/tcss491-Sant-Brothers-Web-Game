@@ -508,21 +508,20 @@ class Terrorists {
   }
 
   createTerroristsAnimator(mode) {
-    // if (mode == "walk") {
-    //   return new Animator(
-    //     this.assetsMap.get(mode) ?? "walk",
-    //     283,
-    //     149,
-    //     41,
-    //     48,
-    //     6,
-    //     0.1,
-    //     0,
-    //     true,
-    //     mode !== "death"
-    //   );
-    // } else 
-    if (mode == "attack" || mode == "walk") {
+    if (mode == "walk") {
+      return new Animator(
+        this.assetsMap.get(mode) ?? "walk",
+        283,
+        149,
+        41,
+        45,
+        6,
+        0.1,
+        0,
+        true,
+        mode !== "death"
+      );
+    } else if (mode == "attack") {
       return new Animator(
         this.assetsMap.get(mode) ?? "walk",
         336,
@@ -590,16 +589,17 @@ class Terrorists {
     if (this.paused && this.isInCameraView()) {
       this.paused = false;
     }
-    if(this.game.camera.x > this.x - 900)  {
-      this.currentMode = "attack";
-    }else {
-      this.currentMode = "walk";
-    }
+
     if (!this.paused && !this.isDead()) {
       this.x += this.game.clockTick * this.velocity.x * PARAMS.SCALE;
       this.updateBoundingBox();
       const that = this;
       this.game.entities.forEach(function (entity) {
+        if (entity instanceof Sant && entity.x < that.x) {
+          that.currentMode = "attack";
+        } else  if (entity instanceof Sant && entity.x > that.x){
+          that.currentMode = "walk";
+        }
         if (entity.BB && that.BB.collide(entity.BB)) {
           if (entity instanceof Sant) {
             that.currentMode = "attack";
