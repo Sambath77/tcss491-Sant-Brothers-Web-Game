@@ -401,10 +401,12 @@ class Sant {
             if (
               (entity instanceof Ground ||
                 entity instanceof Brick ||
-                entity instanceof Block) && // landin
+                entity instanceof Block ||
+                entity instanceof Angel) && // landin
               that.lastBB.bottom <= entity.BB.top
             ) {
               // was above last tick
+              console.log(that.lastBB.bottom, entity.BB.top);
               if (that.size === 0 || that.size === 3) {
                 // small
                 that.y = entity.BB.top - that.BB.height;
@@ -453,6 +455,7 @@ class Sant {
           }
           if (
             entity instanceof Brick &&
+            entity instanceof Angel &&
             entity.type && // hit a visible brick
             that.BB.collide(entity.topBB) &&
             that.BB.collide(entity.bottomBB)

@@ -72,7 +72,12 @@ class Angel {
 
     this.spritesheet = ASSET_MANAGER.getAsset("./sprites/panda.png");
 
-    this.BB = new BoundingBox(this.x, this.y, this.w, PARAMS.BLOCKWIDTH * 2);
+    this.BB = new BoundingBox(
+      this.x,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 4
+    );
     this.leftBB = new BoundingBox(
       this.x,
       this.y,
@@ -80,7 +85,7 @@ class Angel {
       PARAMS.BLOCKWIDTH * 2
     );
     this.rightBB = new BoundingBox(
-      this.x + this.w - PARAMS.BLOCKWIDTH,
+      this.x + PARAMS.BLOCKWIDTH,
       this.y,
       PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH * 2
@@ -105,7 +110,7 @@ class Angel {
       160,
       36,
       44,
-      47,
+      49,
       this.x - this.game.camera.x + PARAMS.BLOCKWIDTH * this.w,
       this.y + PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH * 3,
@@ -129,18 +134,35 @@ class Brick {
 
     this.spritesheet = ASSET_MANAGER.getAsset("./sprites/block3.png");
 
-    this.BB = new BoundingBox(this.x, this.y, this.w, PARAMS.BLOCKWIDTH);
-    this.leftBB = new BoundingBox(
-      this.x,
+    this.BB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
       this.y,
-      this.w / 2,
-      PARAMS.BLOCKWIDTH
+      PARAMS.BLOCKWIDTH * 3,
+      PARAMS.BLOCKWIDTH / 2
+    );
+    this.leftBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH * 2,
+      this.y,
+      PARAMS.BLOCKWIDTH * 2,
+      PARAMS.BLOCKWIDTH / 2
     );
     this.rightBB = new BoundingBox(
-      this.x + this.w / 2,
+      this.x + PARAMS.BLOCKWIDTH * 2,
       this.y,
-      this.w / 2,
-      PARAMS.BLOCKWIDTH
+      PARAMS.BLOCKWIDTH * 2,
+      PARAMS.BLOCKWIDTH / 2
+    );
+    this.topBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y,
+      PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH / 2
+    );
+    this.bottomBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH / 2
     );
   }
 
@@ -186,22 +208,27 @@ class Brick {
 }
 
 class Block {
-  constructor(game, x, y) {
-    Object.assign(this, { game, x, y });
+  constructor(game, x, y, w) {
+    Object.assign(this, { game, x, y, w });
 
     this.spritesheet = ASSET_MANAGER.getAsset("./sprites/block4.png");
 
-    this.BB = new BoundingBox(this.x, this.y, this.w, PARAMS.BLOCKWIDTH);
-    this.leftBB = new BoundingBox(
-      this.x,
+    this.BB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
       this.y,
-      this.w / 2,
+      this.w + PARAMS.BLOCKWIDTH * 3,
+      PARAMS.BLOCKWIDTH
+    );
+    this.leftBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y,
+      this.w + PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH
     );
     this.rightBB = new BoundingBox(
-      this.x + this.w / 2,
+      this.x + PARAMS.BLOCKWIDTH,
       this.y,
-      this.w / 2,
+      this.w + PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH
     );
   }
