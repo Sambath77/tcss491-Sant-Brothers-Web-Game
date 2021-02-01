@@ -69,7 +69,7 @@ class Bullet {
     this.isFacingLeft = isFacingLeft;
     this.animations = [
       this.createBulletAnimator(0, 180, 204),
-      this.createBulletAnimator(1, 290, 204),
+      this.createBulletAnimator(1, 293, 204),
     ]
   }
 
@@ -78,7 +78,7 @@ class Bullet {
       this.spritesheets[facingDirection],
       xStart,
       yStart,
-      16,
+      8,
       8,
       1,
       0.2,
