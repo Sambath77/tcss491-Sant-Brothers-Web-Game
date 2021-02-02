@@ -541,8 +541,8 @@ class Terrorists {
     this.BB = new BoundingBox(
       this.x,
       this.y,
-      1.2 * PARAMS.BLOCKWIDTH,
-      3.1 * PARAMS.BLOCKWIDTH
+      3.0 * PARAMS.BLOCKWIDTH,
+      2.8 * PARAMS.BLOCKWIDTH
     );
   }
   isWalking() {
@@ -637,9 +637,9 @@ class Terrorists {
       this.y,
       PARAMS.SCALE
     );
-    // if (PARAMS.DEBUG) {
-    //     ctx.strokeStyle = 'Red';
-    //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
-    // }
+    if (PARAMS.DEBUG) {
+        ctx.strokeStyle = 'Red';
+        ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    }
   }
 }
