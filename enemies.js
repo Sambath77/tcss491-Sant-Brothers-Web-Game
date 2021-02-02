@@ -537,13 +537,26 @@ class Terrorists {
     }
   }
   updateBoundingBox() {
-    this.lastBB = this.BB;
+    if(this.currentMode == "attack") {
+      this.lastBB = this.BB;
     this.BB = new BoundingBox(
       this.x,
       this.y,
       3.0 * PARAMS.BLOCKWIDTH,
       2.8 * PARAMS.BLOCKWIDTH
     );
+
+    } else if(this.currentMode == "walk") {
+      this.lastBB = this.BB;
+      this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      2.6 * PARAMS.BLOCKWIDTH,
+      2.8 * PARAMS.BLOCKWIDTH
+    );
+
+    }
+  
   }
   isWalking() {
     return this.currentMode === "walk";
