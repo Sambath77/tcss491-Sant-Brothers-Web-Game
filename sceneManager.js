@@ -124,15 +124,17 @@ class SceneManager {
       10.85 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(skeleton);
-    // skeleton = new Skeleton(this.game, 7 * PARAMS.BLOCKWIDTH, 10.85 * PARAMS.BLOCKWIDTH);
-    // this.game.addEntity(skeleton);
-    skeleton = new Skeleton(
-      this.game,
-      17 * PARAMS.BLOCKWIDTH,
-      10.85 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
 
+    for (let i = 0; i < PARAMS.BLOCKWIDTH + 400; i = i + 60) {
+      skeleton = new Skeleton(
+        this.game,
+        (17 + i) * PARAMS.BLOCKWIDTH,
+        10.85 * PARAMS.BLOCKWIDTH);
+      this.game.addEntity(skeleton);
+    }
+
+      
+    //flying eyes
     let flyingEye = new FlyingEye(
       this.game,
       13 * PARAMS.BLOCKWIDTH,
@@ -156,12 +158,13 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
  
-    terrorists = new Terrorists(
-      this.game,
-      60 * PARAMS.BLOCKWIDTH,
-      11.2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(terrorists);
+    for (let i = 0; i < PARAMS.BLOCKWIDTH + 400; i = i + 30) {
+      terrorists = new Terrorists(
+        this.game,
+        (37 + i) * PARAMS.BLOCKWIDTH,
+        11.2 * PARAMS.BLOCKWIDTH);
+      this.game.addEntity(terrorists);
+    }
 
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
