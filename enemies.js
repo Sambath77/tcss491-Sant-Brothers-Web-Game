@@ -559,7 +559,8 @@ class Terrorists {
       2.8 * PARAMS.BLOCKWIDTH
     );
 
-    }
+    } 
+  
   
   }
   isWalking() {
@@ -630,8 +631,8 @@ class Terrorists {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } else if (entity !== that) {
-            that.velocity.x = -that.velocity.x;
+          // } else if (entity !== that) {
+          //   that.velocity.x = -that.velocity.x;
           }
         }
       });
