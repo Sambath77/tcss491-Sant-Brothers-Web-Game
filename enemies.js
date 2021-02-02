@@ -135,9 +135,9 @@ class Skeleton {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } else if (entity !== that) {
-            that.velocity.x = -that.velocity.x;
-          } 
+          } //else if (entity !== that) {
+          //   that.velocity.x = -that.velocity.x;
+          // } 
         }
       });
     }
@@ -582,6 +582,7 @@ class Terrorists {
   update() {
     if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
+      this.velocity.x = 0;
       //console.log(this.attackCounter);
           // attack counter is for restricting attack speed
       if (this.attackCounter > 0.2) {
@@ -594,6 +595,8 @@ class Terrorists {
         this.currentMode = "walk";
         this.attackCounter = 0.0;
       }
+    } else {
+      this.velocity = { x: -PARAMS.BITWIDTH, y: 0 };
     }
     if (this.isDead()) {
       if (this.deadCounter === 0) {
