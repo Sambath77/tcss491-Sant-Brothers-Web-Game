@@ -12,7 +12,7 @@ class Ground {
       PARAMS.BLOCKWIDTH * 2
     );
     this.rightBB = new BoundingBox(
-      this.x + this.w - PARAMS.BLOCKWIDTH,
+      this.x + this.w + PARAMS.BLOCKWIDTH * PARAMS.BLOCKWIDTH,
       this.y,
       PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH * 2
