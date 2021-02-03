@@ -59,7 +59,7 @@ class Skeleton {
       return new Animator(
         this.assetsMap.get(mode) ?? "walk",
         463,
-        143,
+        125,
         50,
         50,
         2,
@@ -559,7 +559,7 @@ class Terrorists {
         this.assetsMap.get(mode) ?? "walk", 336, 45, 48, 45, 4, 0.2, 0, true, mode !== "death");
     } else if (mode == "death") {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk", 311, 368, 57, 30, 1, 1, 0.1, true, mode == "death");
+        this.assetsMap.get(mode) ?? "walk", 311, 353, 57, 50, 1, 1, 0.1, true, mode == "death");
 
     }
   }
