@@ -27,7 +27,10 @@ class Sant {
 
     this.attackCounter = 0;
 
+
     this.changeGun = false;
+    this.health = 5;
+
 
     // sant's animations
     this.animations = [];
@@ -42,6 +45,10 @@ class Sant {
     // ];
     this.loadAnimations();
     this.updateBB();
+  }
+
+  getHealth() {
+    return this.health;
   }
 
   loadAnimations() {
@@ -77,7 +84,7 @@ class Sant {
       }),
       this.createNewSantAnimator({
         facingDirection: 1,
-        xStart: 148,
+        xStart: 122,
         yStart: 268,
         frameCount: 1,
         width: 58,
@@ -238,10 +245,10 @@ class Sant {
 
   updateBB() {
     this.lastBB = this.BB;
-    const currentSantWidth = this.animations[this.state][0][this.isFacingLeft]
-      .width;
-    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft]
-      .height;
+
+    const currentSantWidth = this.animations[this.state][0][this.isFacingLeft].width;
+    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft].height;
+
     if (this.size === 0 || this.size === 3) {
       this.BB = new BoundingBox(
         this.x,
@@ -290,8 +297,8 @@ class Sant {
     const MAX_FALL = 270;
 
     if (this.dead) {
-      this.velocity.y += RUN_FALL * TICK;
-      this.y += this.velocity.y * TICK * PARAMS.SCALE;
+      // this.velocity.y += RUN_FALL * TICK;
+      // this.y += this.velocity.y * TICK * PARAMS.SCALE;
     } else {
       // update velocity
 
@@ -438,7 +445,9 @@ class Sant {
             if (
               (entity instanceof Skeleton ||
                 entity instanceof Zombie ||
-                entity instanceof FlyingEye) && // squish skeleton
+                entity instanceof FlyingEye ||
+                entity instanceof Terrorists ||
+                entity instanceof Bullet) && // squish skeleton
               // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
               !entity.dead
             ) {
@@ -530,9 +539,16 @@ class Sant {
           // }
         }
       });
+
       if (this.state === 7) {
+        if (this.hurtCounter === 0) {
+          this.health -= 1;
+        }
         this.hurtCounter += this.game.clockTick;
         if (this.hurtCounter > 1) {
+          if (this.health <= 0) {
+            this.dead = true;
+          }
           this.state = 0;
           this.hurtCounter = 0.0;
           this.isEnabledHurtCooldown = true;

@@ -55,6 +55,19 @@ class Skeleton {
         true,
         mode !== "death"
       );
+    } else if (mode == "death") {
+      return new Animator(
+        this.assetsMap.get(mode) ?? "walk",
+        463,
+        125,
+        50,
+        50,
+        2,
+        2.0,
+        10,
+        true,
+        mode == "death"
+      );
     }
   }
   updateBoundingBox() {
@@ -105,8 +118,15 @@ class Skeleton {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
+          // if (entity instanceof Fireball) {
+          //   console.log("fireball");
+          //   that.currentmode = "death";
+          // }
+          if (entity instanceof Fireball) {
+            that.currentMode = "death";
+          } else if(entity instanceof Sant) {
             that.currentMode = "attack";
+
           } else if (
             (entity instanceof Ground ||
               entity instanceof Brick ||
@@ -115,9 +135,9 @@ class Skeleton {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } else if (entity !== that) {
-            that.velocity.x = -that.velocity.x;
-          }
+          } //else if (entity !== that) {
+          //   that.velocity.x = -that.velocity.x;
+          // } 
         }
       });
     }
@@ -141,10 +161,10 @@ class Skeleton {
       this.y,
       PARAMS.SCALE
     );
-    // if (PARAMS.DEBUG) {
-    //     ctx.strokeStyle = 'Red';
-    //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
-    // }
+    if (PARAMS.DEBUG) {
+        ctx.strokeStyle = 'Red';
+        ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    }
   }
 }
 
@@ -178,7 +198,7 @@ class Zombie {
   constructAssetMap() {
     const assetMap = new Map();
     this.animationModes.forEach((mode) =>
-      assetMap.set(mode, ASSET_MANAGER.getAsset(`./sprites/zombies_left.png`))
+      assetMap.set(mode, ASSET_MANAGER.getAsset('./sprites/zombies_left.png'))
     );
     return assetMap;
   }
@@ -228,16 +248,37 @@ class Zombie {
     } else if (mode == "attack") {
       return new Animator(
         this.assetsMap.get(mode) ?? "running",
-        58,
-        122,
+        //58,
+        //122,
+        //35,
+        //40,
+        //5,
+        //0.5,
+        //58,
+        58, 
+        240,
         35,
         40,
         5,
         0.1,
         58,
-        true,
+        false,
         mode !== "death"
       );
+    }
+    else if (mode == "death" ){
+      return new Animator(
+        this.assetsMap.get(mode) ?? "running",
+        37,
+        363,
+        59,
+        40,
+        5,
+        1,
+        0,
+        false,
+        mode == "death"
+      )
     }
   }
 
@@ -273,7 +314,7 @@ class Zombie {
     }
     if (this.isDead()) {
       if (this.deadCounter === 0) {
-        this.game.addEntity(new Score(this.game, this.x, this.y, 100));
+        this.game.addEntity(new Score(this.game, this.x, this.y, 50));
       }
       this.deadCounter += this.game.clockTick;
       if (this.deadCounter > 0.5) {
@@ -289,7 +330,9 @@ class Zombie {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
+          if(entity instanceof Fireball) {
+            that.currentMode = "death";
+          } else if (entity instanceof Sant) {
             that.currentMode = "attack";
           } else if (
             (entity instanceof Ground ||
@@ -299,8 +342,8 @@ class Zombie {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } else if (entity !== that) {
-            that.velocity.x = -that.velocity.x;
+          // } else if (entity !== that) {
+          //   that.velocity.x = -that.velocity.x;
           }
         }
       });
@@ -509,30 +552,14 @@ class Terrorists {
   createTerroristsAnimator(mode) {
     if (mode == "walk") {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk",
-        283,
-        149,
-        41,
-        45,
-        6,
-        0.1,
-        0,
-        true,
-        mode !== "death"
-      );
+        this.assetsMap.get(mode) ?? "walk", 283, 149, 41, 45, 6, 0.1, 0, true, mode !== "death");
     } else if (mode == "attack") {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk",
-        336,
-        45,
-        48,
-        45,
-        4,
-        0.2,
-        0,
-        true,
-        mode !== "death"
-      );
+        this.assetsMap.get(mode) ?? "walk", 336, 45, 48, 45, 4, 0.2, 0, true, mode !== "death");
+    } else if (mode == "death") {
+      return new Animator(
+        this.assetsMap.get(mode) ?? "walk", 311, 353, 57, 50, 1, 1, 0.1, true, mode == "death");
+
     }
   }
   updateBoundingBox() {
@@ -547,12 +574,13 @@ class Terrorists {
     } else if (this.currentMode == "walk") {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
-        this.x,
-        this.y,
-        2.6 * PARAMS.BLOCKWIDTH,
-        2.8 * PARAMS.BLOCKWIDTH
-      );
-    }
+      this.x,
+      this.y,
+      2.6 * PARAMS.BLOCKWIDTH,
+      2.8 * PARAMS.BLOCKWIDTH
+    );
+
+    } 
   }
   isWalking() {
     return this.currentMode === "walk";
@@ -573,7 +601,12 @@ class Terrorists {
   update() {
     if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
+
       // attack counter is for restricting attack speed
+
+      this.velocity.x = 0;
+      //console.log(this.attackCounter);
+          // attack counter is for restricting attack speed
       if (this.attackCounter > 0.2) {
         const bulletX = this.x - 20;
         const bulletY = this.y + 37;
@@ -584,6 +617,8 @@ class Terrorists {
         this.currentMode = "walk";
         this.attackCounter = 0.0;
       }
+    } else {
+      this.velocity = { x: -PARAMS.BITWIDTH, y: 0 };
     }
     if (this.isDead()) {
       if (this.deadCounter === 0) {
@@ -609,7 +644,9 @@ class Terrorists {
           that.currentMode = "walk";
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
+          if(entity instanceof Fireball) {
+            that.currentMode = "death";
+          } else if (entity instanceof Sant) {
             that.currentMode = "attack";
           } else if (
             (entity instanceof Ground ||
@@ -619,8 +656,8 @@ class Terrorists {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } else if (entity !== that) {
-            that.velocity.x = -that.velocity.x;
+          // } else if (entity !== that) {
+          //   that.velocity.x = -that.velocity.x;
           }
         }
       });

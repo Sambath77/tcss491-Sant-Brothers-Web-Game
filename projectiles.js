@@ -14,8 +14,11 @@ class Fireball {
     this.isFacingLeft = isFacingLeft;
     this.animations = [
       this.createNewFireballAnimator(0, 104, 204),
-      this.createNewFireballAnimator(1, 218, 204),
+      this.createNewFireballAnimator(1, 218, 204)
     ];
+
+    this.updateBoundingBox();
+
   }
 
   createNewFireballAnimator(facingDirection, xStart, yStart) {
@@ -35,6 +38,29 @@ class Fireball {
 
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
+    this.updateBoundingBox();
+    const that = this;
+    this.game.entities.forEach(function (entity) {
+      if (entity.BB && that.BB.collide(entity.BB)) {
+        if(entity instanceof Skeleton || entity instanceof Zombie
+          || entity instanceof FlyingEye || entity instanceof Terrorists) {
+            if(entity.currentMode == "death") {
+              that.removeFromWorld = true;
+
+            }
+        }
+      }
+    });
+      
+  }
+  updateBoundingBox() {
+    this.lastBB = this.BB;
+    this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      1 * PARAMS.BLOCKWIDTH,
+      0.5 * PARAMS.BLOCKWIDTH
+    );
   }
 
   drawMinimap(ctx, mmX, mmY) {}
@@ -47,6 +73,10 @@ class Fireball {
       this.y,
       PARAMS.SCALE
     );
+    if (PARAMS.DEBUG) {
+        ctx.strokeStyle = 'Red';
+        ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    }
   }
 }
 
@@ -87,6 +117,17 @@ class Bullet {
 
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
+    this.updateBoundingBox(); 
+  }
+
+  updateBoundingBox() {
+    this.lastBB = this.BB;
+    this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      0.5 * PARAMS.BLOCKWIDTH,
+      0.5 * PARAMS.BLOCKWIDTH
+    );
   }
 
   drawMinimap(ctx, mmX, mmY) {}
@@ -99,6 +140,10 @@ class Bullet {
       this.y,
       PARAMS.SCALE
     );
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    }
   }
 }
 
