@@ -186,10 +186,10 @@ class SceneManager {
 
     if (this.x < this.sant.x - midpoint) this.x = this.sant.x - midpoint;
 
-    if (this.sant.dead && this.sant.y > PARAMS.BLOCKWIDTH * 16) {
-      this.sant.dead = false;
-      this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
-    }
+    // if (this.sant.dead && this.sant.y > PARAMS.BLOCKWIDTH * 16) {
+    //   this.sant.dead = false;
+    //   this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+    // }
   }
 
   draw(ctx) {
@@ -202,22 +202,22 @@ class SceneManager {
       1.5 * PARAMS.BLOCKWIDTH
     );
     ctx.fillText(
-      "x" + (this.coins < 10 ? "0" : "") + this.coins,
+      "health: " + this.sant.getHealth(),
       6.5 * PARAMS.BLOCKWIDTH,
       1.5 * PARAMS.BLOCKWIDTH
     );
-    ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
-    ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
+    // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
+    // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
     ctx.fillText("TIME", 12.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     ctx.fillText("400", 13 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
 
-    this.coinAnimation.drawFrame(
-      this.game.clockTick,
-      ctx,
-      6 * PARAMS.BLOCKWIDTH,
-      1 * PARAMS.BLOCKWIDTH,
-      3
-    );
+    // this.coinAnimation.drawFrame(
+    //   this.game.clockTick,
+    //   ctx,
+    //   6 * PARAMS.BLOCKWIDTH,
+    //   1 * PARAMS.BLOCKWIDTH,
+    //   3
+    // );
 
     if (PARAMS.DEBUG) {
       let xV = "xV=" + Math.floor(this.game.mario.velocity.x);
