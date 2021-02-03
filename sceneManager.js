@@ -92,8 +92,8 @@ class SceneManager {
     for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
       brick = new Brick(
         this.game,
-        10 * i * PARAMS.BLOCKWIDTH + 1700,
-        10 * PARAMS.BLOCKWIDTH
+        10 * i * PARAMS.BLOCKWIDTH + 1200,
+        9 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(brick);
     }
@@ -112,8 +112,7 @@ class SceneManager {
       brick = new Angel(
         this.game,
         9 * i * PARAMS.BLOCKWIDTH + 1600,
-        10 * PARAMS.BLOCKWIDTH,
-        0
+        10 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(brick);
     }
@@ -175,7 +174,6 @@ class SceneManager {
 
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
-    console.log(this.sant.y);
     this.game.addEntity(this.sant);
   }
 

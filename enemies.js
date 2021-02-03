@@ -534,7 +534,6 @@ class Terrorists {
     this.updateBoundingBox();
     this.isFacingLeft = 0;
 
-
     // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
 
     // this.animation = new Animator(this.spritesheet, 85, 135, 20, 60, 6, 0.2, 44, false, true);
@@ -564,16 +563,15 @@ class Terrorists {
     }
   }
   updateBoundingBox() {
-    if(this.currentMode == "attack") {
+    if (this.currentMode == "attack") {
       this.lastBB = this.BB;
-    this.BB = new BoundingBox(
-      this.x,
-      this.y,
-      3.0 * PARAMS.BLOCKWIDTH,
-      2.8 * PARAMS.BLOCKWIDTH
-    );
-
-    } else if(this.currentMode == "walk") {
+      this.BB = new BoundingBox(
+        this.x,
+        this.y,
+        3.0 * PARAMS.BLOCKWIDTH,
+        2.8 * PARAMS.BLOCKWIDTH
+      );
+    } else if (this.currentMode == "walk") {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
       this.x,
@@ -583,8 +581,6 @@ class Terrorists {
     );
 
     } 
-  
-  
   }
   isWalking() {
     return this.currentMode === "walk";
@@ -605,11 +601,14 @@ class Terrorists {
   update() {
     if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
+
+      // attack counter is for restricting attack speed
+
       this.velocity.x = 0;
       //console.log(this.attackCounter);
           // attack counter is for restricting attack speed
       if (this.attackCounter > 0.2) {
-        const bulletX = this.x - 20
+        const bulletX = this.x - 20;
         const bulletY = this.y + 37;
         this.game.addEntity(new Bullet(this.game, bulletX, bulletY, 1));
         this.attackCounter = 0.0;
@@ -641,7 +640,7 @@ class Terrorists {
       this.game.entities.forEach(function (entity) {
         if (entity instanceof Sant && entity.x < that.x) {
           that.currentMode = "attack";
-        } else  if (entity instanceof Sant && entity.x > that.x){
+        } else if (entity instanceof Sant && entity.x > that.x) {
           that.currentMode = "walk";
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
@@ -684,8 +683,13 @@ class Terrorists {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-        ctx.strokeStyle = 'Red';
-        ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+      ctx.strokeStyle = "Red";
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
     }
   }
 }

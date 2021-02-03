@@ -1,5 +1,5 @@
 class Sant {
-  constructor(game, x, y, luigi) {
+  constructor(game, x, y) {
     Object.assign(this, { game, x, y });
 
     this.game.mario = this;
@@ -27,10 +27,22 @@ class Sant {
 
     this.attackCounter = 0;
 
+
+    this.changeGun = false;
     this.health = 5;
+
 
     // sant's animations
     this.animations = [];
+    this.random = 0;
+    //this.weapon = WEAPON.selectedGun(0);
+
+    // this.gun = [
+    //   new Bullet(this.game, this.x, this.y, this.isFacingLeft),
+    //   new Fireball(this.game, this.x, this.y, this.isFacingLeft),
+    //   new MultileFire(this.game, this.x, this.y, this.isFacingLeft),
+    //   new Spray(this.game, this.x, this.y, this.isFacingLeft),
+    // ];
     this.loadAnimations();
     this.updateBB();
   }
@@ -233,8 +245,10 @@ class Sant {
 
   updateBB() {
     this.lastBB = this.BB;
+
     const currentSantWidth = this.animations[this.state][0][this.isFacingLeft].width;
     const currentSantHeight = this.animations[this.state][0][this.isFacingLeft].height;
+
     if (this.size === 0 || this.size === 3) {
       this.BB = new BoundingBox(
         this.x,
@@ -411,7 +425,7 @@ class Sant {
               that.lastBB.bottom <= entity.BB.top
             ) {
               // was above last tick
-              console.log(that.lastBB.bottom, entity.BB.top);
+
               if (that.size === 0 || that.size === 3) {
                 // small
                 that.y = entity.BB.top - that.BB.height;
@@ -492,21 +506,37 @@ class Sant {
             }
             that.updateBB();
           }
-          if (entity instanceof Mushroom && !entity.emerging) {
+
+          // Auto upgrade the gun
+          if (entity instanceof Angel && that.BB.bottom > entity.BB.top) {
             entity.removeFromWorld = true;
-            if (entity.type === "Growth") {
-              that.y -= that.BB.height;
-              that.size = 1;
-              that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
-            } else {
-              that.game.camera.lives++;
+            if (
+              that.BB.collide(entity.leftBB) ||
+              that.BB.collide(entity.rightBB)
+            ) {
+              that.random = Math.floor(Math.random() * 4);
+              console.log(that.random);
+              that.changeGun = true;
             }
+
+            that.updateBB();
           }
-          if (entity instanceof Coin) {
-            entity.removeFromWorld = true;
-            that.game.camera.score += 200;
-            that.game.camera.addCoin();
-          }
+
+          // if (entity instanceof Mushroom && !entity.emerging) {
+          //   entity.removeFromWorld = true;
+          //   if (entity.type === "Growth") {
+          //     that.y -= that.BB.height;
+          //     that.size = 1;
+          //     that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
+          //   } else {
+          //     that.game.camera.lives++;
+          //   }
+          // }
+          // if (entity instanceof Coin) {
+          //   entity.removeFromWorld = true;
+          //   that.game.camera.score += 200;
+          //   that.game.camera.addCoin();
+          // }
         }
       });
 
@@ -533,17 +563,52 @@ class Sant {
         }
       }
 
-      if (this.state === 6) {
-        this.attackCounter += this.game.clockTick;
-        // attack counter is for restricting attack speed
-        if (this.attackCounter > 0.2) {
-          const fireballX = this.x + (this.isFacingLeft ? -48 : 120)
-          const fireballY = this.y + 54;
-          this.game.addEntity(new Fireball(this.game, fireballX, fireballY, this.isFacingLeft));
-          this.attackCounter = 0.0;
+      if (this.changeGun == false) {
+        if (this.state === 6) {
+          this.attackCounter += this.game.clockTick;
+          // attack counter is for restricting attack speed
+          if (this.attackCounter > 0.2) {
+            const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
+            const fireballY = this.y + 54;
+            this.game.addEntity(
+              // change this
+              //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
+              new Weapon(
+                this.game,
+                fireballX,
+                fireballY,
+                this.isFacingLeft,
+                this.random
+              ).seletedGun(this.random)
+            );
+            //console.log(this.game.removeEntity());
+            this.attackCounter = 0.0;
+          }
+        }
+      } else {
+        if (this.state === 6) {
+          this.attackCounter += this.game.clockTick;
+          // attack counter is for restricting attack speed
+          if (this.attackCounter > 0.2) {
+            const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
+            const fireballY = this.y + 54;
+
+            this.game.addEntity(
+              // change this
+              //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
+              new Weapon(
+                this.game,
+                fireballX,
+                fireballY,
+                this.isFacingLeft,
+                this.random
+              ).seletedGun(this.random)
+            );
+            //console.log(this.game.removeEntity());
+            this.attackCounter = 0.0;
+          }
         }
       }
-
       // update state
       if (this.state !== 4 && this.state !== 6 && this.state !== 7) {
         // if (this.game.down) this.state = 5;
