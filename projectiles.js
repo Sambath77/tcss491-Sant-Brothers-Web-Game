@@ -118,6 +118,17 @@ class Bullet {
 
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
+    this.updateBoundingBox(); 
+  }
+
+  updateBoundingBox() {
+    this.lastBB = this.BB;
+    this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      0.5 * PARAMS.BLOCKWIDTH,
+      0.5 * PARAMS.BLOCKWIDTH
+    );
   }
 
   drawMinimap(ctx, mmX, mmY) {}
@@ -130,5 +141,9 @@ class Bullet {
       this.y,
       PARAMS.SCALE
     );
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    }
   }
 }
