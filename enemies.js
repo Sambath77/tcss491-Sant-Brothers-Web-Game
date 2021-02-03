@@ -198,7 +198,7 @@ class Zombie {
   constructAssetMap() {
     const assetMap = new Map();
     this.animationModes.forEach((mode) =>
-      assetMap.set(mode, ASSET_MANAGER.getAsset(`./sprites/zombies_left.png`))
+      assetMap.set(mode, ASSET_MANAGER.getAsset('./sprites/zombies_left.png'))
     );
     return assetMap;
   }
@@ -248,16 +248,37 @@ class Zombie {
     } else if (mode == "attack") {
       return new Animator(
         this.assetsMap.get(mode) ?? "running",
-        58,
-        122,
+        //58,
+        //122,
+        //35,
+        //40,
+        //5,
+        //0.5,
+        //58,
+        58, 
+        240,
         35,
         40,
         5,
         0.1,
         58,
-        true,
+        false,
         mode !== "death"
       );
+    }
+    else if (mode == "death" ){
+      return new Animator(
+        this.assetsMap.get(mode) ?? "running",
+        37,
+        363,
+        59,
+        40,
+        5,
+        1,
+        0,
+        false,
+        mode == "death"
+      )
     }
   }
 
@@ -293,7 +314,7 @@ class Zombie {
     }
     if (this.isDead()) {
       if (this.deadCounter === 0) {
-        this.game.addEntity(new Score(this.game, this.x, this.y, 100));
+        this.game.addEntity(new Score(this.game, this.x, this.y, 50));
       }
       this.deadCounter += this.game.clockTick;
       if (this.deadCounter > 0.5) {
@@ -309,7 +330,9 @@ class Zombie {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
+          if(entity instanceof Fireball) {
+            that.currentMode = "death";
+          } else if (entity instanceof Sant) {
             that.currentMode = "attack";
           } else if (
             (entity instanceof Ground ||
@@ -319,8 +342,8 @@ class Zombie {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } else if (entity !== that) {
-            that.velocity.x = -that.velocity.x;
+          // } else if (entity !== that) {
+          //   that.velocity.x = -that.velocity.x;
           }
         }
       });

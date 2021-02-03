@@ -426,7 +426,9 @@ class Sant {
             if (
               (entity instanceof Skeleton ||
                 entity instanceof Zombie ||
-                entity instanceof FlyingEye) && // squish skeleton
+                entity instanceof FlyingEye ||
+                entity instanceof Terrorists ||
+                entity instanceof Bullet) && // squish skeleton
               // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
               !entity.dead
             ) {

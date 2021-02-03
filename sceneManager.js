@@ -145,7 +145,7 @@ class SceneManager {
     //Zombie - Tung
     let zombie = new Zombie(
       this.game,
-      7 * PARAMS.BLOCKWIDTH,
+      15* PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
