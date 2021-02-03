@@ -166,6 +166,13 @@ class SceneManager {
       this.game.addEntity(terrorists);
     }
 
+    terrorists = new Terrorists(
+      this.game,
+      60 * PARAMS.BLOCKWIDTH,
+      11.2 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(terrorists);
+
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
     console.log(this.sant.y);
