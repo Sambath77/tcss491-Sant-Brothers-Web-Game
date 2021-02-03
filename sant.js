@@ -72,7 +72,7 @@ class Sant {
       }),
       this.createNewSantAnimator({
         facingDirection: 1,
-        xStart: 148,
+        xStart: 122,
         yStart: 268,
         frameCount: 1,
         width: 58,
@@ -208,23 +208,6 @@ class Sant {
     });
   }
 
-  // loadDeadAnimation(i) {
-  //   this.animations[8][i][0] = this.createNewSantAnimator({
-  //     facingDirection: 0,
-  //     xStart: 152,
-  //     yStart: 268,
-  //     frameCount: 1,
-  //     width: 38,
-  //   });
-  //   this.animations[8][i][1] = this.createNewSantAnimator({
-  //     facingDirection: 1,
-  //     xStart: 146,
-  //     yStart: 268,
-  //     frameCount: 1,
-  //     width: 38,
-  //   });
-  // }
-
   createNewSantAnimator({
     facingDirection,
     xStart,
@@ -251,8 +234,7 @@ class Sant {
   updateBB() {
     this.lastBB = this.BB;
     const currentSantWidth = this.animations[this.state][0][this.isFacingLeft].width;
-    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft]
-      .height;
+    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft].height;
     if (this.size === 0 || this.size === 3) {
       this.BB = new BoundingBox(
         this.x,
