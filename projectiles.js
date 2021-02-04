@@ -14,11 +14,10 @@ class Fireball {
     this.isFacingLeft = isFacingLeft;
     this.animations = [
       this.createNewFireballAnimator(0, 104, 204),
-      this.createNewFireballAnimator(1, 218, 204)
+      this.createNewFireballAnimator(1, 218, 204),
     ];
 
     this.updateBoundingBox();
-
   }
 
   createNewFireballAnimator(facingDirection, xStart, yStart) {
@@ -42,16 +41,18 @@ class Fireball {
     const that = this;
     this.game.entities.forEach(function (entity) {
       if (entity.BB && that.BB.collide(entity.BB)) {
-        if(entity instanceof Skeleton || entity instanceof Zombie
-          || entity instanceof FlyingEye || entity instanceof Terrorists) {
-            if(entity.currentMode == "death") {
-              that.removeFromWorld = true;
-
-            }
+        if (
+          entity instanceof Skeleton ||
+          entity instanceof Zombie ||
+          entity instanceof FlyingEye ||
+          entity instanceof Terrorists
+        ) {
+          if (entity.currentMode == "death") {
+            that.removeFromWorld = true;
+          }
         }
       }
     });
-      
   }
   updateBoundingBox() {
     this.lastBB = this.BB;
@@ -74,8 +75,13 @@ class Fireball {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-        ctx.strokeStyle = 'Red';
-        ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+      ctx.strokeStyle = "Red";
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
     }
   }
 }
@@ -117,7 +123,7 @@ class Bullet {
 
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
-    this.updateBoundingBox(); 
+    this.updateBoundingBox();
   }
 
   updateBoundingBox() {
@@ -141,8 +147,13 @@ class Bullet {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = 'Red';
-      ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+      ctx.strokeStyle = "Red";
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
     }
   }
 }
@@ -204,8 +215,8 @@ class Spray {
     Object.assign(this, { game, x, y, isFacingLeft });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/spray_right.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/spray_left.png"),
+      ASSET_MANAGER.getAsset("./sprites/sant/spray_right.png"),
     ];
 
     this.width = 8;

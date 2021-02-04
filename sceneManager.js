@@ -98,10 +98,10 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 7) {
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 6) {
       brick = new Block(
         this.game,
-        9 * i * PARAMS.BLOCKWIDTH + 2000,
+        5 * i * PARAMS.BLOCKWIDTH + 2000,
         11 * PARAMS.BLOCKWIDTH,
         PARAMS.BLOCKWIDTH
       );
@@ -111,7 +111,7 @@ class SceneManager {
     for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 11) {
       brick = new Angel(
         this.game,
-        9 * i * PARAMS.BLOCKWIDTH + 1600,
+        6 * i * PARAMS.BLOCKWIDTH + 1600,
         10 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(brick);
@@ -128,11 +128,11 @@ class SceneManager {
       skeleton = new Skeleton(
         this.game,
         (17 + i) * PARAMS.BLOCKWIDTH,
-        10.85 * PARAMS.BLOCKWIDTH);
+        10.85 * PARAMS.BLOCKWIDTH
+      );
       this.game.addEntity(skeleton);
     }
 
-      
     //flying eyes
     let flyingEye = new FlyingEye(
       this.game,
@@ -144,7 +144,7 @@ class SceneManager {
     //Zombie - Tung
     let zombie = new Zombie(
       this.game,
-      15* PARAMS.BLOCKWIDTH,
+      15 * PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
@@ -156,12 +156,13 @@ class SceneManager {
       11.2 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(terrorists);
- 
+
     for (let i = 0; i < PARAMS.BLOCKWIDTH + 400; i = i + 30) {
       terrorists = new Terrorists(
         this.game,
         (37 + i) * PARAMS.BLOCKWIDTH,
-        11.2 * PARAMS.BLOCKWIDTH);
+        11.2 * PARAMS.BLOCKWIDTH
+      );
       this.game.addEntity(terrorists);
     }
 

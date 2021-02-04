@@ -27,10 +27,8 @@ class Sant {
 
     this.attackCounter = 0;
 
-
     this.changeGun = false;
     this.health = 5;
-
 
     // sant's animations
     this.animations = [];
@@ -246,8 +244,10 @@ class Sant {
   updateBB() {
     this.lastBB = this.BB;
 
-    const currentSantWidth = this.animations[this.state][0][this.isFacingLeft].width;
-    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft].height;
+    const currentSantWidth = this.animations[this.state][0][this.isFacingLeft]
+      .width;
+    const currentSantHeight = this.animations[this.state][0][this.isFacingLeft]
+      .height;
 
     if (this.size === 0 || this.size === 3) {
       this.BB = new BoundingBox(

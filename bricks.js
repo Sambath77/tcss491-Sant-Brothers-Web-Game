@@ -226,7 +226,7 @@ class Block {
       this.x + PARAMS.BLOCKWIDTH,
       this.y,
       this.w + PARAMS.BLOCKWIDTH * 3,
-      PARAMS.BLOCKWIDTH
+      PARAMS.BLOCKWIDTH * 3
     );
     this.leftBB = new BoundingBox(
       this.x + PARAMS.BLOCKWIDTH,
