@@ -605,7 +605,7 @@ class Terrorists {
       this.velocity.x = 0;
       //console.log(this.attackCounter);
           // attack counter is for restricting attack speed
-      if (this.attackCounter > 0.2) {
+      if (this.attackCounter > 0.5) {
         const bulletX = this.x - 20;
         const bulletY = this.y + 37;
         this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
