@@ -563,36 +563,13 @@ class Sant {
         }
       }
 
-      if (this.changeGun == false) {
+      if (this.changeGun == false || this.changeGun == true) {
         if (this.state === 6) {
           this.attackCounter += this.game.clockTick;
           // attack counter is for restricting attack speed
           if (this.attackCounter > 0.2) {
             const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
             const fireballY = this.y + 54;
-            this.game.addEntity(
-              // change this
-              //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
-              new Weapon(
-                this.game,
-                fireballX,
-                fireballY,
-                this.isFacingLeft,
-                this.random
-              ).seletedGun(this.random)
-            );
-            //console.log(this.game.removeEntity());
-            this.attackCounter = 0.0;
-          }
-        }
-      } else {
-        if (this.state === 6) {
-          this.attackCounter += this.game.clockTick;
-          // attack counter is for restricting attack speed
-          if (this.attackCounter > 0.2) {
-            const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
-            const fireballY = this.y + 54;
-
             this.game.addEntity(
               // change this
               //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
@@ -609,6 +586,30 @@ class Sant {
           }
         }
       }
+      // } else {
+      //   if (this.state === 6) {
+      //     this.attackCounter += this.game.clockTick;
+      //     // attack counter is for restricting attack speed
+      //     if (this.attackCounter > 0.2) {
+      //       const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
+      //       const fireballY = this.y + 54;
+
+      //       this.game.addEntity(
+      //         // change this
+      //         //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
+      //         new Weapon(
+      //           this.game,
+      //           fireballX,
+      //           fireballY,
+      //           this.isFacingLeft,
+      //           this.random
+      //         ).seletedGun(this.random)
+      //       );
+      //       //console.log(this.game.removeEntity());
+      //       this.attackCounter = 0.0;
+      //     }
+      //   }
+      // }
       // update state
       if (this.state !== 4 && this.state !== 6 && this.state !== 7) {
         // if (this.game.down) this.state = 5;
