@@ -388,7 +388,7 @@ class BulletTwo {
     this.game.entities.forEach(function (entity) {
       if (entity.BB && that.BB.collide(entity.BB)) {
         if (entity instanceof Sant) {
-          if (that.x < entity.x + 30) {
+          if (that.x < entity.x) {
             that.removeFromWorld = true;
           }
           
