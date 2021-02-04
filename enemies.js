@@ -118,11 +118,8 @@ class Skeleton {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          // if (entity instanceof Fireball) {
-          //   console.log("fireball");
-          //   that.currentmode = "death";
-          // }
-          if (entity instanceof Fireball) {
+          if(entity instanceof Bullet || entity instanceof Spray || 
+            entity instanceof MultileFire || entity instanceof Fireball) {
             that.currentMode = "death";
           } else if(entity instanceof Sant) {
             that.currentMode = "attack";
@@ -330,7 +327,8 @@ class Zombie {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if(entity instanceof Fireball) {
+          if(entity instanceof Bullet || entity instanceof Spray || 
+            entity instanceof MultileFire || entity instanceof Fireball) {
             that.currentMode = "death";
           } else if (entity instanceof Sant) {
             that.currentMode = "attack";
@@ -610,7 +608,7 @@ class Terrorists {
       if (this.attackCounter > 0.2) {
         const bulletX = this.x - 20;
         const bulletY = this.y + 37;
-        this.game.addEntity(new Bullet(this.game, bulletX, bulletY, 1));
+        this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
         this.attackCounter = 0.0;
       }
       if (this.attackCounter > 1.6) {
@@ -644,7 +642,8 @@ class Terrorists {
           that.currentMode = "walk";
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if(entity instanceof Fireball) {
+          if(entity instanceof Bullet || entity instanceof Spray || 
+            entity instanceof MultileFire || entity instanceof Fireball) {
             that.currentMode = "death";
           } else if (entity instanceof Sant) {
             that.currentMode = "attack";
