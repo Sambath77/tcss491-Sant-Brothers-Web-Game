@@ -6,7 +6,7 @@ class Fireball {
       ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
     ];
-
+    this.power = 2;
     this.width = 8;
     this.height = 2;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
@@ -40,18 +40,6 @@ class Fireball {
     this.updateBoundingBox();
     const that = this;
     this.game.entities.forEach(function (entity) {
-      if (entity.BB && that.BB.collide(entity.BB)) {
-        if (
-          entity instanceof Skeleton ||
-          entity instanceof Zombie ||
-          entity instanceof FlyingEye ||
-          entity instanceof Terrorists
-        ) {
-          if (entity.currentMode == "death") {
-            that.removeFromWorld = true;
-          }
-        }
-      }
     });
   }
   updateBoundingBox() {
@@ -94,7 +82,7 @@ class Bullet {
       ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
     ];
-
+    this.power = 1;
     this.width = 8;
     this.height = 2;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
@@ -124,21 +112,6 @@ class Bullet {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    const that = this;
-    this.game.entities.forEach(function (entity) {
-      if (entity.BB && that.BB.collide(entity.BB)) {
-        if (
-          entity instanceof Skeleton ||
-          entity instanceof Zombie ||
-          entity instanceof FlyingEye ||
-          entity instanceof Terrorists
-        ) {
-          if (entity.currentMode == "death") {
-            that.removeFromWorld = true;
-          }
-        }
-      }
-    });
   }
 
   updateBoundingBox() {
@@ -181,7 +154,7 @@ class MultileFire {
       ASSET_MANAGER.getAsset("./sprites/sant/fire_left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/fire_right.png"),
     ];
-
+    this.power = 4;
     this.width = 8;
     this.height = 2;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
@@ -198,8 +171,8 @@ class MultileFire {
       this.spritesheets[facingDirection],
       xStart,
       yStart,
-      22,
-      3,
+      23,
+      4,
       1,
       1,
       3,
@@ -211,21 +184,6 @@ class MultileFire {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    const that = this;
-    this.game.entities.forEach(function (entity) {
-      if (entity.BB && that.BB.collide(entity.BB)) {
-        if (
-          entity instanceof Skeleton ||
-          entity instanceof Zombie ||
-          entity instanceof FlyingEye ||
-          entity instanceof Terrorists
-        ) {
-          if (entity.currentMode == "death") {
-            that.removeFromWorld = true;
-          }
-        }
-      }
-    });
   }
   updateBoundingBox() {
     this.lastBB = this.BB;
@@ -233,7 +191,7 @@ class MultileFire {
       this.x,
       this.y,
       2.7 * PARAMS.BLOCKWIDTH,
-      0.35 * PARAMS.BLOCKWIDTH
+      0.47 * PARAMS.BLOCKWIDTH
     );
   }
 
@@ -268,7 +226,7 @@ class Spray {
       ASSET_MANAGER.getAsset("./sprites/sant/spray_left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/spray_right.png"),
     ];
-
+    this.power = 5;
     this.width = 8;
     this.height = 2;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
@@ -298,21 +256,6 @@ class Spray {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    const that = this;
-    this.game.entities.forEach(function (entity) {
-      if (entity.BB && that.BB.collide(entity.BB)) {
-        if (
-          entity instanceof Skeleton ||
-          entity instanceof Zombie ||
-          entity instanceof FlyingEye ||
-          entity instanceof Terrorists
-        ) {
-          if (entity.currentMode == "death") {
-            that.removeFromWorld = true;
-          }
-        }
-      }
-    });
   }
   updateBoundingBox() {
     this.lastBB = this.BB;

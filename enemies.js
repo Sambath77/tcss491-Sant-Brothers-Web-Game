@@ -121,6 +121,7 @@ class Skeleton {
           if(entity instanceof Bullet || entity instanceof Spray || 
             entity instanceof MultileFire || entity instanceof Fireball) {
             that.currentMode = "death";
+            entity.removeFromWorld = true;
           } else if(entity instanceof Sant) {
             that.currentMode = "attack";
 
@@ -329,6 +330,7 @@ class Zombie {
         if (entity.BB && that.BB.collide(entity.BB)) {
           if(entity instanceof Bullet || entity instanceof Spray || 
             entity instanceof MultileFire || entity instanceof Fireball) {
+              entity.removeFromWorld = true;
             that.currentMode = "death";
           } else if (entity instanceof Sant) {
             that.currentMode = "attack";
@@ -526,6 +528,7 @@ class Terrorists {
     this.animations = this.animationModes.map((mode) =>
       this.createTerroristsAnimator(mode)
     );
+    this.health = 5;
     this.paused = true;
     this.deadCounter = 0;
     this.attackCounter = 0;
@@ -605,7 +608,7 @@ class Terrorists {
       this.velocity.x = 0;
       //console.log(this.attackCounter);
           // attack counter is for restricting attack speed
-      if (this.attackCounter > 0.2) {
+      if (this.attackCounter > 0.5) {
         const bulletX = this.x - 20;
         const bulletY = this.y + 37;
         this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
@@ -644,7 +647,13 @@ class Terrorists {
         if (entity.BB && that.BB.collide(entity.BB)) {
           if(entity instanceof Bullet || entity instanceof Spray || 
             entity instanceof MultileFire || entity instanceof Fireball) {
-            that.currentMode = "death";
+            if(that.health > 0) {
+              that.health -= entity.power;
+              entity.removeFromWorld = true;
+              if (that.health <= 0) {
+                that.currentMode = "death";
+              }
+            } 
           } else if (entity instanceof Sant) {
             that.currentMode = "attack";
           } else if (
