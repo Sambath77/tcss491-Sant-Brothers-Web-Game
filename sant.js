@@ -421,11 +421,12 @@ class Sant {
               (entity instanceof Ground ||
                 entity instanceof Brick ||
                 entity instanceof Block ||
-                entity instanceof Angel) && // landin
+                entity instanceof Angel ||
+                entity instanceof Brickmoved) && // landin
               that.lastBB.bottom <= entity.BB.top
             ) {
               // was above last tick
-
+              entity.time += 5;
               if (that.size === 0 || that.size === 3) {
                 // small
                 that.y = entity.BB.top - that.BB.height;
@@ -508,8 +509,9 @@ class Sant {
           }
 
           // Auto upgrade the gun
-          if (entity instanceof Angel && that.BB.bottom > entity.BB.top) {
+          if (entity instanceof Angel) {
             entity.removeFromWorld = true;
+
             if (
               that.BB.collide(entity.leftBB) ||
               that.BB.collide(entity.rightBB)
