@@ -116,6 +116,15 @@ class SceneManager {
       );
       this.game.addEntity(brick);
     }
+    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 7) {
+      brick = new Brickmoved(
+        this.game,
+        PARAMS.BLOCKWIDTH * 10 * i + 1000,
+        PARAMS.BLOCKWIDTH * 10,
+        PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(brick);
+    }
 
     let skeleton = new Skeleton(
       this.game,
