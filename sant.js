@@ -364,6 +364,10 @@ class Sant {
             this.state = 6;
           }
         }
+        // else if the sant is not in attack mode and jump mode, change it to walk mode 
+        else if (!this.game.A) {
+          this.state = 1;
+        }
       } else {
         // air physics
         // vertical physics
@@ -454,6 +458,7 @@ class Sant {
             ) {
               // can't squish an already squished skeleton
               // that.dead = true;
+              console.log(that.isEnabledHurtCooldown);
               if (that.state !== 7 && !that.isEnabledHurtCooldown) {
                 // that.velocity.y = -20; // bounce
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
@@ -517,7 +522,6 @@ class Sant {
               that.BB.collide(entity.rightBB)
             ) {
               that.random = Math.floor(Math.random() * 4);
-              console.log(that.random);
               that.changeGun = true;
             }
 
@@ -564,7 +568,6 @@ class Sant {
           this.isEnabledHurtCooldown = false;
         }
       }
-
       if (this.changeGun == false || this.changeGun == true) {
         if (this.state === 6) {
           this.attackCounter += this.game.clockTick;

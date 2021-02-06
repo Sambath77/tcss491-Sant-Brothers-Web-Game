@@ -470,7 +470,11 @@ class FlyingEye {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
+          if(entity instanceof Bullet || entity instanceof Spray || 
+            entity instanceof MultileFire || entity instanceof Fireball) {
+            that.currentMode = "death";
+            entity.removeFromWorld = true;
+          } else if (entity instanceof Sant) {
             that.currentMode = "attack";
           } else if (
             (entity instanceof Ground ||
