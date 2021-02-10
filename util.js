@@ -30,5 +30,6 @@ window.requestAnimFrame = (function () {
 const PARAMS = {
     DEBUG: true,
     SCALE: 3,
+    SCREEN_WIDTH: 768,
     BITWIDTH: 16
 };
