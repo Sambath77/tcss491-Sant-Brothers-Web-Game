@@ -33,6 +33,7 @@ class Sant {
     // sant's animations
     this.animations = [];
     this.random = 0;
+    this.isFightingBoss = false;
     //this.weapon = WEAPON.selectedGun(0);
 
     // this.gun = [
@@ -272,6 +273,9 @@ class Sant {
   }
 
   update() {
+    if (this.x >= this.game.mapMaxDistance) {
+      this.isFightingBoss = true;
+    }
     const TICK = this.game.clockTick;
 
     // I used this page to approximate my constants
@@ -364,7 +368,7 @@ class Sant {
             this.state = 6;
           }
         }
-        // else if the sant is not in attack mode and jump mode, change it to walk mode 
+        // else if the sant is not in attack mode and jump mode, change it to walk mode
         else if (!this.game.A) {
           this.state = 1;
         }
@@ -458,7 +462,6 @@ class Sant {
             ) {
               // can't squish an already squished skeleton
               // that.dead = true;
-              console.log(that.isEnabledHurtCooldown);
               if (that.state !== 7 && !that.isEnabledHurtCooldown) {
                 // that.velocity.y = -20; // bounce
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
@@ -627,6 +630,18 @@ class Sant {
       // update direction
       if (this.velocity.x < 0) this.isFacingLeft = this.state !== 7 ? 1 : 0;
       if (this.velocity.x > 0) this.isFacingLeft = this.state !== 7 ? 0 : 1;
+      this.fixSantMoveRangeInBossBattle();
+    }
+  }
+
+  fixSantMoveRangeInBossBattle() {
+    if (this.isFightingBoss) {
+      if (this.x <= this.game.mapMaxDistance) {
+        this.x = this.game.mapMaxDistance;
+      }
+      if (this.x >= this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH - this.BB.width) {
+        this.x = this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH - this.BB.width;
+      }
     }
   }
 

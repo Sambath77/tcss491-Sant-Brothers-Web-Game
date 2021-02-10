@@ -2,6 +2,7 @@ class SceneManager {
   constructor(game) {
     this.game = game;
     this.game.camera = this;
+    this.game.mapMaxDistance = 12000;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
@@ -62,8 +63,7 @@ class SceneManager {
 
     let ground = new Ground(this.game, 0, 14 * PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(ground);
-
-    for (let i = 0; i < PARAMS.BLOCKWIDTH * 10; i++) {
+    for (let i = 0; PARAMS.BLOCKWIDTH * i < this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH; i++) {
       background = new Ground(
         this.game,
         PARAMS.BLOCKWIDTH * i,
@@ -80,7 +80,7 @@ class SceneManager {
     );
     this.game.addEntity(brick);
 
-    for (let i = 1; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+    for (let i = 1; (10 * i * PARAMS.BLOCKWIDTH + 400) < this.game.mapMaxDistance; i = i + 3) {
       brick = new Brick(
         this.game,
         10 * i * PARAMS.BLOCKWIDTH + 400,
@@ -89,7 +89,7 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 3) {
+    for (let i = 0; (10 * i * PARAMS.BLOCKWIDTH + 1200) < this.game.mapMaxDistance; i = i + 3) {
       brick = new Brick(
         this.game,
         10 * i * PARAMS.BLOCKWIDTH + 1200,
@@ -98,7 +98,7 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 6) {
+    for (let i = 0; (10 * i * PARAMS.BLOCKWIDTH + 2000) < this.game.mapMaxDistance; i = i + 6) {
       brick = new Block(
         this.game,
         5 * i * PARAMS.BLOCKWIDTH + 2000,
@@ -108,7 +108,7 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 11) {
+    for (let i = 0; (6 * i * PARAMS.BLOCKWIDTH + 1600) < this.game.mapMaxDistance; i = i + 11) {
       brick = new Angel(
         this.game,
         6 * i * PARAMS.BLOCKWIDTH + 1600,
@@ -116,7 +116,7 @@ class SceneManager {
       );
       this.game.addEntity(brick);
     }
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i = i + 7) {
+    for (let i = 0; (PARAMS.BLOCKWIDTH * 10 * i + 1000) < this.game.mapMaxDistance; i = i + 7) {
       brick = new Brickmoved(
         this.game,
         PARAMS.BLOCKWIDTH * 10 * i + 1000,
@@ -133,7 +133,7 @@ class SceneManager {
     );
     this.game.addEntity(skeleton);
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH + 400; i = i + 60) {
+    for (let i = 0; ((17 + i) * PARAMS.BLOCKWIDTH) < this.game.mapMaxDistance; i = i + 60) {
       skeleton = new Skeleton(
         this.game,
         (17 + i) * PARAMS.BLOCKWIDTH,
@@ -166,7 +166,7 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH + 400; i = i + 30) {
+    for (let i = 0; ((37 + i) * PARAMS.BLOCKWIDTH) < this.game.mapMaxDistance; i = i + 30) {
       terrorists = new Terrorists(
         this.game,
         (37 + i) * PARAMS.BLOCKWIDTH,
@@ -194,6 +194,9 @@ class SceneManager {
 
     if (this.x < this.sant.x - midpoint) this.x = this.sant.x - midpoint;
 
+    if (this.x >= this.game.mapMaxDistance) {
+      this.x = this.game.mapMaxDistance;
+    }
     // if (this.sant.dead && this.sant.y > PARAMS.BLOCKWIDTH * 16) {
     //   this.sant.dead = false;
     //   this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
