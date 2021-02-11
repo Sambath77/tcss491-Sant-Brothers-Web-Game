@@ -37,13 +37,13 @@ class Mafia {
     createMafiaAnimator(mode) {
         if (mode == "walkleft") {
             return new Animator(
-                this.assetsMapLeft.get(mode) ?? "walkleft", 189, 158, 45, 70, 4, 0.15, 12, true, mode !== "death");
+                this.assetsMapLeft.get(mode) ?? "walkleft", 185, 158, 50, 70, 4, 0.1, 7, true, mode !== "death");
         } else if (mode == "attackleft") {
             return new Animator(
                 this.assetsMapLeft.get(mode) ?? "attackleft", 158, 0, 54, 71, 4, 0.2, 10, true, mode !== "death");
         } else if (mode == "deathleft") {
             return new Animator(
-                this.assetsMapLeft.get(mode) ?? "deathleft", 72, 455, 74, 85, 1, 1, 0.1, true, mode == "death");
+                this.assetsMapLeft.get(mode) ?? "deathleft", 72, 463, 74, 85, 1, 1, 0.1, true, mode == "death");
         } else if (mode == "walkright") {
             return new Animator(
                 this.assetsMapRight.get(mode) ?? "walkright", 58, 157, 48, 70, 4, 0.1, 9, true, mode !== "death");
@@ -103,12 +103,12 @@ class Mafia {
             this.velocity.x = 0;
             //console.log(this.attackCounter);
                 // attack counter is for restricting attack speed
-            if (this.attackCounter > 0.5 && this.isFacingLeft) {
+            if (this.attackCounter > 0.3 && this.isFacingLeft) {
                 const bulletX = this.x + (1 ? -48 : 120);
                 const bulletY = this.y + 53;
                 this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
                 this.attackCounter = 0.0;
-            } else if (this.attackCounter > 0.5 && !this.isFacingLeft) {
+            } else if (this.attackCounter > 0.3 && !this.isFacingLeft) {
                 const bulletX = this.x + (0 ? -48 : 120);
                 const bulletY = this.y + 53;
                 this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 0));

@@ -186,7 +186,7 @@ class SceneManager {
     //Mafia
     let mafia = new Mafia(
       this.game,
-      12700,
+      this.game.mapMaxDistance + 600,
       10.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(mafia);
