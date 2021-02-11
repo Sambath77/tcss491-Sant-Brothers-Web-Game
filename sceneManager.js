@@ -2,7 +2,7 @@ class SceneManager {
   constructor(game) {
     this.game = game;
     this.game.camera = this;
-    this.game.mapMaxDistance = 12000;
+    this.game.mapMaxDistance = 500;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
@@ -181,6 +181,15 @@ class SceneManager {
       11.2 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(terrorists);
+
+
+    //Mafia
+    let mafia = new Mafia(
+      this.game,
+      600,
+      10.5 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(mafia);
 
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
