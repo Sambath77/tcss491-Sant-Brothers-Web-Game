@@ -9,7 +9,7 @@ class Mafia {
       this.animations = this.animationModes.map((mode) =>
         this.createMafiaAnimator(mode)
       );
-      this.health = 50;
+      this.health = 100;
       this.paused = true;
       this.deadCounter = 0;
       this.attackCounter = 0;
@@ -43,7 +43,7 @@ class Mafia {
                 this.assetsMapLeft.get(mode) ?? "attackleft", 158, 0, 54, 71, 4, 0.2, 10, true, mode !== "death");
         } else if (mode == "deathleft") {
             return new Animator(
-                this.assetsMapLeft.get(mode) ?? "deathleft", 72, 469, 57, 50, 1, 1, 0.1, true, mode == "death");
+                this.assetsMapLeft.get(mode) ?? "deathleft", 72, 455, 74, 85, 1, 1, 0.1, true, mode == "death");
         } else if (mode == "walkright") {
             return new Animator(
                 this.assetsMapRight.get(mode) ?? "walkright", 58, 157, 48, 70, 4, 0.1, 9, true, mode !== "death");
@@ -52,7 +52,7 @@ class Mafia {
                 this.assetsMapRight.get(mode) ?? "attackright", 58, 0, 54, 71, 4, 0.2, 10, true, mode !== "death");
         } else if (mode == "deathright") {
             return new Animator(
-                this.assetsMapRight.get(mode) ?? "deathright", 60, 476, 57, 50, 4, 1, 0.1, true, mode == "death");
+                this.assetsMapRight.get(mode) ?? "deathright", 316, 463, 74, 85, 1, 1, 0.1, true, mode == "death");
         
         } 
         
@@ -181,7 +181,11 @@ class Mafia {
                     that.health -= entity.power;
                     entity.removeFromWorld = true;
                     if (that.health <= 0) {
-                        that.currentMode = "deathleft";
+                        if(that.isFacingLeft) {
+                            that.currentMode = "deathleft";
+                        } else {
+                            that.currentMode = "deathright";
+                        }
                     }
                 } 
                 } else if (entity instanceof Sant) {
