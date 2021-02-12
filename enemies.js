@@ -2,7 +2,7 @@ class Skeleton {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-    this.animationModes = ["walk", "attack", "death"];
+    this.animationModes = ['walk', 'attack', 'death', 'backward'];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
     this.animations = this.animationModes.map((mode) =>
@@ -29,9 +29,9 @@ class Skeleton {
   }
 
   createSkeletonAnimator(mode) {
-    if (mode == "walk") {
+    if (mode == 'walk') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk",
+        this.assetsMap.get(mode) ?? 'walk',
         85,
         135,
         20,
@@ -40,11 +40,11 @@ class Skeleton {
         0.2,
         44,
         true,
-        mode !== "death"
+        mode !== 'death'
       );
-    } else if (mode == "attack") {
+    } else if (mode == 'attack') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk",
+        this.assetsMap.get(mode) ?? 'walk',
         15,
         197,
         30,
@@ -53,11 +53,11 @@ class Skeleton {
         0.1,
         34,
         true,
-        mode !== "death"
+        mode !== 'death'
       );
-    } else if (mode == "death") {
+    } else if (mode == 'death') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk",
+        this.assetsMap.get(mode) ?? 'walk',
         463,
         125,
         50,
@@ -66,7 +66,20 @@ class Skeleton {
         2.0,
         10,
         true,
-        mode == "death"
+        mode == 'death'
+      );
+    } else if (mode == 'backward') {
+      return new Animator(
+        this.assetsMap.get(mode) ?? 'walk',
+        22,
+        453,
+        22,
+        50,
+        3,
+        2.0,
+        41,
+        true,
+        mode != 'death'
       );
     }
   }
@@ -81,11 +94,11 @@ class Skeleton {
   }
 
   isAttacking() {
-    return this.currentMode === "attack";
+    return this.currentMode === 'attack';
   }
 
   isDead() {
-    return this.currentMode === "death";
+    return this.currentMode === 'death';
   }
 
   isInCameraView() {
@@ -96,7 +109,7 @@ class Skeleton {
     if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
       if (this.attackCounter > 1.6) {
-        this.currentMode = "walk";
+        this.currentMode = 'walk';
         this.attackCounter = 0.0;
       }
     }
@@ -118,31 +131,56 @@ class Skeleton {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if(entity instanceof Bullet || entity instanceof Spray || 
-            entity instanceof MultileFire || entity instanceof Fireball) {
-            that.currentMode = "death";
+          if (
+            entity instanceof Bullet ||
+            entity instanceof Spray ||
+            entity instanceof MultileFire ||
+            entity instanceof Fireball
+          ) {
+            that.currentMode = 'death';
             entity.removeFromWorld = true;
-          } else if(entity instanceof Sant) {
-            that.currentMode = "attack";
-
+            that.updateBoundingBox();
+          } else if (entity instanceof Sant) {
+            that.currentMode = 'attack';
+            that.updateBoundingBox();
           } else if (
-            (entity instanceof Ground ||
-              entity instanceof Brick ||
-              entity instanceof Block) &&
+            (entity instanceof Ground || entity instanceof Brick) &&
             that.lastBB.bottom <= entity.BB.top
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          } //else if (entity !== that) {
-          //   that.velocity.x = -that.velocity.x;
-          // } 
+          } else if (
+            entity instanceof Block &&
+            that.BB.bottom > entity.BB.top
+          ) {
+            if (that.BB.collide(entity.leftBB)) {
+              that.x = entity.BB.left - that.BB.width;
+              that.currentMode = 'walk';
+              console.log(that.x);
+              if (that.velocity.x > 0) {
+                console.log(that.currentMode);
+                that.velocity.x = -that.velocity.x;
+              }
+            } else {
+              that.x = entity.BB.right;
+
+              if (that.velocity.x < 0) {
+                that.currentMode = 'backward';
+                console.log(that.x);
+                console.log(that.currentMode);
+                that.velocity.x = -that.velocity.x;
+              }
+            }
+
+            that.updateBoundingBox();
+          }
         }
       });
     }
   }
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Tan";
+    ctx.fillStyle = 'Tan';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -160,8 +198,13 @@ class Skeleton {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-        ctx.strokeStyle = 'Red';
-        ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
     }
   }
 }
@@ -171,7 +214,7 @@ class Zombie {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH * 2, y: 0 }; // pixels per second
-    this.animationModes = ["running", "attack", "death"];
+    this.animationModes = ['running', 'attack', 'death'];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
     this.animations = this.animationModes.map((mode) =>
@@ -230,9 +273,9 @@ class Zombie {
     //       );
     //
     // }
-    if (mode == "running") {
+    if (mode == 'running') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "running",
+        this.assetsMap.get(mode) ?? 'running',
         58,
         68,
         35,
@@ -241,11 +284,11 @@ class Zombie {
         0.1,
         58,
         true,
-        mode !== "death"
+        mode !== 'death'
       );
-    } else if (mode == "attack") {
+    } else if (mode == 'attack') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "running",
+        this.assetsMap.get(mode) ?? 'running',
         //58,
         //122,
         //35,
@@ -253,7 +296,7 @@ class Zombie {
         //5,
         //0.5,
         //58,
-        58, 
+        58,
         240,
         35,
         40,
@@ -261,12 +304,11 @@ class Zombie {
         0.1,
         58,
         false,
-        mode !== "death"
+        mode !== 'death'
       );
-    }
-    else if (mode == "death" ){
+    } else if (mode == 'death') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "running",
+        this.assetsMap.get(mode) ?? 'running',
         37,
         363,
         59,
@@ -275,8 +317,8 @@ class Zombie {
         1,
         0,
         false,
-        mode == "death"
-      )
+        mode == 'death'
+      );
     }
   }
 
@@ -291,11 +333,11 @@ class Zombie {
   }
 
   isAttacking() {
-    return this.currentMode === "attack";
+    return this.currentMode === 'attack';
   }
 
   isDead() {
-    return this.currentMode === "death";
+    return this.currentMode === 'death';
   }
 
   isInCameraView() {
@@ -306,7 +348,7 @@ class Zombie {
     if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
       if (this.attackCounter > 1.6) {
-        this.currentMode = "running";
+        this.currentMode = 'running';
         this.attackCounter = 0.0;
       }
     }
@@ -328,12 +370,16 @@ class Zombie {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if(entity instanceof Bullet || entity instanceof Spray || 
-            entity instanceof MultileFire || entity instanceof Fireball) {
-              entity.removeFromWorld = true;
-            that.currentMode = "death";
+          if (
+            entity instanceof Bullet ||
+            entity instanceof Spray ||
+            entity instanceof MultileFire ||
+            entity instanceof Fireball
+          ) {
+            entity.removeFromWorld = true;
+            that.currentMode = 'death';
           } else if (entity instanceof Sant) {
-            that.currentMode = "attack";
+            that.currentMode = 'attack';
           } else if (
             (entity instanceof Ground ||
               entity instanceof Brick ||
@@ -342,8 +388,8 @@ class Zombie {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          // } else if (entity !== that) {
-          //   that.velocity.x = -that.velocity.x;
+            // } else if (entity !== that) {
+            //   that.velocity.x = -that.velocity.x;
           }
         }
       });
@@ -351,7 +397,7 @@ class Zombie {
   }
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Tan";
+    ctx.fillStyle = 'Tan';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -369,7 +415,7 @@ class Zombie {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -384,7 +430,7 @@ class FlyingEye {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-    this.animationModes = ["walk", "attack", "death"];
+    this.animationModes = ['walk', 'attack', 'death'];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
     this.animations = this.animationModes.map((mode) =>
@@ -409,7 +455,7 @@ class FlyingEye {
 
   createFlyingEyeAnimator(mode) {
     return new Animator(
-      this.assetsMap.get(mode) ?? "walk",
+      this.assetsMap.get(mode) ?? 'walk',
       52,
       60,
       42,
@@ -418,7 +464,7 @@ class FlyingEye {
       0.05,
       108,
       true,
-      mode !== "death"
+      mode !== 'death'
     );
   }
 
@@ -433,11 +479,11 @@ class FlyingEye {
   }
 
   isAttacking() {
-    return this.currentMode === "attack";
+    return this.currentMode === 'attack';
   }
 
   isDead() {
-    return this.currentMode === "death";
+    return this.currentMode === 'death';
   }
 
   isInCameraView() {
@@ -448,7 +494,7 @@ class FlyingEye {
     if (this.isAttacking()) {
       this.attackCounter += this.game.clockTick;
       if (this.attackCounter > 1.6) {
-        this.currentMode = "walk";
+        this.currentMode = 'walk';
         this.attackCounter = 0.0;
       }
     }
@@ -470,12 +516,16 @@ class FlyingEye {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if(entity instanceof Bullet || entity instanceof Spray || 
-            entity instanceof MultileFire || entity instanceof Fireball) {
-            that.currentMode = "death";
+          if (
+            entity instanceof Bullet ||
+            entity instanceof Spray ||
+            entity instanceof MultileFire ||
+            entity instanceof Fireball
+          ) {
+            that.currentMode = 'death';
             entity.removeFromWorld = true;
           } else if (entity instanceof Sant) {
-            that.currentMode = "attack";
+            that.currentMode = 'attack';
           } else if (
             (entity instanceof Ground ||
               entity instanceof Brick ||
@@ -493,7 +543,7 @@ class FlyingEye {
   }
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Tan";
+    ctx.fillStyle = 'Tan';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -511,7 +561,7 @@ class FlyingEye {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -526,7 +576,7 @@ class Terrorists {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-    this.animationModes = ["walk", "attack", "death"];
+    this.animationModes = ['walk', 'attack', 'death'];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
     this.animations = this.animationModes.map((mode) =>
@@ -555,20 +605,49 @@ class Terrorists {
   }
 
   createTerroristsAnimator(mode) {
-    if (mode == "walk") {
+    if (mode == 'walk') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk", 283, 149, 41, 45, 6, 0.1, 0, true, mode !== "death");
-    } else if (mode == "attack") {
+        this.assetsMap.get(mode) ?? 'walk',
+        283,
+        149,
+        41,
+        45,
+        6,
+        0.1,
+        0,
+        true,
+        mode !== 'death'
+      );
+    } else if (mode == 'attack') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk", 336, 45, 48, 45, 4, 0.2, 0, true, mode !== "death");
-    } else if (mode == "death") {
+        this.assetsMap.get(mode) ?? 'walk',
+        336,
+        45,
+        48,
+        45,
+        4,
+        0.2,
+        0,
+        true,
+        mode !== 'death'
+      );
+    } else if (mode == 'death') {
       return new Animator(
-        this.assetsMap.get(mode) ?? "walk", 311, 353, 57, 50, 1, 1, 0.1, true, mode == "death");
-
+        this.assetsMap.get(mode) ?? 'walk',
+        311,
+        353,
+        57,
+        50,
+        1,
+        1,
+        0.1,
+        true,
+        mode == 'death'
+      );
     }
   }
   updateBoundingBox() {
-    if (this.currentMode == "attack") {
+    if (this.currentMode == 'attack') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -576,27 +655,26 @@ class Terrorists {
         3.0 * PARAMS.BLOCKWIDTH,
         2.8 * PARAMS.BLOCKWIDTH
       );
-    } else if (this.currentMode == "walk") {
+    } else if (this.currentMode == 'walk') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
-      this.x,
-      this.y,
-      2.6 * PARAMS.BLOCKWIDTH,
-      2.8 * PARAMS.BLOCKWIDTH
-    );
-
-    } 
+        this.x,
+        this.y,
+        2.6 * PARAMS.BLOCKWIDTH,
+        2.8 * PARAMS.BLOCKWIDTH
+      );
+    }
   }
   isWalking() {
-    return this.currentMode === "walk";
+    return this.currentMode === 'walk';
   }
 
   isAttacking() {
-    return this.currentMode === "attack";
+    return this.currentMode === 'attack';
   }
 
   isDead() {
-    return this.currentMode === "death";
+    return this.currentMode === 'death';
   }
 
   isInCameraView() {
@@ -611,7 +689,7 @@ class Terrorists {
 
       this.velocity.x = 0;
       //console.log(this.attackCounter);
-          // attack counter is for restricting attack speed
+      // attack counter is for restricting attack speed
       if (this.attackCounter > 0.5) {
         const bulletX = this.x - 20;
         const bulletY = this.y + 37;
@@ -619,7 +697,7 @@ class Terrorists {
         this.attackCounter = 0.0;
       }
       if (this.attackCounter > 1.6) {
-        this.currentMode = "walk";
+        this.currentMode = 'walk';
         this.attackCounter = 0.0;
       }
     } else {
@@ -644,22 +722,26 @@ class Terrorists {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity instanceof Sant && entity.x < that.x) {
-          that.currentMode = "attack";
+          that.currentMode = 'attack';
         } else if (entity instanceof Sant && entity.x > that.x) {
-          that.currentMode = "walk";
+          that.currentMode = 'walk';
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if(entity instanceof Bullet || entity instanceof Spray || 
-            entity instanceof MultileFire || entity instanceof Fireball) {
-            if(that.health > 0) {
+          if (
+            entity instanceof Bullet ||
+            entity instanceof Spray ||
+            entity instanceof MultileFire ||
+            entity instanceof Fireball
+          ) {
+            if (that.health > 0) {
               that.health -= entity.power;
               entity.removeFromWorld = true;
               if (that.health <= 0) {
-                that.currentMode = "death";
+                that.currentMode = 'death';
               }
-            } 
+            }
           } else if (entity instanceof Sant) {
-            that.currentMode = "attack";
+            that.currentMode = 'attack';
           } else if (
             (entity instanceof Ground ||
               entity instanceof Brick ||
@@ -668,8 +750,8 @@ class Terrorists {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-          // } else if (entity !== that) {
-          //   that.velocity.x = -that.velocity.x;
+            // } else if (entity !== that) {
+            //   that.velocity.x = -that.velocity.x;
           }
         }
       });
@@ -677,7 +759,7 @@ class Terrorists {
   }
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Tan";
+    ctx.fillStyle = 'Tan';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -695,7 +777,7 @@ class Terrorists {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,

@@ -92,7 +92,7 @@ class Angel {
     this.rightBB = new BoundingBox(
       this.x,
       this.y,
-      PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH / 2,
       PARAMS.BLOCKWIDTH * 2
     );
   }
@@ -240,8 +240,8 @@ class Block {
       PARAMS.BLOCKWIDTH
     );
     this.rightBB = new BoundingBox(
-      this.x + PARAMS.BLOCKWIDTH,
-      this.y,
+      this.x + PARAMS.BLOCKWIDTH * 3,
+      this.y + PARAMS.BLOCKWIDTH * 3,
       this.w + PARAMS.BLOCKWIDTH,
       PARAMS.BLOCKWIDTH
     );
@@ -339,23 +339,13 @@ class Brickmoved {
   }
 
   draw(ctx) {
-    if (this.x === 0) {
-      this.animation.drawFrame(
-        this.game.clockTick,
-        ctx,
-        this.x - this.game.camera.x,
-        this.y,
-        PARAMS.SCALE
-      );
-    } else {
-      this.animation.drawFrame(
-        this.game.clockTick,
-        ctx,
-        this.x - this.game.camera.x,
-        this.y,
-        PARAMS.SCALE
-      );
-    }
+    this.animation.drawFrame(
+      this.game.clockTick,
+      ctx,
+      this.x - this.game.camera.x,
+      this.y,
+      PARAMS.SCALE
+    );
 
     if (PARAMS.DEBUG) {
       ctx.strokeStyle = "Red";
