@@ -6,6 +6,7 @@ class Fireball {
       ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
     ];
+    this.initialX = x;
     this.power = 2;
     this.width = 8;
     this.height = 2;
@@ -36,12 +37,18 @@ class Fireball {
   }
 
   update() {
-    this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
-    this.updateBoundingBox();
-    const that = this;
-    this.game.entities.forEach(function (entity) {
+    if(this.x > this.initialX + 500) {
+      this.x += 10000000000000;
+      this.updateBoundingBox();
+    }
+    else{
+      this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
+      this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
     });
-  }
+    }
+  };
   updateBoundingBox() {
     this.lastBB = this.BB;
     this.BB = new BoundingBox(
@@ -82,6 +89,7 @@ class Bullet {
       ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
     ];
+    this.initialX = x;
     this.power = 1;
     this.width = 8;
     this.height = 2;
@@ -112,6 +120,14 @@ class Bullet {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
+    if(this.x < this.initialX - 500 ) {
+      this.x -= 100000000000;
+      this.updateBoundingBox();
+    }
+    else if(this.x > this.initialX + 500) {
+      this.x += 100000000000;
+      this.updateBoundingBox();
+    }
   }
 
   updateBoundingBox() {
@@ -154,6 +170,7 @@ class MultileFire {
       ASSET_MANAGER.getAsset("./sprites/sant/fire_left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/fire_right.png"),
     ];
+    this.initialX = x;
     this.power = 4;
     this.width = 8;
     this.height = 2;
@@ -184,6 +201,14 @@ class MultileFire {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
+    if(this.x < this.initialX - 500 ) {
+      this.x -= 100000000000;
+      this.updateBoundingBox();
+    }
+    else if(this.x > this.initialX + 500) {
+      this.x += 100000000000;
+      this.updateBoundingBox();
+    }
   }
   updateBoundingBox() {
     this.lastBB = this.BB;
@@ -226,6 +251,7 @@ class Spray {
       ASSET_MANAGER.getAsset("./sprites/sant/spray_left.png"),
       ASSET_MANAGER.getAsset("./sprites/sant/spray_right.png"),
     ];
+    this.initialX = x;
     this.power = 5;
     this.width = 8;
     this.height = 2;
@@ -256,6 +282,14 @@ class Spray {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
+    if(this.x < this.initialX - 500 ) {
+      this.x -= 100000000000;
+      this.updateBoundingBox();
+    }
+    else if(this.x > this.initialX + 500) {
+      this.x += 100000000000;
+      this.updateBoundingBox();
+    }
   }
   updateBoundingBox() {
     this.lastBB = this.BB;
