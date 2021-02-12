@@ -363,12 +363,23 @@ class BulletTwo {
     this.updateBoundingBox();
     const that = this;
     this.game.entities.forEach(function (entity) {
-      if (entity.BB && that.BB.collide(entity.BB)) {
-        if (entity instanceof Sant) {
-          if (that.x < entity.x) {
-            that.removeFromWorld = true;
+      if(that.isFacingLeft == 1) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof Sant) {
+            if (that.x < entity.x) {
+              that.removeFromWorld = true;
+            }
+            
           }
-          
+        }
+      } else {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof Sant) {
+            if (that.x > entity.x) {
+              that.removeFromWorld = true;
+            }
+            
+          }
         }
       }
     });

@@ -228,12 +228,22 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
+
+    //Mafia
+    let mafia = new Mafia(
+      this.game,
+      this.game.mapMaxDistance + 600,
+      10.5 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(mafia);
+
     terrorists = new Terrorists(
       this.game,
       this.game.mapMaxDistance + 800,
       11.2 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(terrorists);
+
 
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
