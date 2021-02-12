@@ -429,7 +429,6 @@ class Sant {
               (entity instanceof Ground ||
                 entity instanceof Brick ||
                 entity instanceof Block ||
-                entity instanceof Angel ||
                 entity instanceof Brickmoved) && // landin
               that.lastBB.bottom <= entity.BB.top
             ) {
@@ -483,23 +482,23 @@ class Sant {
               that.velocity.y = 0;
             }
           }
-          if (
-            entity instanceof Brick &&
-            entity instanceof Angel &&
-            entity.type && // hit a visible brick
-            that.BB.collide(entity.topBB) &&
-            that.BB.collide(entity.bottomBB)
-          ) {
-            // hit the side
-            if (that.BB.collide(entity.leftBB)) {
-              that.x = entity.BB.left - that.BB.width;
-              if (that.velocity.x > 0) that.velocity.x = 0;
-            } else if (that.BB.collide(entity.rightBB)) {
-              that.x = entity.BB.right;
-              if (that.velocity.x < 0) that.velocity.x = 0;
-            }
-            that.updateBB();
-          }
+          // if (
+          //   entity instanceof Brick &&
+          //   entity instanceof Angel &&
+          //   entity.type && // hit a visible brick
+          //   that.BB.collide(entity.topBB) &&
+          //   that.BB.collide(entity.bottomBB)
+          // ) {
+          //   // hit the side
+          //   if (that.BB.collide(entity.leftBB)) {
+          //     that.x = entity.BB.left - that.BB.width;
+          //     if (that.velocity.x > 0) that.velocity.x = 0;
+          //   } else {
+          //     that.x = entity.BB.right;
+          //     if (that.velocity.x < 0) that.velocity.x = 0;
+          //   }
+          //   that.updateBB();
+          // }
           if (
             (entity instanceof Block || entity instanceof Ground) &&
             that.BB.bottom > entity.BB.top
@@ -507,8 +506,6 @@ class Sant {
             if (that.BB.collide(entity.leftBB)) {
               that.x = entity.BB.left - that.BB.width;
               if (that.velocity.x > 0) that.velocity.x = 0;
-              // if (entity instanceof SideTube && that.game.right)
-              //     that.game.camera.loadLevelOne(162.5 * PARAMS.BLOCKWIDTH, 11 * PARAMS.BLOCKWIDTH)
             } else {
               that.x = entity.BB.right;
               if (that.velocity.x < 0) that.velocity.x = 0;
@@ -526,26 +523,11 @@ class Sant {
             ) {
               that.random = Math.floor(Math.random() * 4);
               that.changeGun = true;
+              console.log(that.random);
             }
 
             that.updateBB();
           }
-
-          // if (entity instanceof Mushroom && !entity.emerging) {
-          //   entity.removeFromWorld = true;
-          //   if (entity.type === "Growth") {
-          //     that.y -= that.BB.height;
-          //     that.size = 1;
-          //     that.game.addEntity(new Score(that.game, that.x, that.y, 1000));
-          //   } else {
-          //     that.game.camera.lives++;
-          //   }
-          // }
-          // if (entity instanceof Coin) {
-          //   entity.removeFromWorld = true;
-          //   that.game.camera.score += 200;
-          //   that.game.camera.addCoin();
-          // }
         }
       });
 
@@ -639,7 +621,10 @@ class Sant {
       if (this.x <= this.game.mapMaxDistance) {
         this.x = this.game.mapMaxDistance;
       }
-      if (this.x >= this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH - this.BB.width) {
+      if (
+        this.x >=
+        this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH - this.BB.width
+      ) {
         this.x = this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH - this.BB.width;
       }
     }
