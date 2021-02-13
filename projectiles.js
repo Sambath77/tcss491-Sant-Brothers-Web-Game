@@ -361,28 +361,7 @@ class BulletTwo {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    const that = this;
-    this.game.entities.forEach(function (entity) {
-      if(that.isFacingLeft == 1) {
-        if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
-            if (that.x < entity.x) {
-              that.removeFromWorld = true;
-            }
-            
-          }
-        }
-      } else {
-        if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof Sant) {
-            if (that.x > entity.x) {
-              that.removeFromWorld = true;
-            }
-            
-          }
-        }
-      }
-    });
+
   }
 
   updateBoundingBox() {

@@ -30,6 +30,8 @@ class Sant {
     this.changeGun = false;
     this.health = 5;
 
+    this.bullet = null;
+
     // sant's animations
     this.animations = [];
     this.random = 0;
@@ -466,6 +468,9 @@ class Sant {
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
                 that.velocity.x = 0;
                 that.state = 7;
+                if(entity instanceof BulletTwo) {
+                  that.bullet = entity;
+                }
               }
             }
           }
@@ -534,6 +539,7 @@ class Sant {
       if (this.state === 7) {
         if (this.hurtCounter === 0) {
           this.health -= 1;
+          this.bullet.removeFromWorld = true;
         }
         this.hurtCounter += this.game.clockTick;
         if (this.hurtCounter > 1) {
