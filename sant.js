@@ -457,7 +457,8 @@ class Sant {
                 entity instanceof Zombie ||
                 entity instanceof FlyingEye ||
                 entity instanceof Terrorists ||
-                entity instanceof BulletTwo) && // squish skeleton
+                entity instanceof BulletTwo ||
+                entity instanceof Mafia ) && // squish skeleton
               // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
               !entity.dead
             ) {
