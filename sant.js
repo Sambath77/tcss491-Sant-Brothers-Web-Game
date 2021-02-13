@@ -539,7 +539,11 @@ class Sant {
       if (this.state === 7) {
         if (this.hurtCounter === 0) {
           this.health -= 1;
-          this.bullet.removeFromWorld = true;
+          if(this.bullet instanceof BulletTwo) {
+            this.bullet.removeFromWorld = true;
+            
+          }
+          
         }
         this.hurtCounter += this.game.clockTick;
         if (this.hurtCounter > 1) {
