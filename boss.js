@@ -15,6 +15,7 @@ class Mafia {
       this.attackCounter = 0;
       this.updateBoundingBox();
       this.isFacingLeft = true;
+      this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
   
     }
   
@@ -134,7 +135,7 @@ class Mafia {
             }
             this.deadCounter += this.game.clockTick;
             if (this.deadCounter > 0.5) {
-                this.removeFromWorld = true;
+                this.removeFromWorld = false;
             }
         }
         if (this.paused && this.isInCameraView()) {
@@ -224,6 +225,32 @@ class Mafia {
         this.y,
         2.4
       );
+      if(this.currentMode == "deathright" || this.currentMode == "deathleft") {
+        ctx.drawImage(this.spritesheet, this.game.mapMaxDistance - 579, 3 * PARAMS.BLOCKWIDTH, 900, 250);    
+      }
+      var object1 = {
+        x: 60,
+        y: 170,
+        width: 400,
+        height: 20
+    };
+    ctx.fillText(
+        "Boss's health: ",
+        60,
+        150
+    );
+    var maxHealth = 100;
+    var percent = this.health / maxHealth;
+    if(this.health >= 70) {
+        ctx.fillStyle = "green";
+    } else if (this.health < 70 && this.health >= 40) {
+        ctx.fillStyle = "yellow";
+    } else  {
+        ctx.fillStyle = "red";
+    }
+    ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
+    
+    
       if (PARAMS.DEBUG) {
         ctx.strokeStyle = "Red";
         ctx.strokeRect(

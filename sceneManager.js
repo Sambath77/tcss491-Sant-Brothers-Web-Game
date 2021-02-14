@@ -2,7 +2,7 @@ class SceneManager {
   constructor(game) {
     this.game = game;
     this.game.camera = this;
-    this.game.mapMaxDistance = 12000;
+    this.game.mapMaxDistance = 500;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
