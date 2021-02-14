@@ -18,6 +18,7 @@ class Fireball {
       this.createNewFireballAnimator(1, 218, 204),
     ];
 
+
     this.updateBoundingBox();
   }
 
@@ -401,8 +402,8 @@ class Weapon {
     Object.assign(this, { game, x, y, isFacingLeft, number });
 
     this.gun = [
-      new Fireball(game, x, y, isFacingLeft),
       new Bullet(game, x, y, isFacingLeft),
+      new Fireball(game, x, y, isFacingLeft),
       new MultileFire(game, x, y, isFacingLeft),
       new Spray(game, x, y, isFacingLeft),
     ];

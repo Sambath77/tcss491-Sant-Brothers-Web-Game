@@ -280,6 +280,11 @@ class SceneManager {
       6.5 * PARAMS.BLOCKWIDTH,
       1.5 * PARAMS.BLOCKWIDTH
     );
+    ctx.fillText(
+      "capacity: " + this.sant.capacity,
+      6.5 * PARAMS.BLOCKWIDTH,
+      2.3 * PARAMS.BLOCKWIDTH
+    );
     // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
     ctx.fillText("TIME", 12.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
