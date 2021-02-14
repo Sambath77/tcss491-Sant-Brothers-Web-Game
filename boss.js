@@ -9,7 +9,7 @@ class Mafia {
       this.animations = this.animationModes.map((mode) =>
         this.createMafiaAnimator(mode)
       );
-      this.health = 100;
+      this.health = 1;
       this.paused = true;
       this.deadCounter = 0;
       this.attackCounter = 0;
@@ -226,7 +226,7 @@ class Mafia {
         2.4
       );
       if(this.currentMode == "deathright" || this.currentMode == "deathleft") {
-        ctx.drawImage(this.spritesheet, this.game.mapMaxDistance - 579, 3 * PARAMS.BLOCKWIDTH, 900, 250);    
+        ctx.drawImage(this.spritesheet, -79, 3 * PARAMS.BLOCKWIDTH, 900, 250);
       }
       var object1 = {
         x: 60,
