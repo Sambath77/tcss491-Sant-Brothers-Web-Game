@@ -2,9 +2,16 @@ class Skeleton {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-    this.animationModes = ['walk', 'attack', 'death', 'backward'];
+    this.animationModes = [
+      'walk',
+      'attack',
+      'death',
+      'backward',
+      'attack_right',
+    ];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
+
     this.animations = this.animationModes.map((mode) =>
       this.createSkeletonAnimator(mode)
     );
@@ -81,6 +88,19 @@ class Skeleton {
         true,
         mode != 'death'
       );
+    } else if (mode == 'attack_right') {
+      return new Animator(
+        this.assetsMap.get(mode) ?? 'walk',
+        466,
+        454,
+        44,
+        50,
+        2,
+        2.0,
+        34,
+        true,
+        mode != 'death'
+      );
     }
   }
   updateBoundingBox() {
@@ -94,7 +114,7 @@ class Skeleton {
   }
 
   isAttacking() {
-    return this.currentMode === 'attack';
+    return this.currentMode === 'attack' || this.currentMode === 'attack_right';
   }
 
   isDead() {
@@ -140,8 +160,23 @@ class Skeleton {
             that.currentMode = 'death';
             entity.removeFromWorld = true;
             that.updateBoundingBox();
-          } else if (entity instanceof Sant) {
-            that.currentMode = 'attack';
+          } else if (entity instanceof Sant && entity.y > that.y) {
+            // that.currentMode = 'attack';
+            //that.updateBoundingBox();
+            if (entity.x < that.x) {
+              that.currentMode = 'attack';
+              that.isFacingLeft = true;
+            } else {
+              that.currentMode = 'attack_right';
+              that.isFacingLeft = false;
+            }
+            that.updateBoundingBox();
+          } else if (entity instanceof Sant && entity.y < that.y) {
+            if (that.isFacingLeft) {
+              that.currentMode = 'backward';
+            } else {
+              that.currentMode = 'walk';
+            }
             that.updateBoundingBox();
           } else if (
             (entity instanceof Ground || entity instanceof Brick) &&
@@ -156,9 +191,9 @@ class Skeleton {
             if (that.BB.collide(entity.leftBB)) {
               that.x = entity.BB.left - that.BB.width;
               that.currentMode = 'walk';
-              console.log(that.x);
+              that.isFacingLeft = false;
+
               if (that.velocity.x > 0) {
-                console.log(that.currentMode);
                 that.velocity.x = -that.velocity.x;
               }
             } else {
@@ -166,10 +201,16 @@ class Skeleton {
 
               if (that.velocity.x < 0) {
                 that.currentMode = 'backward';
-                console.log(that.x);
-                console.log(that.currentMode);
+
                 that.velocity.x = -that.velocity.x;
+                // if (entity instanceof Sant) {
+                //   that.currentMode = 'attack_right';
+                //   that.isFacingLeft = true;
+                //   console.log(currentMode);
+                //   that.updateBoundingBox();
+                // }
               }
+              that.updateBoundingBox();
             }
 
             that.updateBoundingBox();
