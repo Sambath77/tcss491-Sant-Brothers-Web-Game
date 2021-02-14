@@ -269,6 +269,15 @@ class Sant {
         currentSantHeight * PARAMS.SCALE
       );
     }
+
+    if (this.deadAnim) {
+      this.BB = new BoundingBox(
+        this.x,
+        this.y,
+        currentSantWidth * PARAMS.SCALE,
+        currentSantHeight * PARAMS.SCALE
+      );
+    }
   }
 
   die() {
@@ -460,7 +469,7 @@ class Sant {
                 entity instanceof FlyingEye ||
                 entity instanceof Terrorists ||
                 entity instanceof BulletTwo ||
-                entity instanceof Mafia ) && // squish skeleton
+                entity instanceof Mafia) && // squish skeleton
               // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
               !entity.dead
             ) {
@@ -471,7 +480,7 @@ class Sant {
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
                 that.velocity.x = 0;
                 that.state = 7;
-                if(entity instanceof BulletTwo) {
+                if (entity instanceof BulletTwo) {
                   that.bullet = entity;
                 }
               }
@@ -532,11 +541,11 @@ class Sant {
               that.random = Math.floor(Math.floor(Math.random() * 3) + 1);
               that.changeGun = true;
               console.log(that.random);
-              if(that.random == 1){
+              if (that.random == 1) {
                 that.capacity = 60;
-              }else if(that.random == 2) {
+              } else if (that.random == 2) {
                 that.capacity = 40;
-              } else if(that.random == 3) {
+              } else if (that.random == 3) {
                 that.capacity = 25;
               }
             }
@@ -549,11 +558,9 @@ class Sant {
       if (this.state === 7) {
         if (this.hurtCounter === 0) {
           this.health -= 1;
-          if(this.bullet instanceof BulletTwo) {
+          if (this.bullet instanceof BulletTwo) {
             this.bullet.removeFromWorld = true;
-            
           }
-          
         }
         this.hurtCounter += this.game.clockTick;
         if (this.hurtCounter > 1) {
@@ -580,8 +587,8 @@ class Sant {
           if (this.attackCounter > 0.2) {
             const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
             const fireballY = this.y + 54;
-            if(!this.random == 0) {
-              if(this.capacity > 0) {
+            if (!this.random == 0) {
+              if (this.capacity > 0) {
                 this.game.addEntity(
                   // change this
                   //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
@@ -594,7 +601,6 @@ class Sant {
                   ).seletedGun(this.random)
                 );
                 this.capacity -= 1;
-
               } else {
                 this.random = 0;
               }
@@ -610,7 +616,6 @@ class Sant {
                   this.random
                 ).seletedGun(this.random)
               );
-
             }
             //console.log(this.game.removeEntity());
             this.attackCounter = 0.0;

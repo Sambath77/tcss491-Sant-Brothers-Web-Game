@@ -160,22 +160,21 @@ class Skeleton {
             that.currentMode = 'death';
             entity.removeFromWorld = true;
             that.updateBoundingBox();
-          } else if (entity instanceof Sant && entity.y > that.y) {
+          } else if (entity instanceof Sant) {
             // that.currentMode = 'attack';
             //that.updateBoundingBox();
             if (entity.x < that.x) {
               that.currentMode = 'attack';
-              that.isFacingLeft = true;
-            } else {
-              that.currentMode = 'attack_right';
               that.isFacingLeft = false;
-            }
-            that.updateBoundingBox();
-          } else if (entity instanceof Sant && entity.y < that.y) {
-            if (that.isFacingLeft) {
-              that.currentMode = 'backward';
             } else {
+              that.currentMode = 'attack_rigt';
+              that.isFacingLeft = true;
+            }
+
+            if (that.isFacingLeft) {
               that.currentMode = 'walk';
+            } else {
+              that.currentMode = 'backward';
             }
             that.updateBoundingBox();
           } else if (
