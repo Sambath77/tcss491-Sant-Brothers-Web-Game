@@ -9,7 +9,7 @@ class SceneManager {
     this.lives = 3;
 
     this.coinAnimation = new Animator(
-      ASSET_MANAGER.getAsset("./sprites/coins.png"),
+      ASSET_MANAGER.getAsset('./sprites/coins.png'),
       0,
       160,
       8,
@@ -97,6 +97,40 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
+    //flying eyes
+    let flyingEye = new FlyingEye(
+      this.game,
+      13 * PARAMS.BLOCKWIDTH,
+      10 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(flyingEye);
+
+    for (
+      let i = 0;
+      10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
+      i += 3
+    ) {
+      flyingEye = new FlyingEye(
+        this.game,
+        10 * i * PARAMS.BLOCKWIDTH + 1200,
+        7 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(flyingEye);
+    }
+
+    for (
+      let i = 0;
+      10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
+      i += 3
+    ) {
+      flyingEye = new FlyingEye(
+        this.game,
+        11 * i * PARAMS.BLOCKWIDTH + 1500,
+        5 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(flyingEye);
+    }
+
     for (
       let i = 0;
       10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
@@ -150,6 +184,20 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
+    for (
+      let i = 0;
+      PARAMS.BLOCKWIDTH * 10 * i + 1000 < this.game.mapMaxDistance;
+      i = i + 7
+    ) {
+      brick = new Brickmoved(
+        this.game,
+        PARAMS.BLOCKWIDTH * 11 * i + 1500,
+        PARAMS.BLOCKWIDTH * 8,
+        PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(brick);
+    }
+
     brick = new Brick(
       this.game,
       this.game.mapMaxDistance,
@@ -164,10 +212,25 @@ class SceneManager {
       PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(brick);
+
     let skeleton = new Skeleton(
       this.game,
       10 * PARAMS.BLOCKWIDTH,
       10.85 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(skeleton);
+
+    skeleton = new Skeleton(
+      this.game,
+      this.game.mapMaxDistance + 200,
+      PARAMS.BLOCKWIDTH * 10.85
+    );
+    this.game.addEntity(skeleton);
+
+    skeleton = new Skeleton(
+      this.game,
+      this.game.mapMaxDistance + 400,
+      PARAMS.BLOCKWIDTH * 10.85
     );
     this.game.addEntity(skeleton);
 
@@ -183,14 +246,6 @@ class SceneManager {
       );
       this.game.addEntity(skeleton);
     }
-
-    //flying eyes
-    let flyingEye = new FlyingEye(
-      this.game,
-      13 * PARAMS.BLOCKWIDTH,
-      10 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(flyingEye);
 
     //Zombie - Tung
     let zombie = new Zombie(
@@ -228,6 +283,14 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
+    for (let i = 0; i < 30; i += 2) {
+      terrorists = new Terrorists(
+        this.game,
+        this.game.mapMaxDistance,
+        PARAMS.BLOCKWIDTH * 11.2
+      );
+      this.game.addEntity(terrorists);
+    }
 
     //Mafia
     let mafia = new Mafia(
@@ -244,14 +307,13 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
-
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
     this.game.addEntity(this.sant);
   }
 
   update() {
-    PARAMS.DEBUG = document.getElementById("debug").checked;
+    PARAMS.DEBUG = document.getElementById('debug').checked;
 
     let midpoint = PARAMS.CANVAS_WIDTH / 2 - PARAMS.BLOCKWIDTH / 2;
 
@@ -268,15 +330,15 @@ class SceneManager {
 
   draw(ctx) {
     ctx.font = PARAMS.BLOCKWIDTH / 2 + 'px "Press Start 2P"';
-    ctx.fillStyle = "White";
-    ctx.fillText("SANT", 1.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
+    ctx.fillStyle = 'White';
+    ctx.fillText('SANT', 1.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     ctx.fillText(
-      (this.score + "").padStart(8, "0"),
+      (this.score + '').padStart(8, '0'),
       1.5 * PARAMS.BLOCKWIDTH,
       1.5 * PARAMS.BLOCKWIDTH
     );
     ctx.fillText(
-      "health: " + this.sant.getHealth(),
+      'health: ' + this.sant.getHealth(),
       6.5 * PARAMS.BLOCKWIDTH,
       1.5 * PARAMS.BLOCKWIDTH
     );
@@ -287,8 +349,8 @@ class SceneManager {
     );
     // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
-    ctx.fillText("TIME", 12.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
-    ctx.fillText("400", 13 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
+    ctx.fillText('TIME', 12.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
+    ctx.fillText('400', 13 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
 
     // this.coinAnimation.drawFrame(
     //   this.game.clockTick,
@@ -299,15 +361,15 @@ class SceneManager {
     // );
 
     if (PARAMS.DEBUG) {
-      let xV = "xV=" + Math.floor(this.game.mario.velocity.x);
-      let yV = "yV=" + Math.floor(this.game.mario.velocity.y);
+      let xV = 'xV=' + Math.floor(this.game.mario.velocity.x);
+      let yV = 'yV=' + Math.floor(this.game.mario.velocity.y);
       ctx.fillText(xV, 1.5 * PARAMS.BLOCKWIDTH, 2.5 * PARAMS.BLOCKWIDTH);
       ctx.fillText(yV, 1.5 * PARAMS.BLOCKWIDTH, 3 * PARAMS.BLOCKWIDTH);
 
       ctx.translate(0, -10); // hack to move elements up by 10 pixels instead of adding -10 to all y coordinates below
-      ctx.strokeStyle = "White";
+      ctx.strokeStyle = 'White';
       ctx.lineWidth = 2;
-      ctx.strokeStyle = this.game.left ? "White" : "Grey";
+      ctx.strokeStyle = this.game.left ? 'White' : 'Grey';
       ctx.fillStyle = ctx.strokeStyle;
       ctx.strokeRect(
         6 * PARAMS.BLOCKWIDTH - 2,
@@ -315,8 +377,8 @@ class SceneManager {
         0.5 * PARAMS.BLOCKWIDTH + 2,
         0.5 * PARAMS.BLOCKWIDTH + 2
       );
-      ctx.fillText("L", 6 * PARAMS.BLOCKWIDTH, 3 * PARAMS.BLOCKWIDTH);
-      ctx.strokeStyle = this.game.down ? "White" : "Grey";
+      ctx.fillText('L', 6 * PARAMS.BLOCKWIDTH, 3 * PARAMS.BLOCKWIDTH);
+      ctx.strokeStyle = this.game.down ? 'White' : 'Grey';
       ctx.fillStyle = ctx.strokeStyle;
       ctx.strokeRect(
         6.5 * PARAMS.BLOCKWIDTH,
@@ -325,11 +387,11 @@ class SceneManager {
         0.5 * PARAMS.BLOCKWIDTH + 2
       );
       ctx.fillText(
-        "D",
+        'D',
         6.5 * PARAMS.BLOCKWIDTH + 2,
         3.5 * PARAMS.BLOCKWIDTH + 2
       );
-      ctx.strokeStyle = this.game.up ? "White" : "Grey";
+      ctx.strokeStyle = this.game.up ? 'White' : 'Grey';
       ctx.fillStyle = ctx.strokeStyle;
       ctx.strokeRect(
         6.5 * PARAMS.BLOCKWIDTH,
@@ -338,11 +400,11 @@ class SceneManager {
         0.5 * PARAMS.BLOCKWIDTH + 2
       );
       ctx.fillText(
-        "U",
+        'U',
         6.5 * PARAMS.BLOCKWIDTH + 2,
         2.5 * PARAMS.BLOCKWIDTH - 2
       );
-      ctx.strokeStyle = this.game.right ? "White" : "Grey";
+      ctx.strokeStyle = this.game.right ? 'White' : 'Grey';
       ctx.fillStyle = ctx.strokeStyle;
       ctx.strokeRect(
         7 * PARAMS.BLOCKWIDTH + 2,
@@ -350,9 +412,9 @@ class SceneManager {
         0.5 * PARAMS.BLOCKWIDTH + 2,
         0.5 * PARAMS.BLOCKWIDTH + 2
       );
-      ctx.fillText("R", 7 * PARAMS.BLOCKWIDTH + 4, 3 * PARAMS.BLOCKWIDTH);
+      ctx.fillText('R', 7 * PARAMS.BLOCKWIDTH + 4, 3 * PARAMS.BLOCKWIDTH);
 
-      ctx.strokeStyle = this.game.A ? "White" : "Grey";
+      ctx.strokeStyle = this.game.A ? 'White' : 'Grey';
       ctx.fillStyle = ctx.strokeStyle;
       ctx.beginPath();
       ctx.arc(
@@ -363,8 +425,8 @@ class SceneManager {
         2 * Math.PI
       );
       ctx.stroke();
-      ctx.fillText("A", 8 * PARAMS.BLOCKWIDTH + 4, 3 * PARAMS.BLOCKWIDTH);
-      ctx.strokeStyle = this.game.B ? "White" : "Grey";
+      ctx.fillText('A', 8 * PARAMS.BLOCKWIDTH + 4, 3 * PARAMS.BLOCKWIDTH);
+      ctx.strokeStyle = this.game.B ? 'White' : 'Grey';
       ctx.fillStyle = ctx.strokeStyle;
       ctx.beginPath();
       ctx.arc(
@@ -375,10 +437,10 @@ class SceneManager {
         2 * Math.PI
       );
       ctx.stroke();
-      ctx.fillText("B", 8.75 * PARAMS.BLOCKWIDTH + 4, 3 * PARAMS.BLOCKWIDTH);
+      ctx.fillText('B', 8.75 * PARAMS.BLOCKWIDTH + 4, 3 * PARAMS.BLOCKWIDTH);
 
       ctx.translate(0, 10);
-      ctx.strokeStyle = "White";
+      ctx.strokeStyle = 'White';
       ctx.fillStyle = ctx.strokeStyle;
 
       this.minimap.draw(ctx);
@@ -394,7 +456,7 @@ class Minimap {
   update() {}
 
   draw(ctx) {
-    ctx.strokeStyle = "Black";
+    ctx.strokeStyle = 'Black';
     ctx.strokeRect(this.x, this.y, this.w, PARAMS.BLOCKWIDTH);
     for (var i = 0; i < this.game.entities.length; i++) {
       this.game.entities[i].drawMinimap(ctx, this.x, this.y);

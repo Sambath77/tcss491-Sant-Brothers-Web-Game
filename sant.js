@@ -5,10 +5,10 @@ class Sant {
     this.game.mario = this;
 
     // spritesheets
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/sant.png");
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/sant.png');
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
     ];
     // if (luigi) this.spritesheets = ASSET_MANAGER.getAsset("./sprites/luigi.png");
 
@@ -617,31 +617,7 @@ class Sant {
           }
         }
       }
-      // } else {
-      //   if (this.state === 6) {
-      //     this.attackCounter += this.game.clockTick;
-      //     // attack counter is for restricting attack speed
-      //     if (this.attackCounter > 0.2) {
-      //       const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
-      //       const fireballY = this.y + 54;
 
-      //       this.game.addEntity(
-      //         // change this
-      //         //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
-      //         new Weapon(
-      //           this.game,
-      //           fireballX,
-      //           fireballY,
-      //           this.isFacingLeft,
-      //           this.random
-      //         ).seletedGun(this.random)
-      //       );
-      //       //console.log(this.game.removeEntity());
-      //       this.attackCounter = 0.0;
-      //     }
-      //   }
-      // }
-      // update state
       if (this.state !== 4 && this.state !== 6 && this.state !== 7) {
         // if (this.game.down) this.state = 5;
         if (Math.abs(this.velocity.x) > MAX_WALK) this.state = 2;
@@ -672,7 +648,7 @@ class Sant {
   }
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Red";
+    ctx.fillStyle = 'Red';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -700,7 +676,7 @@ class Sant {
       );
     }
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
