@@ -9,7 +9,7 @@ class Mafia {
       this.animations = this.animationModes.map((mode) =>
         this.createMafiaAnimator(mode)
       );
-      this.health = 1;
+      this.health = 100;
       this.paused = true;
       this.deadCounter = 0;
       this.attackCounter = 0;
