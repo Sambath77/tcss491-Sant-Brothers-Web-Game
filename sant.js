@@ -32,6 +32,8 @@ class Sant {
 
     this.bullet = null;
 
+    this.capacity = 0;
+
     // sant's animations
     this.animations = [];
     this.random = 0;
@@ -527,9 +529,16 @@ class Sant {
               that.BB.collide(entity.leftBB) ||
               that.BB.collide(entity.rightBB)
             ) {
-              that.random = Math.floor(Math.random() * 4);
+              that.random = Math.floor(Math.floor(Math.random() * 3) + 1);
               that.changeGun = true;
               console.log(that.random);
+              if(that.random == 1){
+                that.capacity = 60;
+              }else if(that.random == 2) {
+                that.capacity = 40;
+              } else if(that.random == 3) {
+                that.capacity = 25;
+              }
             }
 
             that.updateBB();
@@ -571,17 +580,38 @@ class Sant {
           if (this.attackCounter > 0.2) {
             const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
             const fireballY = this.y + 54;
-            this.game.addEntity(
-              // change this
-              //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
-              new Weapon(
-                this.game,
-                fireballX,
-                fireballY,
-                this.isFacingLeft,
-                this.random
-              ).seletedGun(this.random)
-            );
+            if(!this.random == 0) {
+              if(this.capacity > 0) {
+                this.game.addEntity(
+                  // change this
+                  //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
+                  new Weapon(
+                    this.game,
+                    fireballX,
+                    fireballY,
+                    this.isFacingLeft,
+                    this.random
+                  ).seletedGun(this.random)
+                );
+                this.capacity -= 1;
+
+              } else {
+                this.random = 0;
+              }
+            } else {
+              this.game.addEntity(
+                // change this
+                //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
+                new Weapon(
+                  this.game,
+                  fireballX,
+                  fireballY,
+                  this.isFacingLeft,
+                  this.random
+                ).seletedGun(this.random)
+              );
+
+            }
             //console.log(this.game.removeEntity());
             this.attackCounter = 0.0;
           }

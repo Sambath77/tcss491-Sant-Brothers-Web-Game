@@ -2,7 +2,7 @@ class SceneManager {
   constructor(game) {
     this.game = game;
     this.game.camera = this;
-    this.game.mapMaxDistance = 500;
+    this.game.mapMaxDistance = 12000;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
@@ -279,6 +279,11 @@ class SceneManager {
       "health: " + this.sant.getHealth(),
       6.5 * PARAMS.BLOCKWIDTH,
       1.5 * PARAMS.BLOCKWIDTH
+    );
+    ctx.fillText(
+      "capacity: " + this.sant.capacity,
+      6.5 * PARAMS.BLOCKWIDTH,
+      2.3 * PARAMS.BLOCKWIDTH
     );
     // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
