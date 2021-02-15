@@ -234,31 +234,32 @@ class Mafia {
         width: 400,
         height: 20
     };
-    ctx.fillText(
-        "Boss's health: ",
-        60,
-        150
-    );
-    var maxHealth = 100;
-    var percent = this.health / maxHealth;
-    if(this.health >= 70) {
-        ctx.fillStyle = "green";
-    } else if (this.health < 70 && this.health >= 40) {
-        ctx.fillStyle = "yellow";
-    } else  {
-        ctx.fillStyle = "red";
+    if (this.game.isFightingBoss) {
+        ctx.fillText(
+            "Boss's health: ",
+            60,
+            150
+        );
+        var maxHealth = 100;
+        var percent = this.health / maxHealth;
+        if(this.health >= 70) {
+            ctx.fillStyle = "green";
+        } else if (this.health < 70 && this.health >= 40) {
+            ctx.fillStyle = "yellow";
+        } else  {
+            ctx.fillStyle = "red";
+        }
+        ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
     }
-    ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
     
-    
-      if (PARAMS.DEBUG) {
+    if (PARAMS.DEBUG) {
         ctx.strokeStyle = "Red";
         ctx.strokeRect(
-          this.BB.x - this.game.camera.x,
-          this.BB.y,
-          this.BB.width,
-          this.BB.height
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
         );
-      }
+    }
     }
   }

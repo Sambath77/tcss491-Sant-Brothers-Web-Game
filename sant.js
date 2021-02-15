@@ -288,6 +288,7 @@ class Sant {
   update() {
     if (this.x >= this.game.mapMaxDistance) {
       this.isFightingBoss = true;
+      this.game.isFightingBoss = true;
     }
     const TICK = this.game.clockTick;
 
@@ -322,7 +323,7 @@ class Sant {
       if (this.state !== 4) {
         // not jumping
         // ground physics
-        if (Math.abs(this.velocity.x) < MIN_WALK) {
+        if (Math.abs(this.velocity.x) < MIN_WALK && this.state !== 7) {
           // slower than a walk // starting, stopping or turning around
           this.velocity.x = 0;
           this.state = 0;
@@ -332,7 +333,7 @@ class Sant {
           if (this.game.right) {
             this.velocity.x += MIN_WALK;
           }
-        } else if (Math.abs(this.velocity.x) >= MIN_WALK) {
+        } else if (Math.abs(this.velocity.x) >= MIN_WALK && this.state !== 7) {
           // faster than a walk // accelerating or decelerating
           if (this.isFacingLeft === 0) {
             if (this.game.right && !this.game.left) {
@@ -374,16 +375,22 @@ class Sant {
             this.velocity.y = -300;
             this.fallAcc = RUN_FALL;
           }
-          this.state = 4;
+          console.log(this.state);
+          if (this.state !== 7) {
+            this.state = 4;
+          }
         }
         if (this.game.attack) {
-          if (this.state !== 4) {
+          if (this.state !== 4 && this.state !== 7) {
             this.state = 6;
           }
         }
         // else if the sant is not in attack mode and jump mode, change it to walk mode
         else if (!this.game.A) {
           this.state = 1;
+        }
+        if (this.state === 7) {
+          this.velocity.y = 270;
         }
       } else {
         // air physics
@@ -431,7 +438,6 @@ class Sant {
 
       // if sant fell of the map he's dead
       if (this.y > PARAMS.BLOCKWIDTH * 16) this.die();
-
       // collision
       var that = this;
       this.game.entities.forEach(function (entity) {
@@ -474,7 +480,6 @@ class Sant {
               !entity.dead
             ) {
               // can't squish an already squished skeleton
-              // that.dead = true;
               if (that.state !== 7 && !that.isEnabledHurtCooldown) {
                 // that.velocity.y = -20; // bounce
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;

@@ -3,6 +3,7 @@ class SceneManager {
     this.game = game;
     this.game.camera = this;
     this.game.mapMaxDistance = 12000;
+    this.game.isFightingBoss = false;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
