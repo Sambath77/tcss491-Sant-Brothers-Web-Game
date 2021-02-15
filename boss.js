@@ -104,12 +104,12 @@ class Mafia {
             this.velocity.x = 0;
             //console.log(this.attackCounter);
                 // attack counter is for restricting attack speed
-            if (this.attackCounter > 0.3 && this.isFacingLeft) {
+            if (this.attackCounter > 0.7 && this.isFacingLeft) {
                 const bulletX = this.x + (1 ? -48 : 120);
                 const bulletY = this.y + 53;
                 this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
                 this.attackCounter = 0.0;
-            } else if (this.attackCounter > 0.3 && !this.isFacingLeft) {
+            } else if (this.attackCounter > 0.5 && !this.isFacingLeft) {
                 const bulletX = this.x + (0 ? -48 : 120);
                 const bulletY = this.y + 53;
                 this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 0));
@@ -135,7 +135,7 @@ class Mafia {
             }
             this.deadCounter += this.game.clockTick;
             if (this.deadCounter > 0.5) {
-                this.removeFromWorld = false;
+                this.removeFromWorld = true;
             }
         }
         if (this.paused && this.isInCameraView()) {
@@ -226,7 +226,7 @@ class Mafia {
         2.4
       );
       if(this.currentMode == "deathright" || this.currentMode == "deathleft") {
-        ctx.drawImage(this.spritesheet, -79, 3 * PARAMS.BLOCKWIDTH, 900, 250);
+        this.game.addEntity(new Finish(this.game));
       }
       var object1 = {
         x: 60,
@@ -249,6 +249,8 @@ class Mafia {
         } else  {
             ctx.fillStyle = "red";
         }
+        ctx.strokeStyle = "grey";
+        ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
         ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
     }
     

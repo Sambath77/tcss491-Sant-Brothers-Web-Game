@@ -147,3 +147,25 @@ class Mushroom {
         }
     };
 };
+class Finish {
+    constructor(game) {
+        Object.assign(this, {game});
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
+
+       
+    };
+
+    update() {
+
+    };
+
+    drawMinimap(ctx, mmX, mmY) {
+
+    }
+
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, -79, 3 * PARAMS.BLOCKWIDTH, 900, 250);
+    };
+};
