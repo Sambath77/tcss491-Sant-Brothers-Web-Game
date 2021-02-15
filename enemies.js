@@ -761,9 +761,9 @@ class Terrorists {
       this.updateBoundingBox();
       const that = this;
       this.game.entities.forEach(function (entity) {
-        if (entity instanceof Sant && entity.x < that.x) {
+        if (entity instanceof Sant && entity.x < that.x && entity.y > that.y - 13) {
           that.currentMode = 'attack';
-        } else if (entity instanceof Sant && entity.x > that.x) {
+        } else if (entity instanceof Sant && (entity.x > that.x || entity.y < that.y - 13)) {
           that.currentMode = 'walk';
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
