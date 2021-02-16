@@ -448,7 +448,10 @@ class Sant {
               (entity instanceof Ground ||
                 entity instanceof Brick ||
                 entity instanceof Block ||
-                entity instanceof Brickmoved) && // landin
+                entity instanceof Brickmoved ||
+                entity instanceof GroundLevelOne ||
+                entity instanceof BrickLevelOne ||
+                entity instanceof BlockLevelOne) && // landin
               that.lastBB.bottom <= entity.BB.top
             ) {
               // was above last tick
@@ -494,7 +497,7 @@ class Sant {
           if (that.velocity.y < 0) {
             // jumping
             if (
-              entity instanceof Brick && // hit ceiling
+              (entity instanceof Brick || entity instanceof BrickLevelOne) && // hit ceiling
               that.lastBB.top >= entity.BB.bottom && // was below last tick
               that.BB.collide(entity.leftBB) &&
               that.BB.collide(entity.rightBB)
@@ -522,7 +525,10 @@ class Sant {
           //   that.updateBB();
           // }
           if (
-            (entity instanceof Block || entity instanceof Ground) &&
+            (entity instanceof Block ||
+              entity instanceof Ground ||
+              entity instanceof GroundLevelOne ||
+              entity instanceof BlockLevelOne) &&
             that.BB.bottom > entity.BB.top
           ) {
             if (that.BB.collide(entity.leftBB)) {
@@ -536,9 +542,11 @@ class Sant {
           }
 
           // Auto upgrade the gun
-          if (entity instanceof Angel) {
+          if (entity instanceof Panda || entity instanceof Angel) {
             entity.removeFromWorld = true;
-
+            if (entity instanceof Panda) {
+              that.health++;
+            }
             if (
               that.BB.collide(entity.leftBB) ||
               that.BB.collide(entity.rightBB)

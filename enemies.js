@@ -202,12 +202,6 @@ class Skeleton {
                 that.currentMode = 'backward';
 
                 that.velocity.x = -that.velocity.x;
-                // if (entity instanceof Sant) {
-                //   that.currentMode = 'attack_right';
-                //   that.isFacingLeft = true;
-                //   console.log(currentMode);
-                //   that.updateBoundingBox();
-                // }
               }
               that.updateBoundingBox();
             }
@@ -264,16 +258,6 @@ class Zombie {
     this.deadCounter = 0;
     this.attackCounter = 0;
     this.updateBoundingBox();
-    //Zombie idling
-    //this.animation = [];
-    //idle
-    //this.animation[0]= new Animator(this.spritesheet, 146, 15, 35, 40 , 5, 0.33, 60, false, true);
-    //running
-    // this.animation[1]= new Animator(this.spritesheet, 146, 71, 35, 40 , 5, 0.1, 60, false, true);
-    //hurting
-    //this.animation[2] = new Animator(this.spritesheet, 146, 122, 35, 40 , 5, 0.1, 60, false, true);
-    //Attacking
-    //this.animation[2] = new Animator(this.spritesheet, 146, 296, 35, 40 , 5, 0.33, 60, false, true);
   }
 
   constructAssetMap() {
@@ -285,34 +269,6 @@ class Zombie {
   }
 
   createZombieAnimator(mode) {
-    // if (mode == "running"){
-    //     return new Animator(
-    //         this.assetsMap.get(mode) ?? "running",
-    //         146,
-    //         71,
-    //         35,
-    //         40,
-    //         5,
-    //         0.1,
-    //         60,
-    //         true,
-    //         mode !== "death"
-    //       );
-    // } else if (mode == "attack") {
-    //     return new Animator(
-    //         this.assetsMap.get(mode) ?? "running",
-    //         146,
-    //         122,
-    //         35,
-    //         40,
-    //         5,
-    //         0.1,
-    //         60,
-    //         true,
-    //         mode !== "death"
-    //       );
-    //
-    // }
     if (mode == 'running') {
       return new Animator(
         this.assetsMap.get(mode) ?? 'running',
@@ -329,13 +285,6 @@ class Zombie {
     } else if (mode == 'attack') {
       return new Animator(
         this.assetsMap.get(mode) ?? 'running',
-        //58,
-        //122,
-        //35,
-        //40,
-        //5,
-        //0.5,
-        //58,
         58,
         240,
         35,
@@ -761,9 +710,16 @@ class Terrorists {
       this.updateBoundingBox();
       const that = this;
       this.game.entities.forEach(function (entity) {
-        if (entity instanceof Sant && entity.x < that.x && entity.y > that.y - 13) {
+        if (
+          entity instanceof Sant &&
+          entity.x < that.x &&
+          entity.y > that.y - 13
+        ) {
           that.currentMode = 'attack';
-        } else if (entity instanceof Sant && (entity.x > that.x || entity.y < that.y - 13)) {
+        } else if (
+          entity instanceof Sant &&
+          (entity.x > that.x || entity.y < that.y - 13)
+        ) {
           that.currentMode = 'walk';
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
