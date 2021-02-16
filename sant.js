@@ -30,10 +30,6 @@ class Sant {
     this.changeGun = false;
     this.health = 5;
 
-    this.bullet = null;
-
-    this.capacity = 0;
-
     // sant's animations
     this.animations = [];
     this.random = 0;
@@ -269,15 +265,6 @@ class Sant {
         currentSantHeight * PARAMS.SCALE
       );
     }
-
-    if (this.deadAnim) {
-      this.BB = new BoundingBox(
-        this.x,
-        this.y,
-        currentSantWidth * PARAMS.SCALE,
-        currentSantHeight * PARAMS.SCALE
-      );
-    }
   }
 
   die() {
@@ -288,7 +275,6 @@ class Sant {
   update() {
     if (this.x >= this.game.mapMaxDistance) {
       this.isFightingBoss = true;
-      this.game.isFightingBoss = true;
     }
     const TICK = this.game.clockTick;
 
@@ -323,7 +309,7 @@ class Sant {
       if (this.state !== 4) {
         // not jumping
         // ground physics
-        if (Math.abs(this.velocity.x) < MIN_WALK && this.state !== 7) {
+        if (Math.abs(this.velocity.x) < MIN_WALK) {
           // slower than a walk // starting, stopping or turning around
           this.velocity.x = 0;
           this.state = 0;
@@ -333,7 +319,7 @@ class Sant {
           if (this.game.right) {
             this.velocity.x += MIN_WALK;
           }
-        } else if (Math.abs(this.velocity.x) >= MIN_WALK && this.state !== 7) {
+        } else if (Math.abs(this.velocity.x) >= MIN_WALK) {
           // faster than a walk // accelerating or decelerating
           if (this.isFacingLeft === 0) {
             if (this.game.right && !this.game.left) {
@@ -375,22 +361,16 @@ class Sant {
             this.velocity.y = -300;
             this.fallAcc = RUN_FALL;
           }
-          console.log(this.state);
-          if (this.state !== 7) {
-            this.state = 4;
-          }
+          this.state = 4;
         }
         if (this.game.attack) {
-          if (this.state !== 4 && this.state !== 7) {
+          if (this.state !== 4) {
             this.state = 6;
           }
         }
         // else if the sant is not in attack mode and jump mode, change it to walk mode
         else if (!this.game.A) {
           this.state = 1;
-        }
-        if (this.state === 7) {
-          this.velocity.y = 270;
         }
       } else {
         // air physics
@@ -438,6 +418,7 @@ class Sant {
 
       // if sant fell of the map he's dead
       if (this.y > PARAMS.BLOCKWIDTH * 16) this.die();
+
       // collision
       var that = this;
       this.game.entities.forEach(function (entity) {
@@ -474,20 +455,17 @@ class Sant {
                 entity instanceof Zombie ||
                 entity instanceof FlyingEye ||
                 entity instanceof Terrorists ||
-                entity instanceof BulletTwo ||
-                entity instanceof Mafia) && // squish skeleton
+                entity instanceof BulletTwo) && // squish skeleton
               // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
               !entity.dead
             ) {
               // can't squish an already squished skeleton
+              // that.dead = true;
               if (that.state !== 7 && !that.isEnabledHurtCooldown) {
                 // that.velocity.y = -20; // bounce
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
                 that.velocity.x = 0;
                 that.state = 7;
-                if (entity instanceof BulletTwo) {
-                  that.bullet = entity;
-                }
               }
             }
           }
@@ -543,16 +521,9 @@ class Sant {
               that.BB.collide(entity.leftBB) ||
               that.BB.collide(entity.rightBB)
             ) {
-              that.random = Math.floor(Math.floor(Math.random() * 3) + 1);
+              that.random = Math.floor(Math.random() * 4);
               that.changeGun = true;
               console.log(that.random);
-              if (that.random == 1) {
-                that.capacity = 60;
-              } else if (that.random == 2) {
-                that.capacity = 40;
-              } else if (that.random == 3) {
-                that.capacity = 25;
-              }
             }
 
             that.updateBB();
@@ -563,9 +534,6 @@ class Sant {
       if (this.state === 7) {
         if (this.hurtCounter === 0) {
           this.health -= 1;
-          if (this.bullet instanceof BulletTwo) {
-            this.bullet.removeFromWorld = true;
-          }
         }
         this.hurtCounter += this.game.clockTick;
         if (this.hurtCounter > 1) {
@@ -592,36 +560,17 @@ class Sant {
           if (this.attackCounter > 0.2) {
             const fireballX = this.x + (this.isFacingLeft ? -48 : 120);
             const fireballY = this.y + 54;
-            if (!this.random == 0) {
-              if (this.capacity > 0) {
-                this.game.addEntity(
-                  // change this
-                  //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
-                  new Weapon(
-                    this.game,
-                    fireballX,
-                    fireballY,
-                    this.isFacingLeft,
-                    this.random
-                  ).seletedGun(this.random)
-                );
-                this.capacity -= 1;
-              } else {
-                this.random = 0;
-              }
-            } else {
-              this.game.addEntity(
-                // change this
-                //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
-                new Weapon(
-                  this.game,
-                  fireballX,
-                  fireballY,
-                  this.isFacingLeft,
-                  this.random
-                ).seletedGun(this.random)
-              );
-            }
+            this.game.addEntity(
+              // change this
+              //new Fireball(this.game, fireballX, fireballY, this.isFacingLeft)
+              new Weapon(
+                this.game,
+                fireballX,
+                fireballY,
+                this.isFacingLeft,
+                this.random
+              ).seletedGun(this.random)
+            );
             //console.log(this.game.removeEntity());
             this.attackCounter = 0.0;
           }
