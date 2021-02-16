@@ -2,7 +2,7 @@ class Ground {
   constructor(game, x, y, w) {
     Object.assign(this, { game, x, y, w });
 
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/block3.png");
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block3.png');
 
     this.BB = new BoundingBox(
       this.x,
@@ -27,7 +27,7 @@ class Ground {
   update() {}
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Brown";
+    ctx.fillStyle = 'Brown';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -60,7 +60,7 @@ class Ground {
       PARAMS.BLOCKWIDTH
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -71,11 +71,84 @@ class Ground {
   }
 }
 
-class Angel {
+class GroundLevelOne {
+  constructor(game, x, y, w) {
+    Object.assign(this, { game, x, y, w });
+
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block3.png');
+
+    this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      this.w * 25 * PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 2
+    );
+    this.leftBB = new BoundingBox(
+      this.x,
+      this.y,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH * 2
+    );
+    this.rightBB = new BoundingBox(
+      this.x + this.w + PARAMS.BLOCKWIDTH * 25,
+      this.y,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH * 2
+    );
+  }
+
+  update() {}
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = 'Brown';
+    ctx.fillRect(
+      mmX + this.x / PARAMS.BITWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      this.w / PARAMS.BITWIDTH,
+      PARAMS.SCALE * 2
+    );
+  }
+  draw(ctx) {
+    ctx.drawImage(
+      this.spritesheet,
+      1,
+      107,
+      430,
+      14,
+      this.x - this.game.camera.x + PARAMS.BLOCKWIDTH * this.w,
+      this.y,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH
+    );
+
+    ctx.drawImage(
+      this.spritesheet,
+      1,
+      107,
+      430,
+      14,
+      this.x - this.game.camera.x + PARAMS.BLOCKWIDTH * this.w,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH
+    );
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
+    }
+  }
+}
+
+class Panda {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
 
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/panda.png");
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/panda.png');
 
     this.BB = new BoundingBox(
       this.x + PARAMS.BLOCKWIDTH,
@@ -100,7 +173,7 @@ class Angel {
   update() {}
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Brown";
+    ctx.fillStyle = 'Brown';
     ctx.fillRect(
       mmX + this.x + PARAMS.BLOCKWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -122,7 +195,69 @@ class Angel {
       PARAMS.BLOCKWIDTH * 3
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
+    }
+  }
+}
+
+class Angel {
+  constructor(game, x, y) {
+    Object.assign(this, { game, x, y });
+
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/angel.png');
+
+    this.BB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 3,
+      PARAMS.BLOCKWIDTH * 3
+    );
+    this.leftBB = new BoundingBox(
+      this.x,
+      this.y,
+      PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 2
+    );
+    this.rightBB = new BoundingBox(
+      this.x,
+      this.y,
+      PARAMS.BLOCKWIDTH / 2,
+      PARAMS.BLOCKWIDTH * 2
+    );
+  }
+
+  update() {}
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = 'Brown';
+    ctx.fillRect(
+      mmX + this.x + PARAMS.BLOCKWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      PARAMS.BITWIDTH,
+      PARAMS.SCALE
+    );
+  }
+
+  draw(ctx) {
+    ctx.drawImage(
+      this.spritesheet,
+      509,
+      3,
+      100,
+      155,
+      this.x - this.game.camera.x + PARAMS.BLOCKWIDTH,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 3,
+      PARAMS.BLOCKWIDTH * 3
+    );
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -137,7 +272,7 @@ class Brick {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
 
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/block3.png");
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block3.png');
 
     this.BB = new BoundingBox(
       this.x + PARAMS.BLOCKWIDTH,
@@ -174,7 +309,7 @@ class Brick {
   update() {}
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Brown";
+    ctx.fillStyle = 'Brown';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -184,33 +319,20 @@ class Brick {
   }
 
   draw(ctx) {
-    if (this.x === 0) {
-      ctx.drawImage(
-        this.spritesheet,
-        1,
-        75,
-        90,
-        13,
-        2 * PARAMS.BLOCKWIDTH - this.game.camera.x,
-        this.y,
-        PARAMS.BLOCKWIDTH * 4,
-        PARAMS.BLOCKWIDTH
-      );
-    } else {
-      ctx.drawImage(
-        this.spritesheet,
-        1,
-        75,
-        90,
-        13,
-        this.x + PARAMS.BLOCKWIDTH - this.game.camera.x,
-        this.y,
-        PARAMS.BLOCKWIDTH * 4,
-        PARAMS.BLOCKWIDTH
-      );
-    }
+    ctx.drawImage(
+      this.spritesheet,
+      1,
+      75,
+      90,
+      13,
+      this.x + PARAMS.BLOCKWIDTH - this.game.camera.x,
+      this.y,
+      PARAMS.BLOCKWIDTH * 4,
+      PARAMS.BLOCKWIDTH
+    );
+
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -220,12 +342,85 @@ class Brick {
     }
   }
 }
+class BrickLevelOne {
+  constructor(game, x, y) {
+    Object.assign(this, { game, x, y });
 
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block3.png');
+
+    this.BB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y,
+      PARAMS.BLOCKWIDTH * 4,
+      PARAMS.BLOCKWIDTH
+    );
+    this.leftBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH * 2,
+      this.y,
+      PARAMS.BLOCKWIDTH * 2,
+      PARAMS.BLOCKWIDTH / 2
+    );
+    this.rightBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH * 2,
+      this.y,
+      PARAMS.BLOCKWIDTH * 2,
+      PARAMS.BLOCKWIDTH / 2
+    );
+    this.topBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y,
+      PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH / 2
+    );
+    this.bottomBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH / 2
+    );
+  }
+
+  update() {}
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = 'Brown';
+    ctx.fillRect(
+      mmX + this.x / PARAMS.BITWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      PARAMS.BITWIDTH,
+      PARAMS.SCALE
+    );
+  }
+
+  draw(ctx) {
+    ctx.drawImage(
+      this.spritesheet,
+      92,
+      90,
+      90,
+      13,
+      this.x + PARAMS.BLOCKWIDTH - this.game.camera.x,
+      this.y,
+      PARAMS.BLOCKWIDTH * 4,
+      PARAMS.BLOCKWIDTH
+    );
+
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
+    }
+  }
+}
 class Block {
   constructor(game, x, y, w) {
     Object.assign(this, { game, x, y, w });
 
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/block4.png");
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block4.png');
 
     this.BB = new BoundingBox(
       this.x + PARAMS.BLOCKWIDTH,
@@ -250,7 +445,7 @@ class Block {
   update() {}
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Brown";
+    ctx.fillStyle = 'Brown';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -272,7 +467,69 @@ class Block {
       PARAMS.BLOCKWIDTH * 3
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
+    }
+  }
+}
+
+class BlockLevelOne {
+  constructor(game, x, y, w) {
+    Object.assign(this, { game, x, y, w });
+
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block4.png');
+
+    this.BB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y,
+      this.w + PARAMS.BLOCKWIDTH * 3,
+      PARAMS.BLOCKWIDTH * 3
+    );
+    this.leftBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y,
+      this.w + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH
+    );
+    this.rightBB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH * 3,
+      this.y + PARAMS.BLOCKWIDTH * 3,
+      this.w + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH
+    );
+  }
+
+  update() {}
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = 'Brown';
+    ctx.fillRect(
+      mmX + this.x / PARAMS.BITWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      PARAMS.BITWIDTH,
+      PARAMS.SCALE
+    );
+  }
+
+  draw(ctx) {
+    ctx.drawImage(
+      this.spritesheet,
+      731,
+      51,
+      31,
+      46,
+      this.x + PARAMS.BLOCKWIDTH - this.game.camera.x,
+      this.y,
+      PARAMS.BLOCKWIDTH * 4,
+      PARAMS.BLOCKWIDTH * 3
+    );
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -287,7 +544,7 @@ class Brickmoved {
   constructor(game, x, y, k) {
     Object.assign(this, { game, x, y, k });
     this.velocity = { x: PARAMS.BITWIDTH, y: 0 }; // pixels per second
-    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/block3.png");
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block3.png');
     this.animation = new Animator(
       this.spritesheet,
       2,
@@ -329,7 +586,7 @@ class Brickmoved {
   }
 
   drawMinimap(ctx, mmX, mmY) {
-    ctx.fillStyle = "Brown";
+    ctx.fillStyle = 'Brown';
     ctx.fillRect(
       mmX + this.x / PARAMS.BITWIDTH,
       mmY + this.y / PARAMS.BITWIDTH,
@@ -348,7 +605,7 @@ class Brickmoved {
     );
 
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,

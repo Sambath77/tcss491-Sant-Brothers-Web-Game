@@ -39,8 +39,7 @@ class SceneManager {
 
     if (level === 1) {
       this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
-    }
-    else if (level === 2) {
+    } else if (level === 2) {
       this.loadLevelTwo(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
     }
   }
@@ -56,11 +55,11 @@ class SceneManager {
     this.game.entities = [];
     this.x = 0;
 
-    let background = new Wall(this.game, 0, PARAMS.BLOCKWIDTH, 0);
+    let background = new WallLevelOne(this.game, 0, PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(background);
 
     for (let i = 0; i < PARAMS.BLOCKWIDTH; i++) {
-      background = new Wall(
+      background = new WallLevelOne(
         this.game,
         PARAMS.BLOCKWIDTH * 25 * i,
         PARAMS.BLOCKWIDTH,
@@ -69,14 +68,14 @@ class SceneManager {
       this.game.addEntity(background);
     }
 
-    let ground = new Ground(this.game, 0, 14 * PARAMS.BLOCKWIDTH, 0);
+    let ground = new GroundLevelOne(this.game, 0, 14 * PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(ground);
     for (
       let i = 0;
       PARAMS.BLOCKWIDTH * i < this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH;
       i++
     ) {
-      background = new Ground(
+      background = new GroundLevelOne(
         this.game,
         PARAMS.BLOCKWIDTH * i,
         14 * PARAMS.BLOCKWIDTH,
@@ -85,7 +84,7 @@ class SceneManager {
       this.game.addEntity(background);
     }
 
-    let brick = new Brick(
+    let brick = new BrickLevelOne(
       this.game,
       10 * 0 * PARAMS.BLOCKWIDTH + 400,
       10 * PARAMS.BLOCKWIDTH
@@ -97,7 +96,7 @@ class SceneManager {
       10 * i * PARAMS.BLOCKWIDTH + 400 < this.game.mapMaxDistance;
       i = i + 3
     ) {
-      brick = new Brick(
+      brick = new BrickLevelOne(
         this.game,
         10 * i * PARAMS.BLOCKWIDTH + 400,
         10 * PARAMS.BLOCKWIDTH
@@ -116,35 +115,9 @@ class SceneManager {
     for (
       let i = 0;
       10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
-      i += 3
-    ) {
-      flyingEye = new FlyingEye(
-        this.game,
-        10 * i * PARAMS.BLOCKWIDTH + 1200,
-        7 * PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(flyingEye);
-    }
-
-    for (
-      let i = 0;
-      10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
-      i += 3
-    ) {
-      flyingEye = new FlyingEye(
-        this.game,
-        11 * i * PARAMS.BLOCKWIDTH + 1500,
-        5 * PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(flyingEye);
-    }
-
-    for (
-      let i = 0;
-      10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
       i = i + 3
     ) {
-      brick = new Brick(
+      brick = new BrickLevelOne(
         this.game,
         10 * i * PARAMS.BLOCKWIDTH + 1200,
         9 * PARAMS.BLOCKWIDTH
@@ -157,7 +130,7 @@ class SceneManager {
       10 * i * PARAMS.BLOCKWIDTH + 2000 < this.game.mapMaxDistance;
       i = i + 6
     ) {
-      brick = new Block(
+      brick = new BlockLevelOne(
         this.game,
         5 * i * PARAMS.BLOCKWIDTH + 2000,
         11 * PARAMS.BLOCKWIDTH,
@@ -173,40 +146,13 @@ class SceneManager {
     ) {
       brick = new Angel(
         this.game,
-        6 * i * PARAMS.BLOCKWIDTH + 1600,
+        6 * i * PARAMS.BLOCKWIDTH + 1550,
         10 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(brick);
     }
-    for (
-      let i = 0;
-      PARAMS.BLOCKWIDTH * 10 * i + 1000 < this.game.mapMaxDistance;
-      i = i + 7
-    ) {
-      brick = new Brickmoved(
-        this.game,
-        PARAMS.BLOCKWIDTH * 10 * i + 1000,
-        PARAMS.BLOCKWIDTH * 10,
-        PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(brick);
-    }
 
-    for (
-      let i = 0;
-      PARAMS.BLOCKWIDTH * 10 * i + 1000 < this.game.mapMaxDistance;
-      i = i + 7
-    ) {
-      brick = new Brickmoved(
-        this.game,
-        PARAMS.BLOCKWIDTH * 11 * i + 1500,
-        PARAMS.BLOCKWIDTH * 8,
-        PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(brick);
-    }
-
-    brick = new Brick(
+    brick = new BrickLevelOne(
       this.game,
       this.game.mapMaxDistance,
       PARAMS.BLOCKWIDTH * 10,
@@ -620,14 +566,18 @@ class SceneManager {
     );
     if (this.game.isBulletCapacityVisible) {
       ctx.fillText(
-        "capacity: " + this.sant.capacity,
+        'capacity: ' + this.sant.capacity,
         6.5 * PARAMS.BLOCKWIDTH,
         2.3 * PARAMS.BLOCKWIDTH
       );
     }
     // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
-    ctx.fillText(`Level ${this.currentLevel}`, 12 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
+    ctx.fillText(
+      `Level ${this.currentLevel}`,
+      12 * PARAMS.BLOCKWIDTH,
+      1 * PARAMS.BLOCKWIDTH
+    );
 
     // this.coinAnimation.drawFrame(
     //   this.game.clockTick,
