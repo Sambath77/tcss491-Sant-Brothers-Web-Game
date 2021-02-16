@@ -30,7 +30,7 @@ ASSET_MANAGER.queueDownload('./sprites/boss-left.png');
 ASSET_MANAGER.queueDownload('./sprites/boss-right.png');
 ASSET_MANAGER.queueDownload('./sprites/finish.png');
 
-ASSET_MANAGER.downloadAll(function () {
+function loadGame(level) {
   var gameEngine = new GameEngine();
 
   PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
@@ -42,7 +42,11 @@ ASSET_MANAGER.downloadAll(function () {
 
   gameEngine.init(ctx);
 
-  new SceneManager(gameEngine);
+  new SceneManager(gameEngine, level);
 
   gameEngine.start();
+}
+
+ASSET_MANAGER.downloadAll(function () {
+  loadGame(1);
 });

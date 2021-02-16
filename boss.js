@@ -227,6 +227,9 @@ class Mafia {
       );
       if(this.currentMode == "deathright" || this.currentMode == "deathleft") {
         this.game.addEntity(new Finish(this.game));
+        setTimeout(function () {
+           loadGame(2);
+        }, 3000);
       }
       var object1 = {
         x: 60,

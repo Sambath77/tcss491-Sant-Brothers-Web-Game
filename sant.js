@@ -554,6 +554,7 @@ class Sant {
                 that.capacity = 25;
               }
             }
+            that.game.isBulletCapacityVisible = true;
 
             that.updateBB();
           }
@@ -608,6 +609,7 @@ class Sant {
                 this.capacity -= 1;
               } else {
                 this.random = 0;
+                this.game.isBulletCapacityVisible = false;
               }
             } else {
               this.game.addEntity(
