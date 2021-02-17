@@ -178,14 +178,16 @@ class Skeleton {
             }
             that.updateBoundingBox();
           } else if (
-            (entity instanceof Ground || entity instanceof Brick) &&
+            (entity instanceof Ground ||
+              entity instanceof Brick ||
+              entity instanceof BrickLevelOne) &&
             that.lastBB.bottom <= entity.BB.top
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
           } else if (
-            entity instanceof Block &&
-            that.BB.bottom > entity.BB.top
+            entity instanceof BlockLevelOne ||
+            (entity instanceof Block && that.BB.bottom > entity.BB.top)
           ) {
             if (that.BB.collide(entity.leftBB)) {
               that.x = entity.BB.left - that.BB.width;
