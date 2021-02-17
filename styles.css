@@ -1,0 +1,30 @@
+/* Left and right column */
+.columnleft {
+  float: left;
+  width: 65%;
+}
+
+/* Middle column */
+.columnright {
+  float: left;
+  width: 35%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .columnleft,
+  .columnright {
+    width: 100%;
+  }
+}
+.title {
+  font-family: 'Press Start 2P', serif;
+  font-size: 24px;
+}

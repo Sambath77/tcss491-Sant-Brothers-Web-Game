@@ -2,17 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sant Brothers</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Press+Start+2P"
     />
-    <style>
-      body {
-        font-family: "Press Start 2P", serif;
-        font-size: 24px;
-      }
-    </style>
+    <link rel="stylesheet" href="./styles.css" type="text/css" />
+
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./timer.js"></script>
     <script type="text/javascript" src="./gameengine.js"></script>
@@ -30,15 +27,42 @@
     <script type="text/javascript" src="./main.js"></script>
   </head>
   <body>
-    <div>Sant Brothers <br /></div>
-    <canvas
-      id="gameWorld"
-      width="768"
-      height="768"
-      style="background: black"
-      tabindex="0"
-      autofocus
-    ></canvas>
+    <div class="container">
+      <div class="row">
+        <div class="columnleft">
+          <div class="title">Sant Brothers <br /></div>
+          <canvas
+            id="gameWorld"
+            width="768"
+            height="768"
+            style="background: black"
+            tabindex="0"
+            autofocus
+          >
+          </canvas>
+        </div>
+
+        <div class="columnright">
+          <h3 class="title">Direction</h3>
+          <div>
+            <h4>1. Controller</h4>
+            <h5><strong>D</strong> walks forward</h5>
+            <h5><strong>A</strong> walks backward</h5>
+            <h5><strong>X</strong> jumps</h5>
+            <h5><strong>C</strong> shoots</h5>
+          </div>
+          <div>
+            <h4>2. Game direction</h4>
+            <p>The game has two levels which have differently obticals.</p>
+            <p>
+              The player will upgrade the power guns by passing two objects
+              which are Angel and Panda. Angel will give the player a random
+              weapon and Panda will give the player an extra life and weapon
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div>
       <br />
