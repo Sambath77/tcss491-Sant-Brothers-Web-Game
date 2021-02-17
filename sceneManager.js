@@ -270,11 +270,11 @@ class SceneManager {
     this.game.entities = [];
     this.x = 0;
 
-    let background = new Wall(this.game, 0, PARAMS.BLOCKWIDTH, 0);
+    let background = new WallLevelTwo(this.game, 0, PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(background);
 
     for (let i = 0; i < PARAMS.BLOCKWIDTH; i++) {
-      background = new Wall(
+      background = new WallLevelTwo(
         this.game,
         PARAMS.BLOCKWIDTH * 25 * i,
         PARAMS.BLOCKWIDTH,
