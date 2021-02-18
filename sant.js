@@ -37,7 +37,6 @@ class Sant {
     // sant's animations
     this.animations = [];
     this.random = 0;
-    this.isFightingBoss = false;
     //this.weapon = WEAPON.selectedGun(0);
 
     // this.gun = [
@@ -287,7 +286,6 @@ class Sant {
 
   update() {
     if (this.x >= this.game.mapMaxDistance) {
-      this.isFightingBoss = true;
       this.game.isFightingBoss = true;
     }
     const TICK = this.game.clockTick;
@@ -375,7 +373,6 @@ class Sant {
             this.velocity.y = -300;
             this.fallAcc = RUN_FALL;
           }
-          console.log(this.state);
           if (this.state !== 7) {
             this.state = 4;
           }
@@ -654,7 +651,7 @@ class Sant {
   }
 
   fixSantMoveRangeInBossBattle() {
-    if (this.isFightingBoss) {
+    if (this.game.isFightingBoss) {
       if (this.x <= this.game.mapMaxDistance) {
         this.x = this.game.mapMaxDistance;
       }

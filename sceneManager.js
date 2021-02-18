@@ -5,11 +5,11 @@ class SceneManager {
     this.game.mapMaxDistance = 8000;
     this.game.isFightingBoss = false;
     this.game.isBulletCapacityVisible = false;
+    this.game.currentLevel = level;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
     this.lives = 3;
-    this.currentLevel = level;
 
     this.coinAnimation = new Animator(
       ASSET_MANAGER.getAsset('./sprites/coins.png'),
@@ -246,6 +246,13 @@ class SceneManager {
       this.game.addEntity(terrorists);
     }
 
+    terrorists = new Terrorists(
+      this.game,
+      this.game.mapMaxDistance + 800,
+      11.2 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(terrorists);
+
     //Mafia
     let mafia = new Mafia(
       this.game,
@@ -253,13 +260,6 @@ class SceneManager {
       10.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(mafia);
-
-    terrorists = new Terrorists(
-      this.game,
-      this.game.mapMaxDistance + 800,
-      11.2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(terrorists);
 
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
@@ -574,7 +574,7 @@ class SceneManager {
     // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
     ctx.fillText(
-      `Level ${this.currentLevel}`,
+      `Level ${this.game.currentLevel}`,
       12 * PARAMS.BLOCKWIDTH,
       1 * PARAMS.BLOCKWIDTH
     );
