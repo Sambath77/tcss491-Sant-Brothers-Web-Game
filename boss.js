@@ -9,14 +9,13 @@ class Mafia {
       this.animations = this.animationModes.map((mode) =>
         this.createMafiaAnimator(mode)
       );
-      this.health = 100;
+      this.health = (this.game.currentLevel === 1) ? 10 : 40;
       this.paused = true;
       this.deadCounter = 0;
       this.attackCounter = 0;
       this.updateBoundingBox();
       this.isFacingLeft = true;
       this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
-  
     }
   
     constructAssetMapLeft() {
@@ -227,8 +226,9 @@ class Mafia {
       );
       if(this.currentMode == "deathright" || this.currentMode == "deathleft") {
         this.game.addEntity(new Finish(this.game));
+        var that = this;
         setTimeout(function () {
-           loadGame(2);
+           loadGame(that.game.currentLevel + 1);
         }, 3000);
       }
       var object1 = {
@@ -243,11 +243,11 @@ class Mafia {
             60,
             150
         );
-        var maxHealth = 100;
+        var maxHealth = (this.game.currentLevel === 1) ? 10 : 40;
         var percent = this.health / maxHealth;
-        if(this.health >= 70) {
+        if(percent >= 0.7) {
             ctx.fillStyle = "green";
-        } else if (this.health < 70 && this.health >= 40) {
+        } else if (percent < 0.7 && percent >= 0.4) {
             ctx.fillStyle = "yellow";
         } else  {
             ctx.fillStyle = "red";
