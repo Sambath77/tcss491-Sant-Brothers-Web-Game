@@ -248,7 +248,8 @@ class Sant {
   updateBB() {
     this.lastBB = this.BB;
 
-    const currentSantWidth = this.animations[this.state][0][this.isFacingLeft]
+    const currentSantWidth = this.dead ? 
+    this.deadAnim[this.isFacingLeft].width : this.animations[this.state][0][this.isFacingLeft]
       .width;
     const currentSantHeight = this.animations[this.state][0][this.isFacingLeft]
       .height;
@@ -313,6 +314,7 @@ class Sant {
     const MAX_FALL = 270;
 
     if (this.dead) {
+      this.updateBB();
       // this.velocity.y += RUN_FALL * TICK;
       // this.y += this.velocity.y * TICK * PARAMS.SCALE;
     } else {
