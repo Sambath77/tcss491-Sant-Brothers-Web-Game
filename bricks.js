@@ -541,8 +541,8 @@ class BlockLevelOne {
 }
 
 class Brickmoved {
-  constructor(game, x, y, k) {
-    Object.assign(this, { game, x, y, k });
+  constructor(game, x, y) {
+    Object.assign(this, { game, x, y });
     this.velocity = { x: PARAMS.BITWIDTH, y: 0 }; // pixels per second
     this.spritesheet = ASSET_MANAGER.getAsset('./sprites/block3.png');
     this.animation = new Animator(
