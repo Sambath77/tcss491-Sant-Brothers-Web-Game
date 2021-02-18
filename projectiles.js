@@ -3,10 +3,11 @@ class Fireball {
     Object.assign(this, { game, x, y, isFacingLeft });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
     ];
     this.initialX = x;
+    this.paused = false;
     this.power = 2;
     this.width = 8;
     this.height = 2;
@@ -17,7 +18,6 @@ class Fireball {
       this.createNewFireballAnimator(0, 104, 204),
       this.createNewFireballAnimator(1, 218, 204),
     ];
-
 
     this.updateBoundingBox();
   }
@@ -38,18 +38,27 @@ class Fireball {
   }
 
   update() {
-    if(this.x > this.initialX + 500) {
-      this.x += 10000000000000;
+    if (this.x > this.initialX + 500) {
+      this.removeFromWorld = true;
       this.updateBoundingBox();
-    }
-    else{
+    } else {
       this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
       this.updateBoundingBox();
       const that = this;
-      this.game.entities.forEach(function (entity) {
-    });
+      this.game.entities.forEach(function (entity) {});
     }
-  };
+    if (!this.paused) {
+      this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+            that.removeFromWorld = true;
+          }
+        }
+      });
+    }
+  }
   updateBoundingBox() {
     this.lastBB = this.BB;
     this.BB = new BoundingBox(
@@ -71,7 +80,7 @@ class Fireball {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -87,13 +96,14 @@ class Bullet {
     Object.assign(this, { game, x, y, isFacingLeft });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
     ];
     this.initialX = x;
     this.power = 1;
     this.width = 8;
     this.height = 2;
+    this.paused = false;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
     this.velocity = 8;
     this.isFacingLeft = isFacingLeft;
@@ -121,13 +131,23 @@ class Bullet {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    if(this.x < this.initialX - 500 ) {
-      this.x -= 100000000000;
+    if (this.x < this.initialX - 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    } else if (this.x > this.initialX + 500) {
+      this.removeFromWorld = true;
       this.updateBoundingBox();
     }
-    else if(this.x > this.initialX + 500) {
-      this.x += 100000000000;
+    if (!this.paused) {
       this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+            that.removeFromWorld = true;
+          }
+        }
+      });
     }
   }
 
@@ -152,7 +172,7 @@ class Bullet {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -168,8 +188,8 @@ class MultileFire {
     Object.assign(this, { game, x, y, isFacingLeft });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/fire_left.png"),
-      ASSET_MANAGER.getAsset("./sprites/sant/fire_right.png"),
+      ASSET_MANAGER.getAsset('./sprites/sant/fire_left.png'),
+      ASSET_MANAGER.getAsset('./sprites/sant/fire_right.png'),
     ];
     this.initialX = x;
     this.power = 4;
@@ -202,13 +222,23 @@ class MultileFire {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    if(this.x < this.initialX - 500 ) {
-      this.x -= 100000000000;
+    if (this.x < this.initialX - 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    } else if (this.x > this.initialX + 500) {
+      this.removeFromWorld = true;
       this.updateBoundingBox();
     }
-    else if(this.x > this.initialX + 500) {
-      this.x += 100000000000;
+    if (!this.paused) {
       this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+            that.removeFromWorld = true;
+          }
+        }
+      });
     }
   }
   updateBoundingBox() {
@@ -232,7 +262,7 @@ class MultileFire {
       PARAMS.SCALE * 2
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -241,7 +271,6 @@ class MultileFire {
       );
     }
   }
-  
 }
 
 class Spray {
@@ -249,13 +278,14 @@ class Spray {
     Object.assign(this, { game, x, y, isFacingLeft });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/spray_left.png"),
-      ASSET_MANAGER.getAsset("./sprites/sant/spray_right.png"),
+      ASSET_MANAGER.getAsset('./sprites/sant/spray_left.png'),
+      ASSET_MANAGER.getAsset('./sprites/sant/spray_right.png'),
     ];
     this.initialX = x;
     this.power = 5;
     this.width = 8;
     this.height = 2;
+    this.paused = false;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
     this.velocity = 8;
     this.isFacingLeft = isFacingLeft;
@@ -283,13 +313,23 @@ class Spray {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-    if(this.x < this.initialX - 500 ) {
-      this.x -= 100000000000;
+    if (this.x < this.initialX - 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    } else if (this.x > this.initialX + 500) {
+      this.removeFromWorld = true;
       this.updateBoundingBox();
     }
-    else if(this.x > this.initialX + 500) {
-      this.x += 100000000000;
+    if (!this.paused) {
       this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+            that.removeFromWorld = true;
+          }
+        }
+      });
     }
   }
   updateBoundingBox() {
@@ -313,7 +353,7 @@ class Spray {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,
@@ -329,8 +369,8 @@ class BulletTwo {
     Object.assign(this, { game, x, y, isFacingLeft });
 
     this.spritesheets = [
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-left.png"),
-      ASSET_MANAGER.getAsset("./sprites/sant/sant-right.png"),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
+      ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
     ];
 
     this.width = 8;
@@ -362,7 +402,6 @@ class BulletTwo {
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
     this.updateBoundingBox();
-
   }
 
   updateBoundingBox() {
@@ -386,7 +425,7 @@ class BulletTwo {
       PARAMS.SCALE
     );
     if (PARAMS.DEBUG) {
-      ctx.strokeStyle = "Red";
+      ctx.strokeStyle = 'Red';
       ctx.strokeRect(
         this.BB.x - this.game.camera.x,
         this.BB.y,

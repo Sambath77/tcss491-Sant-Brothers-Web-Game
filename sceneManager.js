@@ -400,8 +400,7 @@ class SceneManager {
       brick = new Brickmoved(
         this.game,
         PARAMS.BLOCKWIDTH * 10 * i + 1000,
-        PARAMS.BLOCKWIDTH * 10,
-        PARAMS.BLOCKWIDTH
+        PARAMS.BLOCKWIDTH * 10
       );
       this.game.addEntity(brick);
     }
@@ -414,8 +413,7 @@ class SceneManager {
       brick = new Brickmoved(
         this.game,
         PARAMS.BLOCKWIDTH * 11 * i + 1500,
-        PARAMS.BLOCKWIDTH * 8,
-        PARAMS.BLOCKWIDTH
+        PARAMS.BLOCKWIDTH * 8
       );
       this.game.addEntity(brick);
     }
