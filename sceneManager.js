@@ -2,7 +2,7 @@ class SceneManager {
   constructor(game, level) {
     this.game = game;
     this.game.camera = this;
-    this.game.mapMaxDistance = 1000;
+    this.game.mapMaxDistance = 8000;
     this.game.isFightingBoss = false;
     this.game.isBulletCapacityVisible = false;
     this.game.currentLevel = level;
