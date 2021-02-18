@@ -52,7 +52,13 @@ class Fireball {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+          if (
+            entity instanceof BlockLevelOne ||
+            entity instanceof Block ||
+            entity instanceof Brick ||
+            entity instanceof BrickLevelOne ||
+            entity instanceof Brickmoved
+          ) {
             that.removeFromWorld = true;
           }
         }
@@ -143,7 +149,13 @@ class Bullet {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+          if (
+            entity instanceof BlockLevelOne ||
+            entity instanceof Block ||
+            entity instanceof Brick ||
+            entity instanceof BrickLevelOne ||
+            entity instanceof Brickmoved
+          ) {
             that.removeFromWorld = true;
           }
         }
@@ -234,7 +246,13 @@ class MultileFire {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+          if (
+            entity instanceof BlockLevelOne ||
+            entity instanceof Block ||
+            entity instanceof Brick ||
+            entity instanceof BrickLevelOne ||
+            entity instanceof Brickmoved
+          ) {
             that.removeFromWorld = true;
           }
         }
@@ -325,7 +343,13 @@ class Spray {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (entity instanceof BlockLevelOne || entity instanceof Block) {
+          if (
+            entity instanceof BlockLevelOne ||
+            entity instanceof Block ||
+            entity instanceof Brick ||
+            entity instanceof BrickLevelOne ||
+            entity instanceof Brickmoved
+          ) {
             that.removeFromWorld = true;
           }
         }
