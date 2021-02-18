@@ -9,7 +9,7 @@ class Mafia {
       this.animations = this.animationModes.map((mode) =>
         this.createMafiaAnimator(mode)
       );
-      this.health = (this.game.currentLevel === 1) ? 10 : 40;
+      this.health = (this.game.currentLevel === 1) ? 20 : 40;
       this.paused = true;
       this.deadCounter = 0;
       this.attackCounter = 0;
@@ -17,7 +17,7 @@ class Mafia {
       this.isFacingLeft = true;
       this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
     }
-  
+
     constructAssetMapLeft() {
       const assetMapLeft = new Map();
       this.animationModes.forEach((mode) =>
@@ -243,7 +243,7 @@ class Mafia {
             60,
             150
         );
-        var maxHealth = (this.game.currentLevel === 1) ? 10 : 40;
+        var maxHealth = (this.game.currentLevel === 1) ? 20 : 40;
         var percent = this.health / maxHealth;
         if(percent >= 0.7) {
             ctx.fillStyle = "green";
