@@ -486,7 +486,7 @@ class Sant {
                 // that.velocity.y = -20; // bounce
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
                 that.velocity.x = 0;
-                that.state = 7;
+                // that.state = 7;
                 if (entity instanceof BulletTwo) {
                   that.bullet = entity;
                 }

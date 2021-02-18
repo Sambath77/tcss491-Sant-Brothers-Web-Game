@@ -228,7 +228,7 @@ class Mafia {
         this.game.addEntity(new Finish(this.game));
         var that = this;
         setTimeout(function () {
-           loadGame(that.game.currentLevel + 1);
+           that.game.camera.loadLevelTwo(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
         }, 3000);
       }
       var object1 = {
