@@ -237,6 +237,7 @@ class Mafia {
         width: 400,
         height: 20
     };
+    ctx.fillStyle = "white";
     if (this.game.isFightingBoss) {
         ctx.fillText(
             "Boss's health: ",
