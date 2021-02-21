@@ -18,6 +18,7 @@ class Skeleton {
     this.paused = true;
     this.deadCounter = 0;
     this.attackCounter = 0;
+    this.count = 0;
     this.updateBoundingBox();
 
     // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
@@ -159,6 +160,16 @@ class Skeleton {
           ) {
             that.currentMode = 'death';
             entity.removeFromWorld = true;
+            that.count++;
+            if (
+              that.currentMode === 'death' &&
+              that.count % 2 === 0 &&
+              that.count !== 0
+            ) {
+              that.game.addEntity(
+                new Skeleton(that.game, that.x + 1000, that.y)
+              );
+            }
             that.updateBoundingBox();
           } else if (entity instanceof Sant) {
             // that.currentMode = 'attack';
@@ -193,17 +204,20 @@ class Skeleton {
               that.x = entity.BB.left - that.BB.width;
               that.currentMode = 'walk';
               that.isFacingLeft = false;
+              console.log('Skelton left');
 
               if (that.velocity.x > 0) {
                 that.velocity.x = -that.velocity.x;
               }
             } else {
               that.x = entity.BB.right;
+              console.log('Skeleton right');
 
               if (that.velocity.x < 0) {
                 that.currentMode = 'backward';
 
                 that.velocity.x = -that.velocity.x;
+                console.log('skeleton walk backward');
               }
               that.updateBoundingBox();
             }
@@ -250,15 +264,23 @@ class Zombie {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH * 2, y: 0 }; // pixels per second
-    this.animationModes = ['running', 'attack', 'death'];
+    this.animationModes = [
+      'running',
+      'attack',
+      'death',
+      'runningRight',
+      'attackRight',
+    ];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
+    this.assetsMapRight = this.constructAssetMapRight();
     this.animations = this.animationModes.map((mode) =>
       this.createZombieAnimator(mode)
     );
     this.paused = true;
     this.deadCounter = 0;
     this.attackCounter = 0;
+    this.game.show = false;
     this.updateBoundingBox();
   }
 
@@ -270,6 +292,13 @@ class Zombie {
     return assetMap;
   }
 
+  constructAssetMapRight() {
+    const assetMapRight = new Map();
+    this.animationModes.forEach((mode) =>
+      assetMapRight.set(mode, ASSET_MANAGER.getAsset('./sprites/zombies.png'))
+    );
+    return assetMapRight;
+  }
   createZombieAnimator(mode) {
     if (mode == 'running') {
       return new Animator(
@@ -297,6 +326,32 @@ class Zombie {
         false,
         mode !== 'death'
       );
+    } else if (mode == 'runningRight') {
+      return new Animator(
+        this.assetsMapRight.get(mode) ?? 'running',
+        143,
+        120,
+        41,
+        40,
+        5,
+        0.1,
+        53,
+        false,
+        mode !== 'death'
+      );
+    } else if (mode == 'attackRight') {
+      return new Animator(
+        this.assetsMapRight.get(mode) ?? 'running',
+        147,
+        139,
+        30,
+        38,
+        5,
+        0.1,
+        65,
+        false,
+        mode !== 'death'
+      );
     } else if (mode == 'death') {
       return new Animator(
         this.assetsMap.get(mode) ?? 'running',
@@ -319,12 +374,12 @@ class Zombie {
       this.x,
       this.y,
       2.2 * PARAMS.BLOCKWIDTH,
-      2.5 * PARAMS.BLOCKWIDTH
+      3 * PARAMS.BLOCKWIDTH
     );
   }
 
   isAttacking() {
-    return this.currentMode === 'attack';
+    return this.currentMode === 'attack' || this.currentMode === 'attackRIght';
   }
 
   isDead() {
@@ -369,18 +424,62 @@ class Zombie {
           ) {
             entity.removeFromWorld = true;
             that.currentMode = 'death';
+            that.updateBoundingBox();
+            if (that.currentMode == 'death')
+              that.game.addEntity(new Zombie(that.game, that.x + 900, that.y));
           } else if (entity instanceof Sant) {
-            that.currentMode = 'attack';
+            //that.currentMode = 'attack';
+
+            if (entity.x <= that.x) {
+              that.currentMode = 'attack';
+              that.isFacingLeft = false;
+            } else {
+              that.currentMode = 'attackRight';
+              that.isFacingLeft = true;
+            }
+
+            if (that.isFacingLeft) {
+              that.currentMode = 'running';
+            } else {
+              that.currentMode = 'runningRight';
+            }
+            that.updateBoundingBox();
           } else if (
-            (entity instanceof Ground ||
-              entity instanceof Brick ||
-              entity instanceof Block) &&
+            entity instanceof Ground &&
             that.lastBB.bottom <= entity.BB.top
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
             // } else if (entity !== that) {
             //   that.velocity.x = -that.velocity.x;
+          } else if (
+            entity instanceof BlockLevelOne ||
+            (entity instanceof Block && that.BB.bottom > entity.BB.top)
+          ) {
+            if (that.BB.collide(entity.leftBB)) {
+              that.x = entity.BB.left - that.BB.width;
+              //that.currentMode = 'running';
+              that.isFacingLeft = true;
+
+              if (that.velocity.x > 0) {
+                that.velocity.x = -that.velocity.x;
+                that.currentMode = 'running';
+              }
+            } else {
+              that.x = entity.BB.right;
+
+              that.currentMode = 'runningRight';
+              that.isFacingLeft = false;
+
+              if (that.velocity.x < 0) {
+                that.velocity.x = -that.velocity.x;
+
+                console.log(that.velocity.x + ' changed to right');
+              }
+              that.updateBoundingBox();
+            }
+
+            that.updateBoundingBox();
           }
         }
       });
@@ -567,9 +666,17 @@ class Terrorists {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-    this.animationModes = ['walk', 'attack', 'death'];
+    this.animationModes = [
+      'walk',
+      'attack',
+      'death',
+      'deathRight',
+      'attackRight',
+      'walkRight',
+    ];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
+    this.assetsMapRight = this.constructAssetMapRight();
     this.animations = this.animationModes.map((mode) =>
       this.createTerroristsAnimator(mode)
     );
@@ -577,6 +684,8 @@ class Terrorists {
     this.paused = true;
     this.deadCounter = 0;
     this.attackCounter = 0;
+    this.count = 0;
+    //this.game.show = false;
     this.updateBoundingBox();
     this.isFacingLeft = 0;
 
@@ -593,6 +702,17 @@ class Terrorists {
       assetMap.set(mode, ASSET_MANAGER.getAsset(`./sprites/terrorists.png`))
     );
     return assetMap;
+  }
+
+  constructAssetMapRight() {
+    const assetMapRight = new Map();
+    this.animationModes.forEach((mode) =>
+      assetMapRight.set(
+        mode,
+        ASSET_MANAGER.getAsset(`./sprites/terrorists_right.png`)
+      )
+    );
+    return assetMapRight;
   }
 
   createTerroristsAnimator(mode) {
@@ -622,6 +742,32 @@ class Terrorists {
         true,
         mode !== 'death'
       );
+    } else if (mode == 'attackRight') {
+      return new Animator(
+        this.assetsMapRight.get(mode) ?? 'walk',
+        36,
+        150,
+        35,
+        42,
+        3,
+        0.2,
+        3,
+        true,
+        mode !== 'death'
+      );
+    } else if (mode == 'walkRight') {
+      return new Animator(
+        this.assetsMapRight.get(mode) ?? 'walk',
+        80,
+        46,
+        32,
+        43,
+        3,
+        0.2,
+        26,
+        true,
+        mode !== 'death'
+      );
     } else if (mode == 'death') {
       return new Animator(
         this.assetsMap.get(mode) ?? 'walk',
@@ -638,7 +784,7 @@ class Terrorists {
     }
   }
   updateBoundingBox() {
-    if (this.currentMode == 'attack') {
+    if (this.currentMode == 'attack' || this.currentMode == 'attackRight') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -646,7 +792,7 @@ class Terrorists {
         3.0 * PARAMS.BLOCKWIDTH,
         2.8 * PARAMS.BLOCKWIDTH
       );
-    } else if (this.currentMode == 'walk') {
+    } else if (this.currentMode == 'walk' || this.currentMode == 'walkRight') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -657,11 +803,11 @@ class Terrorists {
     }
   }
   isWalking() {
-    return this.currentMode === 'walk';
+    return this.currentMode === 'walk' || this.currentMode === 'walkRight';
   }
 
   isAttacking() {
-    return this.currentMode === 'attack';
+    return this.currentMode === 'attack' || this.currentMode === 'attackRight';
   }
 
   isDead() {
@@ -687,10 +833,15 @@ class Terrorists {
         this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
         this.attackCounter = 0.0;
       }
-      if (this.attackCounter > 1.6) {
-        this.currentMode = 'walk';
-        this.attackCounter = 0.0;
-      }
+      // if (this.attackCounter > 1.6) {
+      //   if (this.isFacingLeft) {
+      //     this.currentMode = 'walk';
+      //     this.attackCounter = 0.0;
+      //   } else {
+      //     this.currentMode = 'walkRight';
+      //     this.attackCounter = 0.0;
+      //   }
+      // }
     } else {
       this.velocity = { x: -PARAMS.BITWIDTH, y: 0 };
     }
@@ -718,6 +869,20 @@ class Terrorists {
           entity.y > that.y - 13
         ) {
           that.currentMode = 'attack';
+          // if (entity.x > that.x) {
+          //   that.currentMode = 'attack';
+          //   that.isFacingLeft = false;
+          // } else {
+          //   that.currentMode = 'attackRight';
+          //   that.isFacingLeft = true;
+          // }
+
+          // if (that.isFacingLeft) {
+          //   that.currentMode = 'walk';
+          // } else {
+          //   that.currentMode = 'walkRight';
+          // }
+          that.updateBoundingBox();
         } else if (
           entity instanceof Sant &&
           (entity.x > that.x || entity.y < that.y - 13)
@@ -736,20 +901,59 @@ class Terrorists {
               entity.removeFromWorld = true;
               if (that.health <= 0) {
                 that.currentMode = 'death';
+                //that.game.show == true;
+
+                that.y = 768;
+              }
+              if (that.currentMode === 'death') {
+                console.log('add new terrorist');
+                that.game.addEntity(
+                  new Terrorists(that.game, that.x + 500, that.y)
+                );
               }
             }
           } else if (entity instanceof Sant) {
             that.currentMode = 'attack';
           } else if (
-            (entity instanceof Ground ||
-              entity instanceof Brick ||
-              entity instanceof Block) &&
+            entity instanceof Ground &&
             that.lastBB.bottom <= entity.BB.top
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
             // } else if (entity !== that) {
             //   that.velocity.x = -that.velocity.x;
+          } else if (
+            entity instanceof BlockLevelOne ||
+            (entity instanceof Block && that.BB.bottom > entity.BB.top)
+          ) {
+            if (that.BB.collide(entity.leftBB)) {
+              that.x = entity.BB.left - that.BB.width;
+              // that.currentMode = 'walk';
+              //that.isFacingLeft = true;
+
+              //console.log(that.velocity.x + 'Terrorist left');
+              if (that.velocity.x > 0) {
+                that.velocity.x = -that.velocity.x;
+                that.currentMode = 'walk';
+                //console.log('heelo');
+              }
+            } else {
+              that.x = entity.BB.right;
+              //console.log(that.velocity.x + 'Terrorist right');
+              //that.currentMode = 'walkRight';
+              //that.isFacingLeft = false;
+
+              if (that.velocity.x < 0) {
+                that.velocity.x = -that.velocity.x;
+                //console.log(that.currentMode);
+                that.currentMode = 'walkRight';
+                //console.log(that.currentMode);
+                //console.log(that.velocity.x + ' terrorist changed to right');
+              }
+              that.updateBoundingBox();
+            }
+
+            that.updateBoundingBox();
           }
         }
       });

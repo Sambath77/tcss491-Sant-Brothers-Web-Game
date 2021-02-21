@@ -399,6 +399,7 @@ class BulletTwo {
 
     this.width = 8;
     this.height = 2;
+    this.paused = false;
     this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
     this.velocity = 8;
     this.isFacingLeft = isFacingLeft;
@@ -425,6 +426,23 @@ class BulletTwo {
 
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
+    if (!this.paused) {
+      this.updateBoundingBox();
+      const that = this;
+      this.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+          if (
+            entity instanceof BlockLevelOne ||
+            entity instanceof Block ||
+            entity instanceof Brick ||
+            entity instanceof BrickLevelOne ||
+            entity instanceof Brickmoved
+          ) {
+            that.removeFromWorld = true;
+          }
+        }
+      });
+    }
     this.updateBoundingBox();
   }
 
