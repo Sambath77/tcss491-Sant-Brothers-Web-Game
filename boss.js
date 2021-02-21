@@ -16,6 +16,7 @@ class Mafia {
       this.updateBoundingBox();
       this.isFacingLeft = true;
       this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
+      this.isFirstTimeTriggered = true;
     }
 
     constructAssetMapLeft() {
@@ -224,11 +225,12 @@ class Mafia {
         this.y,
         2.4
       );
-      if(this.currentMode == "deathright" || this.currentMode == "deathleft") {
+      if((this.currentMode == "deathright" || this.currentMode == "deathleft") && this.isFirstTimeTriggered) {
         this.game.addEntity(new Finish(this.game));
         var that = this;
+        this.isFirstTimeTriggered = false;
         setTimeout(function () {
-           that.game.camera.loadLevelTwo(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+           that.game.camera.loadLevel(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, that.game.currentLevel + 1);
         }, 3000);
       }
       var object1 = {
