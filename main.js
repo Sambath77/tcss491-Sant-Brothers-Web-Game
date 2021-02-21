@@ -30,6 +30,8 @@ ASSET_MANAGER.queueDownload('./sprites/boss-left.png');
 ASSET_MANAGER.queueDownload('./sprites/boss-right.png');
 ASSET_MANAGER.queueDownload('./sprites/finish.png');
 ASSET_MANAGER.queueDownload('./sprites/angel.png');
+ASSET_MANAGER.queueDownload('./sprites/terrorists_right.png');
+ASSET_MANAGER.queueDownload('./sprites/zombies.png');
 
 ASSET_MANAGER.downloadAll(function () {
   var gameEngine = new GameEngine();
