@@ -5,10 +5,6 @@ class SceneManager {
     this.game.mapMaxDistance = 8000;
     this.game.isFightingBoss = false;
     this.game.isBulletCapacityVisible = false;
-
-    this.game.currentLevel = level;
-    this.game.show = false;
-
     this.x = 0;
     this.score = 0;
     this.coins = 0;
@@ -66,7 +62,6 @@ class SceneManager {
     this.game.currentLevel = 1;
     this.game.entities = [];
     this.x = 0;
-    this.game.show = false;
 
     let background = new WallLevelOne(this.game, 0, PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(background);
@@ -172,7 +167,7 @@ class SceneManager {
       PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(brick);
-    brick = new BrickLevelOne(
+    brick = new Brick(
       this.game,
       this.game.mapMaxDistance + 300,
       PARAMS.BLOCKWIDTH * 9,
@@ -243,33 +238,21 @@ class SceneManager {
       this.game.addEntity(terrorists);
     }
 
-    // for (
-    //   let i = 0;
-    //   (37 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
-    //   i = i + 30
-    // ) {
-    //   zombie = new Zombie(
-    //     this.game,
-    //     (38 + i) * PARAMS.BLOCKWIDTH,
-    //     11.5 * PARAMS.BLOCKWIDTH
-    //   );
-    //   this.game.addEntity(zombie);
-    // }
-    // terrorists = new Terrorists(
-    //   this.game,
-    //   60 * PARAMS.BLOCKWIDTH,
-    //   11.2 * PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(terrorists);
+    terrorists = new Terrorists(
+      this.game,
+      60 * PARAMS.BLOCKWIDTH,
+      11.2 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(terrorists);
 
-    // for (let i = 0; i < 30; i += 2) {
-    //   terrorists = new Terrorists(
-    //     this.game,
-    //     this.game.mapMaxDistance,
-    //     PARAMS.BLOCKWIDTH * 11.2
-    //   );
-    //   this.game.addEntity(terrorists);
-    // }
+    for (let i = 0; i < 30; i += 2) {
+      terrorists = new Terrorists(
+        this.game,
+        this.game.mapMaxDistance,
+        PARAMS.BLOCKWIDTH * 11.2
+      );
+      this.game.addEntity(terrorists);
+    }
 
     terrorists = new Terrorists(
       this.game,
@@ -294,7 +277,6 @@ class SceneManager {
   loadLevelTwo(x, y) {
     this.game.isFightingBoss = false;
     this.game.currentLevel = 2;
-    this.game.show = true;
     this.game.entities = [];
     this.x = 0;
 
@@ -516,10 +498,10 @@ class SceneManager {
       (37 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
       i = i + 30
     ) {
-      terrorists = new Zombie(
+      terrorists = new Terrorists(
         this.game,
         (37 + i) * PARAMS.BLOCKWIDTH,
-        11.5 * PARAMS.BLOCKWIDTH
+        11.2 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(terrorists);
     }
