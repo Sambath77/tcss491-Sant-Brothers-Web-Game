@@ -37,6 +37,7 @@ class Sant {
     // sant's animations
     this.animations = [];
     this.random = 0;
+    //this.isMagazine = false;
     //this.weapon = WEAPON.selectedGun(0);
 
     // this.gun = [
@@ -248,9 +249,9 @@ class Sant {
   updateBB() {
     this.lastBB = this.BB;
 
-    const currentSantWidth = this.dead ? 
-    this.deadAnim[this.isFacingLeft].width : this.animations[this.state][0][this.isFacingLeft]
-      .width;
+    const currentSantWidth = this.dead
+      ? this.deadAnim[this.isFacingLeft].width
+      : this.animations[this.state][0][this.isFacingLeft].width;
     const currentSantHeight = this.animations[this.state][0][this.isFacingLeft]
       .height;
 
@@ -562,6 +563,7 @@ class Sant {
               }
             }
             that.game.isBulletCapacityVisible = true;
+            that.game.isMagazine = true;
 
             that.updateBB();
           }
@@ -617,6 +619,7 @@ class Sant {
               } else {
                 this.random = 0;
                 this.game.isBulletCapacityVisible = false;
+                this.game.isMagazine = false;
               }
             } else {
               this.game.addEntity(
