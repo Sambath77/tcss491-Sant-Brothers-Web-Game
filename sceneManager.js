@@ -851,18 +851,8 @@ class SceneManager {
       1.5 * PARAMS.BLOCKWIDTH,
       1.5 * PARAMS.BLOCKWIDTH
     );
-    ctx.fillText(
-      'health: ' + this.sant.getHealth(),
-      6.5 * PARAMS.BLOCKWIDTH,
-      1.5 * PARAMS.BLOCKWIDTH
-    );
-    if (this.game.isBulletCapacityVisible) {
-      ctx.fillText(
-        'capacity: ' + this.sant.capacity,
-        6.5 * PARAMS.BLOCKWIDTH,
-        2.3 * PARAMS.BLOCKWIDTH
-      );
-    }
+
+    
     // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
     // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
     ctx.fillText(
@@ -870,6 +860,57 @@ class SceneManager {
       12 * PARAMS.BLOCKWIDTH,
       1 * PARAMS.BLOCKWIDTH
     );
+    
+    //magazines capacity
+    if (this.game.isBulletCapacityVisible) {
+      ctx.fillText(
+        'magazine: ',
+        1.5 * PARAMS.BLOCKWIDTH,
+        2.3 * PARAMS.BLOCKWIDTH
+      );
+      ctx.fillStyle = "orange";
+
+      let i = this.sant.capacity;
+      let j = 0;
+      while(i > 0) {
+        var object2 = {
+          x: 6 * PARAMS.BLOCKWIDTH + j,
+          y: 1.8 * PARAMS.BLOCKWIDTH,
+          width: 5,
+          height: 20
+        };
+        ctx.fillRect(object2.x, object2.y, object2.width, object2.height);
+        i--;
+        j = j + 8;
+      }
+    }
+    
+    ctx.fillStyle = "white";
+    ctx.fillText(
+      'health: ',
+      6.5 * PARAMS.BLOCKWIDTH,
+      1.5 * PARAMS.BLOCKWIDTH
+    );
+    var object1 = {
+      x: 10 * PARAMS.BLOCKWIDTH,
+      y: 1 * PARAMS.BLOCKWIDTH,
+      width: 200,
+      height: 20
+    };
+    var maxHealth = 5
+    var percent = this.sant.getHealth() / maxHealth;
+    if(percent >= 0.7) {
+        ctx.fillStyle = "green";
+    } else if (percent < 0.7 && percent >= 0.4) {
+        ctx.fillStyle = "yellow";
+    } else  {
+        ctx.fillStyle = "red";
+    }
+    ctx.strokeStyle = "grey";
+    ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
+    ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
+  
+
 
     // this.coinAnimation.drawFrame(
     //   this.game.clockTick,
