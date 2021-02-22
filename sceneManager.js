@@ -53,11 +53,9 @@ class SceneManager {
   loadLevel(x, y, level) {
     if (level === 1) {
       this.loadLevelOne(x, y);
-    }
-    else if (level === 2) {
+    } else if (level === 2) {
       this.loadLevelTwo(x, y);
-    }
-    else if (level === 3) {
+    } else if (level === 3) {
       this.loadLevelThree(x, y);
     }
   }
