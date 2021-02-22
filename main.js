@@ -33,7 +33,7 @@ ASSET_MANAGER.queueDownload('./sprites/angel.png');
 ASSET_MANAGER.queueDownload('./sprites/terrorists_right.png');
 ASSET_MANAGER.queueDownload('./sprites/zombies.png');
 
-ASSET_MANAGER.downloadAll(function () {
+function loadGame(level) {
   var gameEngine = new GameEngine();
 
   PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
@@ -45,7 +45,11 @@ ASSET_MANAGER.downloadAll(function () {
 
   gameEngine.init(ctx);
 
-  new SceneManager(gameEngine);
+  new SceneManager(gameEngine, level);
 
   gameEngine.start();
+}
+
+ASSET_MANAGER.downloadAll(function () {
+  loadGame(1);
 });
