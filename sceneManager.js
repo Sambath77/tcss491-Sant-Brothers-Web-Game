@@ -9,7 +9,7 @@ class SceneManager {
 
     this.game.currentLevel = level;
     this.game.show = false;
-
+    this.title = true;
     this.x = 0;
     this.score = 0;
     this.coins = 0;
@@ -41,7 +41,8 @@ class SceneManager {
       0 * PARAMS.BLOCKWIDTH
     );
 
-    this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+    //this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+    this.loadLevel(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, level);
   }
 
   addCoin() {
@@ -52,7 +53,10 @@ class SceneManager {
   }
 
   loadLevel(x, y, level) {
-    if (level === 1) {
+    if(level === 0) {
+      this.loadTitle();
+    }
+    else if (level === 1) {
       this.loadLevelOne(x, y);
     } else if (level === 2) {
       this.loadLevelTwo(x, y);
@@ -61,6 +65,17 @@ class SceneManager {
     }
   }
 
+
+  loadTitle() {
+    this.game.currentLevel = 0;
+    this.game.entities = [];
+    this.x = 0;
+    this.game.show = false;
+
+    let background = new WallLevelOne(this.game, 0, PARAMS.BLOCKWIDTH, 0);
+    this.game.addEntity(background);
+    
+  }
   loadLevelOne(x, y) {
     this.game.currentLevel = 1;
     this.game.entities = [];
@@ -829,6 +844,14 @@ class SceneManager {
 
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
+    console.log("hello");
+    console.log(this.game.currentLevel);
+    if(this.game.currentLevel === 0 && this.game.click) {
+      console.log("hello1");
+      if (this.game.click && this.game.click.y > 9 * PARAMS.BLOCKWIDTH && this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH) {
+        this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+      }
+    }
 
     let midpoint = PARAMS.CANVAS_WIDTH / 2 - PARAMS.BLOCKWIDTH / 2;
 
@@ -844,6 +867,10 @@ class SceneManager {
   }
 
   draw(ctx) {
+    if (this.game.currentLevel === 0) {
+      ctx.fillStyle = this.game.mouse && this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH && this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH ? "Grey" : "White";
+      ctx.fillText("START", 6.75 * PARAMS.BLOCKWIDTH, 9.5 * PARAMS.BLOCKWIDTH);
+    }
     ctx.font = PARAMS.BLOCKWIDTH / 2 + 'px "Press Start 2P"';
     ctx.fillStyle = 'White';
     ctx.fillText('SANT', 1.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
