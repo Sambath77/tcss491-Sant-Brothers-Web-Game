@@ -669,6 +669,13 @@ class Sant {
     }
   }
 
+  revive() {
+    this.health = 5;
+    this.dead = false;
+    this.x = 2.5 * PARAMS.BLOCKWIDTH,
+    this.y = 0 * PARAMS.BLOCKWIDTH
+  }
+
   drawMinimap(ctx, mmX, mmY) {
     ctx.fillStyle = 'Red';
     ctx.fillRect(

@@ -77,6 +77,7 @@ class SceneManager {
     
   }
   loadLevelOne(x, y) {
+    this.game.isFightingBoss = false;
     this.game.currentLevel = 1;
     this.game.entities = [];
     this.x = 0;
@@ -844,11 +845,9 @@ class SceneManager {
 
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
-    console.log("hello");
-    console.log(this.game.currentLevel);
-    if(this.game.currentLevel === 0 && this.game.click) {
-      console.log("hello1");
+    if((this.game.currentLevel === 0 || this.sant.dead) && this.game.click) {
       if (this.game.click && this.game.click.y > 9 * PARAMS.BLOCKWIDTH && this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH) {
+        this.sant.revive();
         this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
       }
     }
@@ -870,6 +869,10 @@ class SceneManager {
     if (this.game.currentLevel === 0) {
       ctx.fillStyle = this.game.mouse && this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH && this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH ? "Grey" : "White";
       ctx.fillText("START", 6.75 * PARAMS.BLOCKWIDTH, 9.5 * PARAMS.BLOCKWIDTH);
+    }
+    if (this.sant.dead) {
+      ctx.fillStyle = this.game.mouse && this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH && this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH ? "Grey" : "White";
+      ctx.fillText("TRY AGAIN", 6.75 * PARAMS.BLOCKWIDTH, 9.5 * PARAMS.BLOCKWIDTH);
     }
     ctx.font = PARAMS.BLOCKWIDTH / 2 + 'px "Press Start 2P"';
     ctx.fillStyle = 'White';
