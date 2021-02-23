@@ -51,5 +51,5 @@ function loadGame(level) {
 }
 
 ASSET_MANAGER.downloadAll(function () {
-  loadGame(1);
+  loadGame(0);
 });
