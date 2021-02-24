@@ -687,7 +687,7 @@ class Terrorists {
     this.count = 0;
     //this.game.show = false;
     this.updateBoundingBox();
-    this.isFacingLeft = 0;
+    this.isFacingLeft = 1;
 
     // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
 
@@ -747,7 +747,7 @@ class Terrorists {
         this.assetsMapRight.get(mode) ?? 'walk',
         36,
         150,
-        35,
+        32,
         42,
         3,
         0.2,
@@ -760,11 +760,11 @@ class Terrorists {
         this.assetsMapRight.get(mode) ?? 'walk',
         80,
         46,
-        32,
+        34,
         43,
-        3,
+        2,
         0.2,
-        26,
+        15,
         true,
         mode !== 'death'
       );
@@ -830,7 +830,9 @@ class Terrorists {
       if (this.attackCounter > 0.5) {
         const bulletX = this.x - 20;
         const bulletY = this.y + 37;
-        this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
+        this.game.addEntity(
+          new BulletTwo(this.game, bulletX, bulletY, this.isFacingLeft)
+        );
         this.attackCounter = 0.0;
       }
       // if (this.attackCounter > 1.6) {
@@ -868,14 +870,14 @@ class Terrorists {
           entity.x < that.x &&
           entity.y > that.y - 13
         ) {
-          that.currentMode = 'attack';
-          // if (entity.x > that.x) {
-          //   that.currentMode = 'attack';
-          //   that.isFacingLeft = false;
-          // } else {
-          //   that.currentMode = 'attackRight';
-          //   that.isFacingLeft = true;
-          // }
+          //that.currentMode = 'attack';
+          if (entity.x > that.x) {
+            that.currentMode = 'attackRight';
+            that.isFacingLeft = 0;
+          } else {
+            that.currentMode = 'attack';
+            that.isFacingLeft = 1;
+          }
 
           // if (that.isFacingLeft) {
           //   that.currentMode = 'walk';
@@ -903,7 +905,7 @@ class Terrorists {
                 that.currentMode = 'death';
                 //that.game.show == true;
 
-                that.y = 768;
+                //that.y = 768;
               }
               if (that.currentMode === 'death') {
                 console.log('add new terrorist');
@@ -928,8 +930,8 @@ class Terrorists {
           ) {
             if (that.BB.collide(entity.leftBB)) {
               that.x = entity.BB.left - that.BB.width;
-              // that.currentMode = 'walk';
-              //that.isFacingLeft = true;
+              that.currentMode = 'walk';
+              that.isFacingLeft = 1;
 
               //console.log(that.velocity.x + 'Terrorist left');
               if (that.velocity.x > 0) {
@@ -940,15 +942,15 @@ class Terrorists {
             } else {
               that.x = entity.BB.right;
               //console.log(that.velocity.x + 'Terrorist right');
-              //that.currentMode = 'walkRight';
-              //that.isFacingLeft = false;
+              that.currentMode = 'walkRight';
+              that.isFacingLeft = 0;
 
               if (that.velocity.x < 0) {
                 that.velocity.x = -that.velocity.x;
                 //console.log(that.currentMode);
-                that.currentMode = 'walkRight';
+                //that.currentMode = 'walkRight';
                 //console.log(that.currentMode);
-                //console.log(that.velocity.x + ' terrorist changed to right');
+                console.log(that.velocity.x + ' terrorist changed to right');
               }
               that.updateBoundingBox();
             }
