@@ -6,7 +6,7 @@ class SceneManager {
     this.game.isFightingBoss = false;
     this.game.isBulletCapacityVisible = false;
     this.game.isMagazine = false;
-
+    this.game.time = 0;
     this.game.currentLevel = level;
     this.game.show = false;
     this.title = true;

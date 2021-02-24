@@ -487,6 +487,7 @@ class Weapon {
       new Fireball(game, x, y, isFacingLeft),
       new MultileFire(game, x, y, isFacingLeft),
       new Spray(game, x, y, isFacingLeft),
+      new BulletTwo(game, x, y, isFacingLeft),
     ];
   }
   seletedGun(number) {

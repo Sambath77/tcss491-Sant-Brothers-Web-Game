@@ -432,10 +432,10 @@ class Zombie {
 
             if (entity.x <= that.x) {
               that.currentMode = 'attack';
-              that.isFacingLeft = false;
+              that.isFacingLeft = 0;
             } else {
               that.currentMode = 'attackRight';
-              that.isFacingLeft = true;
+              that.isFacingLeft = 1;
             }
 
             if (that.isFacingLeft) {
@@ -688,6 +688,7 @@ class Terrorists {
     //this.game.show = false;
     this.updateBoundingBox();
     this.isFacingLeft = 0;
+    this.isleft = false;
 
     // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
 
@@ -747,7 +748,7 @@ class Terrorists {
         this.assetsMapRight.get(mode) ?? 'walk',
         36,
         150,
-        35,
+        32,
         42,
         3,
         0.2,
@@ -760,11 +761,11 @@ class Terrorists {
         this.assetsMapRight.get(mode) ?? 'walk',
         80,
         46,
-        32,
+        34,
         43,
-        3,
+        2,
         0.2,
-        26,
+        15,
         true,
         mode !== 'death'
       );
@@ -784,7 +785,7 @@ class Terrorists {
     }
   }
   updateBoundingBox() {
-    if (this.currentMode == 'attack' || this.currentMode == 'attackRight') {
+    if (this.currentMode === 'attack' || this.currentMode === 'attackRight') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -792,7 +793,10 @@ class Terrorists {
         3.0 * PARAMS.BLOCKWIDTH,
         2.8 * PARAMS.BLOCKWIDTH
       );
-    } else if (this.currentMode == 'walk' || this.currentMode == 'walkRight') {
+    } else if (
+      this.currentMode === 'walk' ||
+      this.currentMode === 'walkRight'
+    ) {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -828,9 +832,18 @@ class Terrorists {
       //console.log(this.attackCounter);
       // attack counter is for restricting attack speed
       if (this.attackCounter > 0.5) {
-        const bulletX = this.x - 20;
+        const bulletX = this.x + (this.isFacingLeft ? -48 : 120);
         const bulletY = this.y + 37;
-        this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 1));
+        this.game.addEntity(
+          new Weapon(
+            this.game,
+            bulletX,
+            bulletY,
+            this.isFacingLeft,
+            4
+          ).seletedGun(4)
+        );
+
         this.attackCounter = 0.0;
       }
       // if (this.attackCounter > 1.6) {
@@ -864,11 +877,19 @@ class Terrorists {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (
-          entity instanceof Sant &&
-          entity.x < that.x &&
-          entity.y > that.y - 13
+          entity instanceof Sant
+          //  &&
+          // entity.x < that.x &&
+          // entity.y > that.y - 13
         ) {
-          that.currentMode = 'attack';
+          if (entity.x < that.x && entity.y > that.y - 13) {
+            that.currentMode = 'attack';
+            that.isLeft = false;
+          } else if (entity.x > that.x && entity.y > that.y - 13) {
+            that.currentMode = 'attackRight';
+            that.isRight = true;
+          }
+
           // if (entity.x > that.x) {
           //   that.currentMode = 'attack';
           //   that.isFacingLeft = false;
@@ -877,11 +898,11 @@ class Terrorists {
           //   that.isFacingLeft = true;
           // }
 
-          // if (that.isFacingLeft) {
-          //   that.currentMode = 'walk';
-          // } else {
-          //   that.currentMode = 'walkRight';
-          // }
+          if (that.isFacingLeft) {
+            that.currentMode = 'walkRight';
+          } else {
+            that.currentMode = 'walk';
+          }
           that.updateBoundingBox();
         } else if (
           entity instanceof Sant &&
@@ -903,7 +924,7 @@ class Terrorists {
                 that.currentMode = 'death';
                 //that.game.show == true;
 
-                that.y = 768;
+                //that.y = 768;
               }
               if (that.currentMode === 'death') {
                 console.log('add new terrorist');
@@ -939,9 +960,6 @@ class Terrorists {
               }
             } else {
               that.x = entity.BB.right;
-              //console.log(that.velocity.x + 'Terrorist right');
-              //that.currentMode = 'walkRight';
-              //that.isFacingLeft = false;
 
               if (that.velocity.x < 0) {
                 that.velocity.x = -that.velocity.x;
