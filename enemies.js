@@ -687,7 +687,7 @@ class Terrorists {
     this.count = 0;
     //this.game.show = false;
     this.updateBoundingBox();
-    this.isFacingLeft = 0;
+    this.isFacingLeft = 1;
     this.isleft = false;
 
     // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
@@ -877,17 +877,18 @@ class Terrorists {
       const that = this;
       this.game.entities.forEach(function (entity) {
         if (
-          entity instanceof Sant
-          //  &&
-          // entity.x < that.x &&
-          // entity.y > that.y - 13
+          entity instanceof Sant &&
+          entity.x < that.x &&
+          entity.y > that.y - 13
         ) {
-          if (entity.x < that.x && entity.y > that.y - 13) {
+          if (entity.x < that.x) {
             that.currentMode = 'attack';
+            that.isFacingLeft = 1;
             that.isLeft = false;
-          } else if (entity.x > that.x && entity.y > that.y - 13) {
+          } else if (entity.x > that.x) {
             that.currentMode = 'attackRight';
-            that.isRight = true;
+            that.isLeft = true;
+            that.isFacingLeft = 0;
           }
 
           // if (entity.x > that.x) {
@@ -898,10 +899,12 @@ class Terrorists {
           //   that.isFacingLeft = true;
           // }
 
-          if (that.isFacingLeft) {
+          if (that.isLeft) {
             that.currentMode = 'walkRight';
+            that.isFacingLeft = 0;
           } else {
             that.currentMode = 'walk';
+            that.isFacingLeft = 1;
           }
           that.updateBoundingBox();
         } else if (
@@ -956,7 +959,7 @@ class Terrorists {
               if (that.velocity.x > 0) {
                 that.velocity.x = -that.velocity.x;
                 that.currentMode = 'walk';
-                //console.log('heelo');
+                console.log('heelo');
               }
             } else {
               that.x = entity.BB.right;
@@ -966,7 +969,7 @@ class Terrorists {
                 //console.log(that.currentMode);
                 that.currentMode = 'walkRight';
                 //console.log(that.currentMode);
-                //console.log(that.velocity.x + ' terrorist changed to right');
+                console.log(that.velocity.x + ' terrorist changed to right');
               }
               that.updateBoundingBox();
             }
