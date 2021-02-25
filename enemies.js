@@ -931,10 +931,6 @@ class Terrorists {
                 that.game.addEntity(
                   new Terrorists(that.game, that.x + 500, that.y)
                 );
-              } else if (that.currentMode === 'death') {
-                that.game.addEntity(
-                  new Terrorists(that.game, that.x + 500, that.y)
-                );
               }
             }
           } else if (entity instanceof Sant) {
