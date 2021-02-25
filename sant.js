@@ -544,8 +544,10 @@ class Sant {
           // Auto upgrade the gun
           if (entity instanceof Panda || entity instanceof Angel) {
             entity.removeFromWorld = true;
-            if (entity instanceof Panda) {
+            console.log('touch panda');
+            if (that.game.currentLevel === 2 || that.game.currentLevel === 3) {
               that.health++;
+              console.log('increaded health');
             }
             if (
               that.BB.collide(entity.leftBB) ||
@@ -554,11 +556,11 @@ class Sant {
               that.random = Math.floor(Math.floor(Math.random() * 3) + 1);
               that.changeGun = true;
               console.log(that.random);
-              if (that.random == 1) {
+              if (that.random === 1) {
                 that.capacity = 60;
-              } else if (that.random == 2) {
+              } else if (that.random === 2) {
                 that.capacity = 40;
-              } else if (that.random == 3) {
+              } else if (that.random === 3) {
                 that.capacity = 25;
               }
             }
@@ -595,7 +597,7 @@ class Sant {
           this.isEnabledHurtCooldown = false;
         }
       }
-      if (this.changeGun == false || this.changeGun == true) {
+      if (this.changeGun === false || this.changeGun === true) {
         if (this.state === 6) {
           this.attackCounter += this.game.clockTick;
           // attack counter is for restricting attack speed
@@ -672,8 +674,7 @@ class Sant {
   revive() {
     this.health = 5;
     this.dead = false;
-    this.x = 2.5 * PARAMS.BLOCKWIDTH,
-    this.y = 0 * PARAMS.BLOCKWIDTH
+    (this.x = 2.5 * PARAMS.BLOCKWIDTH), (this.y = 0 * PARAMS.BLOCKWIDTH);
   }
 
   drawMinimap(ctx, mmX, mmY) {

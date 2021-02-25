@@ -53,10 +53,9 @@ class SceneManager {
   }
 
   loadLevel(x, y, level) {
-    if(level === 0) {
+    if (level === 0) {
       this.loadTitle();
-    }
-    else if (level === 1) {
+    } else if (level === 1) {
       this.loadLevelOne(x, y);
     } else if (level === 2) {
       this.loadLevelTwo(x, y);
@@ -64,7 +63,6 @@ class SceneManager {
       this.loadLevelThree(x, y);
     }
   }
-
 
   loadTitle() {
     this.game.currentLevel = 0;
@@ -74,7 +72,6 @@ class SceneManager {
 
     let background = new WallLevelOne(this.game, 0, PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(background);
-    
   }
   loadLevelOne(x, y) {
     this.game.isFightingBoss = false;
@@ -546,14 +543,14 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
-    for (let i = 0; i < 30; i += 2) {
-      terrorists = new Terrorists(
-        this.game,
-        this.game.mapMaxDistance,
-        PARAMS.BLOCKWIDTH * 11.2
-      );
-      this.game.addEntity(terrorists);
-    }
+    // for (let i = 0; i < 30; i += 2) {
+    //   terrorists = new Terrorists(
+    //     this.game,
+    //     this.game.mapMaxDistance,
+    //     PARAMS.BLOCKWIDTH * 11.2
+    //   );
+    //   this.game.addEntity(terrorists);
+    // }
 
     //Mafia
     let mafia = new Mafia(
@@ -845,8 +842,12 @@ class SceneManager {
 
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
-    if((this.game.currentLevel === 0 || this.sant.dead) && this.game.click) {
-      if (this.game.click && this.game.click.y > 9 * PARAMS.BLOCKWIDTH && this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH) {
+    if ((this.game.currentLevel === 0 || this.sant.dead) && this.game.click) {
+      if (
+        this.game.click &&
+        this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&
+        this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH
+      ) {
         this.sant.revive();
         this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
       }
@@ -867,12 +868,26 @@ class SceneManager {
 
   draw(ctx) {
     if (this.game.currentLevel === 0) {
-      ctx.fillStyle = this.game.mouse && this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH && this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH ? "Grey" : "White";
-      ctx.fillText("START", 6.75 * PARAMS.BLOCKWIDTH, 9.5 * PARAMS.BLOCKWIDTH);
+      ctx.fillStyle =
+        this.game.mouse &&
+        this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH &&
+        this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH
+          ? 'Grey'
+          : 'White';
+      ctx.fillText('START', 6.75 * PARAMS.BLOCKWIDTH, 9.5 * PARAMS.BLOCKWIDTH);
     }
     if (this.sant.dead) {
-      ctx.fillStyle = this.game.mouse && this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH && this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH ? "Grey" : "White";
-      ctx.fillText("TRY AGAIN", 6.75 * PARAMS.BLOCKWIDTH, 9.5 * PARAMS.BLOCKWIDTH);
+      ctx.fillStyle =
+        this.game.mouse &&
+        this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH &&
+        this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH
+          ? 'Grey'
+          : 'White';
+      ctx.fillText(
+        'TRY AGAIN',
+        6.75 * PARAMS.BLOCKWIDTH,
+        9.5 * PARAMS.BLOCKWIDTH
+      );
     }
     ctx.font = PARAMS.BLOCKWIDTH / 2 + 'px "Press Start 2P"';
     ctx.fillStyle = 'White';

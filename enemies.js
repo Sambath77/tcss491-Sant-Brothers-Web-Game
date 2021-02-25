@@ -425,8 +425,14 @@ class Zombie {
             entity.removeFromWorld = true;
             that.currentMode = 'death';
             that.updateBoundingBox();
-            if (that.currentMode == 'death')
-              that.game.addEntity(new Zombie(that.game, that.x + 900, that.y));
+            if (that.currentMode == 'death' && that.game.currentLevel === 2) {
+              that.game.addEntity(new Zombie(that.game, that.x + 600, that.y));
+            } else if (
+              that.currentMode == 'death' &&
+              that.game.currentLevel === 3
+            ) {
+              that.game.addEntity(new Zombie(that.game, that.x + 500, that.y));
+            }
           } else if (entity instanceof Sant) {
             //that.currentMode = 'attack';
 
@@ -688,6 +694,7 @@ class Terrorists {
     //this.game.show = false;
     this.updateBoundingBox();
     this.isFacingLeft = 1;
+    this.isLeft = false;
 
     // this.spritesheet = ASSET_MANAGER.getAsset("./sprites/skeleton.png");
 
@@ -874,12 +881,16 @@ class Terrorists {
           if (entity.x > that.x) {
             that.currentMode = 'attackRight';
             that.isFacingLeft = 0;
+            that.isLeft = false;
+            console.log('Attack Right');
           } else {
             that.currentMode = 'attack';
             that.isFacingLeft = 1;
+            that.isLeft = true;
+            console.log('attack left');
           }
 
-          // if (that.isFacingLeft) {
+          // if (that.isLeft) {
           //   that.currentMode = 'walk';
           // } else {
           //   that.currentMode = 'walkRight';
@@ -903,12 +914,24 @@ class Terrorists {
               entity.removeFromWorld = true;
               if (that.health <= 0) {
                 that.currentMode = 'death';
-                //that.game.show == true;
-
-                //that.y = 768;
               }
-              if (that.currentMode === 'death') {
+              if (
+                that.currentMode === 'death' &&
+                that.game.currentLevel === 2
+              ) {
                 console.log('add new terrorist');
+                that.game.addEntity(
+                  new Terrorists(that.game, that.x + 600, that.y)
+                );
+              } else if (
+                that.currentMode === 'death' &&
+                that.game.currentLevel === 3
+              ) {
+                console.log('add new terrorist');
+                that.game.addEntity(
+                  new Terrorists(that.game, that.x + 500, that.y)
+                );
+              } else if (that.currentMode === 'death') {
                 that.game.addEntity(
                   new Terrorists(that.game, that.x + 500, that.y)
                 );
@@ -922,8 +945,6 @@ class Terrorists {
           ) {
             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
             that.updateBoundingBox();
-            // } else if (entity !== that) {
-            //   that.velocity.x = -that.velocity.x;
           } else if (
             entity instanceof BlockLevelOne ||
             (entity instanceof Block && that.BB.bottom > entity.BB.top)
@@ -932,24 +953,17 @@ class Terrorists {
               that.x = entity.BB.left - that.BB.width;
               that.currentMode = 'walk';
               that.isFacingLeft = 1;
-
-              //console.log(that.velocity.x + 'Terrorist left');
               if (that.velocity.x > 0) {
                 that.velocity.x = -that.velocity.x;
                 that.currentMode = 'walk';
-                //console.log('heelo');
               }
             } else {
               that.x = entity.BB.right;
-              //console.log(that.velocity.x + 'Terrorist right');
               that.currentMode = 'walkRight';
               that.isFacingLeft = 0;
 
               if (that.velocity.x < 0) {
                 that.velocity.x = -that.velocity.x;
-                //console.log(that.currentMode);
-                //that.currentMode = 'walkRight';
-                //console.log(that.currentMode);
                 console.log(that.velocity.x + ' terrorist changed to right');
               }
               that.updateBoundingBox();
