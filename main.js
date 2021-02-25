@@ -20,6 +20,7 @@ ASSET_MANAGER.queueDownload('./sprites/place.png');
 ASSET_MANAGER.queueDownload('./sprites/block1.png');
 ASSET_MANAGER.queueDownload('./sprites/block3.png');
 ASSET_MANAGER.queueDownload('./sprites/block4.png');
+ASSET_MANAGER.queueDownload('./sprites/flag.png');
 ASSET_MANAGER.queueDownload('./sprites/panda.png');
 ASSET_MANAGER.queueDownload('./sprites/terrorists.png');
 ASSET_MANAGER.queueDownload('./sprites/sant/fire_left.png');

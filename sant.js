@@ -37,6 +37,7 @@ class Sant {
     // sant's animations
     this.animations = [];
     this.random = 0;
+    this.isFirstTimeTouchedFlag = true;
     //this.isMagazine = false;
     //this.weapon = WEAPON.selectedGun(0);
 
@@ -442,6 +443,13 @@ class Sant {
       var that = this;
       this.game.entities.forEach(function (entity) {
         if (entity.BB && that.BB.collide(entity.BB)) {
+          if (entity instanceof Flag && that.isFirstTimeTouchedFlag) {
+            that.game.addEntity(new Finish(that.game));
+            that.isFirstTimeTouchedFlag = false;
+            setTimeout(function () {
+              that.game.camera.loadLevel(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, that.game.currentLevel + 1);
+            }, 3000);
+          }
           if (that.velocity.y > 0) {
             // falling
             if (
@@ -672,6 +680,10 @@ class Sant {
   }
 
   revive() {
+    this.isFirstTimeTouchedFlag = true;
+    this.capacity = false;
+    this.game.isBulletCapacityVisible = false;
+    this.isMagazine = false;
     this.health = 5;
     this.dead = false;
     (this.x = 2.5 * PARAMS.BLOCKWIDTH), (this.y = 0 * PARAMS.BLOCKWIDTH);
