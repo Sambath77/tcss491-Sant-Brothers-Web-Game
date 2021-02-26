@@ -283,20 +283,19 @@ class SceneManager {
     //   this.game.addEntity(terrorists);
     // }
 
-    terrorists = new Terrorists(
-      this.game,
-      this.game.mapMaxDistance + 800,
-      11.2 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(terrorists);
+    // terrorists = new Terrorists(
+    //   this.game,
+    //   this.game.mapMaxDistance + 800,
+    //   11.2 * PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(terrorists);
 
-    //Mafia
-    let mafia = new Mafia(
+    let flag = new Flag(
       this.game,
       this.game.mapMaxDistance + 600,
-      10.5 * PARAMS.BLOCKWIDTH
+      10 * PARAMS.BLOCKWIDTH
     );
-    this.game.addEntity(mafia);
+    this.game.addEntity(flag);
 
     this.sant.x = x;
     this.sant.y = this.sant.size ? y - PARAMS.BLOCKWIDTH : y;
@@ -304,6 +303,7 @@ class SceneManager {
   }
 
   loadLevelTwo(x, y) {
+    this.sant.isFirstTimeTouchedFlag = true;
     this.game.isFightingBoss = false;
     this.game.currentLevel = 2;
     this.game.show = true;
@@ -552,13 +552,12 @@ class SceneManager {
     //   this.game.addEntity(terrorists);
     // }
 
-    //Mafia
-    let mafia = new Mafia(
+    let flag = new Flag(
       this.game,
       this.game.mapMaxDistance + 600,
-      10.5 * PARAMS.BLOCKWIDTH
+      10 * PARAMS.BLOCKWIDTH
     );
-    this.game.addEntity(mafia);
+    this.game.addEntity(flag);
 
     terrorists = new Terrorists(
       this.game,

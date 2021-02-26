@@ -615,3 +615,65 @@ class Brickmoved {
     }
   }
 }
+
+class Flag {
+  constructor(game, x, y) {
+    Object.assign(this, { game, x, y });
+
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/flag.png');
+
+    this.BB = new BoundingBox(
+      this.x + PARAMS.BLOCKWIDTH,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 2,
+      PARAMS.BLOCKWIDTH * 3
+    );
+    // this.leftBB = new BoundingBox(
+    //   this.x,
+    //   this.y,
+    //   PARAMS.BLOCKWIDTH,
+    //   PARAMS.BLOCKWIDTH
+    // );
+    // this.rightBB = new BoundingBox(
+    //   this.x,
+    //   this.y,
+    //   PARAMS.BLOCKWIDTH / 2,
+    //   PARAMS.BLOCKWIDTH * 2
+    // );
+  }
+
+  update() {}
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = 'Brown';
+    ctx.fillRect(
+      mmX + this.x + PARAMS.BLOCKWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      PARAMS.BITWIDTH,
+      PARAMS.SCALE
+    );
+  }
+
+  draw(ctx) {
+    ctx.drawImage(
+      this.spritesheet,
+      30,
+      10,
+      120,
+      150,
+      this.x - this.game.camera.x + PARAMS.BLOCKWIDTH,
+      this.y + PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 2,
+      PARAMS.BLOCKWIDTH * 3
+    );
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
+    }
+  }
+}
