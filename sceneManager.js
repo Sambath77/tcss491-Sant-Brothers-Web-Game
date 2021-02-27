@@ -290,6 +290,7 @@ class SceneManager {
     // );
     // this.game.addEntity(terrorists);
 
+
     let flag = new Flag(
       this.game,
       this.game.mapMaxDistance + 600,
