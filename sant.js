@@ -691,7 +691,7 @@ class Sant {
     this.capacity = false;
     this.game.isBulletCapacityVisible = false;
     this.isMagazine = false;
-    this.health = 5;
+    this.health = 10;
     this.dead = false;
     (this.x = 2.5 * PARAMS.BLOCKWIDTH), (this.y = 0 * PARAMS.BLOCKWIDTH);
   }
