@@ -28,7 +28,7 @@ class Sant {
     this.attackCounter = 0;
 
     this.changeGun = false;
-    this.health = 5;
+    this.health = 10;
 
     this.bullet = null;
 
@@ -486,6 +486,7 @@ class Sant {
                 entity instanceof FlyingEye ||
                 entity instanceof Terrorists ||
                 entity instanceof BulletTwo ||
+                entity instanceof SprayTwo ||
                 entity instanceof Mafia) && // squish skeleton
               // && (that.lastBB.bottom) <= entity.BB.top // was above last tick
               !entity.dead
@@ -496,7 +497,7 @@ class Sant {
                 // that.velocity.x += (that.isFacingLeft === 0 ? 1 : -1) * 1;
                 that.velocity.x = 0;
                 that.state = 7;
-                if (entity instanceof BulletTwo) {
+                if (entity instanceof BulletTwo || entity instanceof SprayTwo) {
                   that.bullet = entity;
                 }
               }
@@ -583,7 +584,13 @@ class Sant {
       if (this.state === 7) {
         if (this.hurtCounter === 0) {
           this.health -= 1;
-          if (this.bullet instanceof BulletTwo) {
+          if (this.bullet instanceof SprayTwo) {
+            this.health -= 1;
+          }
+          if(this.health < 0) {
+            this.health = 0;
+          }
+          if (this.bullet instanceof BulletTwo || this.bullet instanceof SprayTwo) {
             this.bullet.removeFromWorld = true;
           }
         }
@@ -684,7 +691,7 @@ class Sant {
     this.capacity = false;
     this.game.isBulletCapacityVisible = false;
     this.isMagazine = false;
-    this.health = 5;
+    this.health = 10;
     this.dead = false;
     (this.x = 2.5 * PARAMS.BLOCKWIDTH), (this.y = 0 * PARAMS.BLOCKWIDTH);
   }

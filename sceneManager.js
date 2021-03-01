@@ -290,6 +290,7 @@ class SceneManager {
     // );
     // this.game.addEntity(terrorists);
 
+
     let flag = new Flag(
       this.game,
       this.game.mapMaxDistance + 600,
@@ -937,7 +938,7 @@ class SceneManager {
       width: 200,
       height: 20,
     };
-    var maxHealth = 5;
+    var maxHealth = 10;
     var percent = this.sant.getHealth() / maxHealth;
     if (percent >= 0.7) {
       ctx.fillStyle = 'green';
