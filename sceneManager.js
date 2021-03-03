@@ -9,6 +9,7 @@ class SceneManager {
 
     this.game.currentLevel = level;
     this.game.show = false;
+    this.game.isOnWinningPage = false;
     this.title = true;
     this.x = 0;
     this.score = 0;
@@ -840,15 +841,25 @@ class SceneManager {
     this.game.addEntity(this.sant);
   }
 
+  loadWinningPage() {
+    this.sant.isFirstTimeTouchedFlag = true;
+    this.game.isFightingBoss = false;
+    this.game.show = true;
+    this.game.entities = [];
+    this.game.isOnWinningPage = true;
+  }
+
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
-    if ((this.game.currentLevel === 0 || this.sant.dead) && this.game.click) {
+    if ((this.game.currentLevel === 0 || this.sant.dead || this.game.isOnWinningPage) && this.game.click) {
       if (
         this.game.click &&
         this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&
         this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH
       ) {
+        console.log("!");
         this.sant.revive();
+        this.game.isOnWinningPage = false;
         this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
       }
     }
@@ -889,22 +900,43 @@ class SceneManager {
         9.5 * PARAMS.BLOCKWIDTH
       );
     }
+    if (this.game.isOnWinningPage) {
+      ctx.fillStyle = 'White';
+      ctx.fillText(
+        'CONGRATULATIONS. YOU WIN!',
+        1.75 * PARAMS.BLOCKWIDTH,
+        8 * PARAMS.BLOCKWIDTH
+      );
+      ctx.fillStyle =
+        this.game.mouse &&
+        this.game.mouse.y > 9 * PARAMS.BLOCKWIDTH &&
+        this.game.mouse.y < 9.5 * PARAMS.BLOCKWIDTH
+          ? 'Grey'
+          : 'White';
+      ctx.fillText(
+        'PLAY AGAIN',
+        5.5 * PARAMS.BLOCKWIDTH,
+        9.5 * PARAMS.BLOCKWIDTH
+      );
+    }
     ctx.font = PARAMS.BLOCKWIDTH / 2 + 'px "Press Start 2P"';
     ctx.fillStyle = 'White';
-    ctx.fillText('SANT', 1.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
-    ctx.fillText(
-      (this.score + '').padStart(8, '0'),
-      1.5 * PARAMS.BLOCKWIDTH,
-      1.5 * PARAMS.BLOCKWIDTH
-    );
+    if (!this.game.isOnWinningPage && this.game.currentLevel >= 1) {
+      ctx.fillText('SANT', 1.5 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
+      ctx.fillText(
+        (this.score + '').padStart(8, '0'),
+        1.5 * PARAMS.BLOCKWIDTH,
+        1.5 * PARAMS.BLOCKWIDTH
+      );
 
-    // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
-    // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
-    ctx.fillText(
-      `Level ${this.game.currentLevel}`,
-      12 * PARAMS.BLOCKWIDTH,
-      1 * PARAMS.BLOCKWIDTH
-    );
+      // ctx.fillText("WORLD", 9 * PARAMS.BLOCKWIDTH, 1 * PARAMS.BLOCKWIDTH);
+      // ctx.fillText("1-1", 9.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
+      ctx.fillText(
+        `Level ${this.game.currentLevel}`,
+        12 * PARAMS.BLOCKWIDTH,
+        1 * PARAMS.BLOCKWIDTH
+      );
+    }
 
     //magazines capacity
     if (this.game.isBulletCapacityVisible && this.game.isMagazine) {
@@ -930,26 +962,28 @@ class SceneManager {
       }
     }
 
-    ctx.fillStyle = 'white';
-    ctx.fillText('health: ', 6.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
-    var object1 = {
-      x: 10 * PARAMS.BLOCKWIDTH,
-      y: 1 * PARAMS.BLOCKWIDTH,
-      width: 200,
-      height: 20,
-    };
-    var maxHealth = 10;
-    var percent = this.sant.getHealth() / maxHealth;
-    if (percent >= 0.7) {
-      ctx.fillStyle = 'green';
-    } else if (percent < 0.7 && percent >= 0.4) {
-      ctx.fillStyle = 'yellow';
-    } else {
-      ctx.fillStyle = 'red';
+    if (this.game.isBulletCapacityVisible && this.game.isMagazine) {
+      ctx.fillStyle = 'white';
+      ctx.fillText('health: ', 6.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
+      var object1 = {
+        x: 10 * PARAMS.BLOCKWIDTH,
+        y: 1 * PARAMS.BLOCKWIDTH,
+        width: 200,
+        height: 20,
+      };
+      var maxHealth = 10;
+      var percent = this.sant.getHealth() / maxHealth;
+      if (percent >= 0.7) {
+        ctx.fillStyle = 'green';
+      } else if (percent < 0.7 && percent >= 0.4) {
+        ctx.fillStyle = 'yellow';
+      } else {
+        ctx.fillStyle = 'red';
+      }
+      ctx.strokeStyle = 'grey';
+      ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
+      ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
     }
-    ctx.strokeStyle = 'grey';
-    ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
-    ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
 
     // this.coinAnimation.drawFrame(
     //   this.game.clockTick,

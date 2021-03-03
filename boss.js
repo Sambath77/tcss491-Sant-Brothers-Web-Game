@@ -230,7 +230,7 @@ class Mafia {
         var that = this;
         this.isFirstTimeTriggered = false;
         setTimeout(function () {
-           that.game.camera.loadLevel(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, that.game.currentLevel + 1);
+           that.game.camera.loadWinningPage();
         }, 3000);
       }
       var object1 = {
