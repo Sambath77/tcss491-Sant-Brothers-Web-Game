@@ -75,6 +75,8 @@ class SceneManager {
     this.game.addEntity(background);
   }
   loadLevelOne(x, y) {
+    ASSET_MANAGER.pauseBackgroundMusic();
+    ASSET_MANAGER.playAsset('./music/Revolution - AShamaluevMusic.mp3');
     this.game.isFightingBoss = false;
     this.game.currentLevel = 1;
     this.game.entities = [];
@@ -849,8 +851,18 @@ class SceneManager {
     this.game.isOnWinningPage = true;
   }
 
+  updateAudio() {
+    var mute = document.getElementById("mute").checked;
+    var volume = document.getElementById("volume").value;
+
+    ASSET_MANAGER.muteAudio(mute);
+    ASSET_MANAGER.adjustVolume(volume);
+
+};
+
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
+    this.updateAudio();
     if ((this.game.currentLevel === 0 || this.sant.dead || this.game.isOnWinningPage) && this.game.click) {
       if (
         this.game.click &&

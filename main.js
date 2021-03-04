@@ -1,5 +1,6 @@
 const ASSET_MANAGER = new AssetManager();
 
+//imagine
 ASSET_MANAGER.queueDownload('./sprites/luigi.png');
 ASSET_MANAGER.queueDownload('./sprites/enemies.png');
 ASSET_MANAGER.queueDownload('./sprites/tiles.png');
@@ -36,7 +37,11 @@ ASSET_MANAGER.queueDownload('./sprites/zombies.png');
 ASSET_MANAGER.queueDownload('./sprites/gunners-left.png');
 ASSET_MANAGER.queueDownload('./sprites/gunners-right.png');
 
+//music
+ASSET_MANAGER.queueDownload('./music/Revolution - AShamaluevMusic.mp3');
+
 function loadGame(level) {
+  ASSET_MANAGER.autoRepeat('./music/Revolution - AShamaluevMusic.mp3');
   var gameEngine = new GameEngine();
 
   PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
