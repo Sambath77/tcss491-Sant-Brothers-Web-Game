@@ -673,12 +673,12 @@ class Terrorists {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
     this.animationModes = [
-      'walk',
-      'attack',
+      'walkleft',
+      'attackleft',
       'death',
-      'deathRight',
-      'attackRight',
-      'walkRight',
+      'deathright',
+      'attackright',
+      'walkright',
     ];
     this.currentMode = this.animationModes[0];
     this.assetsMap = this.constructAssetMap();
@@ -723,75 +723,20 @@ class Terrorists {
   }
 
   createTerroristsAnimator(mode) {
-    if (mode == 'walk') {
-      return new Animator(
-        this.assetsMap.get(mode) ?? 'walk',
-        283,
-        149,
-        41,
-        45,
-        6,
-        0.1,
-        0,
-        true,
-        mode !== 'death'
-      );
-    } else if (mode == 'attack') {
-      return new Animator(
-        this.assetsMap.get(mode) ?? 'walk',
-        336,
-        45,
-        48,
-        45,
-        4,
-        0.2,
-        0,
-        true,
-        mode !== 'death'
-      );
-    } else if (mode == 'attackRight') {
-      return new Animator(
-        this.assetsMapRight.get(mode) ?? 'walk',
-        36,
-        150,
-        32,
-        42,
-        3,
-        0.2,
-        3,
-        true,
-        mode !== 'death'
-      );
-    } else if (mode == 'walkRight') {
-      return new Animator(
-        this.assetsMapRight.get(mode) ?? 'walk',
-        80,
-        46,
-        34,
-        43,
-        2,
-        0.2,
-        15,
-        true,
-        mode !== 'death'
-      );
+    if (mode == 'walkleft') {
+      return new Animator(this.assetsMap.get(mode) ?? 'walkleft', 283, 149, 41, 45, 6, 0.1, 0, true, mode !== 'death');
+    } else if (mode == 'attackleft') {
+      return new Animator(this.assetsMap.get(mode) ?? 'attackleft', 336, 45, 48, 45, 4, 0.2, 0, true, mode !== 'death');
+    } else if (mode == 'attackright') {
+      return new Animator(this.assetsMapRight.get(mode) ?? 'attackright', 32, 45, 48, 45, 4, 0.2, 0, true, mode !== 'death');
+    } else if (mode == 'walkright') {
+      return new Animator(this.assetsMapRight.get(mode) ?? 'walkright', 30, 149, 41, 45, 6, 0.1, 0, true, mode !== 'death');
     } else if (mode == 'death') {
-      return new Animator(
-        this.assetsMap.get(mode) ?? 'walk',
-        311,
-        353,
-        57,
-        50,
-        1,
-        1,
-        0.1,
-        true,
-        mode == 'death'
-      );
+      return new Animator( this.assetsMap.get(mode) ?? 'death', 311, 353, 57, 50, 1, 1, 0.1, true, mode == 'death');
     }
   }
   updateBoundingBox() {
-    if (this.currentMode == 'attack' || this.currentMode == 'attackRight') {
+    if (this.currentMode == 'attackleft' || this.currentMode == 'attackright') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -799,7 +744,7 @@ class Terrorists {
         3.0 * PARAMS.BLOCKWIDTH,
         2.8 * PARAMS.BLOCKWIDTH
       );
-    } else if (this.currentMode == 'walk' || this.currentMode == 'walkRight') {
+    } else if (this.currentMode == 'walkleft' || this.currentMode == 'walkright') {
       this.lastBB = this.BB;
       this.BB = new BoundingBox(
         this.x,
@@ -810,11 +755,11 @@ class Terrorists {
     }
   }
   isWalking() {
-    return this.currentMode === 'walk' || this.currentMode === 'walkRight';
+    return this.currentMode === 'walkleft' || this.currentMode === 'walkright';
   }
 
   isAttacking() {
-    return this.currentMode === 'attack' || this.currentMode === 'attackRight';
+    return this.currentMode === 'attackleft' || this.currentMode === 'attackright';
   }
 
   isDead() {
@@ -827,150 +772,120 @@ class Terrorists {
 
   update() {
     if (this.isAttacking()) {
-      this.attackCounter += this.game.clockTick;
+        this.attackCounter += this.game.clockTick;
 
-      // attack counter is for restricting attack speed
+        // attack counter is for restricting attack speed
 
-      this.velocity.x = 0;
-      //console.log(this.attackCounter);
-      // attack counter is for restricting attack speed
-      if (this.attackCounter > 0.5) {
-        const bulletX = this.x - 20;
-        const bulletY = this.y + 37;
-        this.game.addEntity(
-          new BulletTwo(this.game, bulletX, bulletY, this.isFacingLeft)
-        );
-        this.attackCounter = 0.0;
-      }
-      // if (this.attackCounter > 1.6) {
-      //   if (this.isFacingLeft) {
-      //     this.currentMode = 'walk';
-      //     this.attackCounter = 0.0;
-      //   } else {
-      //     this.currentMode = 'walkRight';
-      //     this.attackCounter = 0.0;
-      //   }
-      // }
+        this.velocity.x = 0;
+        //console.log(this.attackCounter);
+            // attack counter is for restricting attack speed
+        if (this.attackCounter > 0.5 && this.isFacingLeft) {
+          const bulletX = this.x - 20;
+          const bulletY = this.y + 37;
+          this.game.addEntity(
+            new BulletTwo(this.game, bulletX, bulletY, 1)
+          );
+          this.attackCounter = 0.0;
+        } else if (this.attackCounter > 0.5 && !this.isFacingLeft) {
+            const bulletX = this.x + 150;
+            const bulletY = this.y + 30;
+            this.game.addEntity(new BulletTwo(this.game, bulletX, bulletY, 0));
+            this.attackCounter = 0.0;
+        }
+        if (this.attackCounter > 1.6) {
+            if(this.isFacingLeft) {
+                this.currentMode = "walkleft";
+                this.attackCounter = 0.0;
+                
+            }else {
+                this.currentMode = "walkright";
+                this.attackCounter = 0.0;
+            }
+
+        }
     } else {
-      this.velocity = { x: -PARAMS.BITWIDTH, y: 0 };
+        this.velocity = { x: -PARAMS.BITWIDTH, y: 0 };
     }
     if (this.isDead()) {
-      if (this.deadCounter === 0) {
+        if (this.deadCounter === 0) {
         this.game.addEntity(new Score(this.game, this.x, this.y, 100));
-      }
-      this.deadCounter += this.game.clockTick;
-      if (this.deadCounter > 0.5) {
-        this.removeFromWorld = true;
-      }
+        }
+        this.deadCounter += this.game.clockTick;
+        if (this.deadCounter > 0.5) {
+            this.removeFromWorld = true;
+        }
     }
     if (this.paused && this.isInCameraView()) {
-      this.paused = false;
+        this.paused = false;
     }
 
     if (!this.paused && !this.isDead()) {
-      this.x += this.game.clockTick * this.velocity.x * PARAMS.SCALE;
-      this.updateBoundingBox();
-      const that = this;
-      this.game.entities.forEach(function (entity) {
-        if (
-          entity instanceof Sant &&
-          entity.x < that.x &&
-          entity.y > that.y - 13
-        ) {
-          //that.currentMode = 'attack';
-          if (entity.x > that.x) {
-            that.currentMode = 'attackRight';
-            that.isFacingLeft = 0;
-            that.isLeft = false;
-            console.log('Attack Right');
-          } else {
-            that.currentMode = 'attack';
-            that.isFacingLeft = 1;
-            that.isLeft = true;
-            console.log('attack left');
-          }
+        if(this.isFacingLeft) {
+            this.x += this.game.clockTick * this.velocity.x * PARAMS.SCALE;
+        } else {
+            this.x += this.game.clockTick * (-this.velocity.x) * PARAMS.SCALE;
 
-          // if (that.isLeft) {
-          //   that.currentMode = 'walk';
-          // } else {
-          //   that.currentMode = 'walkRight';
-          // }
-          that.updateBoundingBox();
-        } else if (
-          entity instanceof Sant &&
-          (entity.x > that.x || entity.y < that.y - 13)
-        ) {
-          that.currentMode = 'walk';
+        }
+        this.updateBoundingBox();
+        const that = this;
+        
+        this.game.entities.forEach(function (entity) {
+        if (entity instanceof Sant && entity.y > that.y - 50) {
+            if(entity.x < that.x) {
+                that.currentMode = "attackleft";
+                that.isFacingLeft = true;
+            } else {
+                that.currentMode = "attackright";
+                that.isFacingLeft = false;
+            }
+        } else if (entity instanceof Sant && entity.y < that.y) {
+            if(that.isFacingLeft) {
+                that.currentMode = "walkleft";
+            } else {
+                that.currentMode = "walkright";
+            }
         }
         if (entity.BB && that.BB.collide(entity.BB)) {
-          if (
-            entity instanceof Bullet ||
-            entity instanceof Spray ||
-            entity instanceof MultileFire ||
-            entity instanceof Fireball
-          ) {
-            if (that.health > 0) {
-              that.health -= entity.power;
-              entity.removeFromWorld = true;
-              if (that.health <= 0) {
-                that.currentMode = 'death';
-              }
-              if (
-                that.currentMode === 'death' &&
-                that.game.currentLevel === 2
-              ) {
-                console.log('add new terrorist');
-                that.game.addEntity(
-                  new Terrorists(that.game, that.x + 600, that.y)
-                );
-              } else if (
-                that.currentMode === 'death' &&
-                that.game.currentLevel === 3
-              ) {
-                console.log('add new terrorist');
-                that.game.addEntity(
-                  new Terrorists(that.game, that.x + 500, that.y)
-                );
-              }
-            }
-          } else if (entity instanceof Sant) {
-            that.currentMode = 'attack';
-          } else if (
-            entity instanceof Ground &&
-            that.lastBB.bottom <= entity.BB.top
-          ) {
-            that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
-            that.updateBoundingBox();
-          } else if (
-            entity instanceof BlockLevelOne ||
-            (entity instanceof Block && that.BB.bottom > entity.BB.top)
+          if (entity instanceof BlockLevelOne || (entity instanceof Block && that.BB.bottom > entity.BB.top)
           ) {
             if (that.BB.collide(entity.leftBB)) {
-              that.x = entity.BB.left - that.BB.width;
-              that.currentMode = 'walk';
-              that.isFacingLeft = 1;
-              if (that.velocity.x > 0) {
-                that.velocity.x = -that.velocity.x;
-                that.currentMode = 'walk';
-              }
+              that.currentMode = "walkleft";
+              that.isFacingLeft = true;
             } else {
-              that.x = entity.BB.right;
-              that.currentMode = 'walkRight';
-              that.isFacingLeft = 0;
-
-              if (that.velocity.x < 0) {
-                that.velocity.x = -that.velocity.x;
-                console.log(that.velocity.x + ' terrorist changed to right');
-              }
-              that.updateBoundingBox();
+              that.currenMode = "walkright";
+              that.isFacingLeft = false;
             }
-
-            that.updateBoundingBox();
           }
+            if(entity instanceof Bullet || entity instanceof Spray || 
+              entity instanceof MultileFire || entity instanceof Fireball) {
+            if(that.health > 0) {
+                that.health -= entity.power;
+                entity.removeFromWorld = true;
+                if (that.health <= 0) {
+                    if(that.isFacingLeft) {
+                        that.currentMode = "death";
+                    } else {
+                        that.currentMode = "death";
+                    }
+                }
+            } 
+            } else if (entity instanceof Sant) {
+            that.currentMode = "attackleft";
+            } else if (
+            (entity instanceof Ground ||
+                entity instanceof Brick ||
+                entity instanceof Block) &&
+            that.lastBB.bottom <= entity.BB.top
+            ) {
+            that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
+            that.updateBoundingBox();
+            } else if (entity !== that) {
+            that.velocity.x = -that.velocity.x;
+            }
         }
-      });
+        });
     }
-  }
+    }
 
   drawMinimap(ctx, mmX, mmY) {
     ctx.fillStyle = 'Tan';
