@@ -9,7 +9,7 @@ class Mafia {
       this.animations = this.animationModes.map((mode) =>
         this.createMafiaAnimator(mode)
       );
-      this.health = (this.game.currentLevel === 1) ? 20 : 40;
+      this.health = (this.game.currentLevel === 1) ? 20 : 70;
       this.paused = true;
       this.deadCounter = 0;
       this.attackCounter = 0;
@@ -246,7 +246,7 @@ class Mafia {
             60,
             150
         );
-        var maxHealth = (this.game.currentLevel === 1) ? 20 : 40;
+        var maxHealth = (this.game.currentLevel === 1) ? 20 : 70;
         var percent = this.health / maxHealth;
         if(percent >= 0.7) {
             ctx.fillStyle = "green";

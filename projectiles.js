@@ -443,6 +443,13 @@ class BulletTwo {
         }
       });
     }
+    if (this.x < this.initialX - 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    } else if (this.x > this.initialX + 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    }
     this.updateBoundingBox();
   }
 
