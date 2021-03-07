@@ -133,49 +133,28 @@ class SceneManager {
     //flying eyes
     let flyingEye = new FlyingEye(
       this.game,
-      13 * PARAMS.BLOCKWIDTH,
+      18 * PARAMS.BLOCKWIDTH,
       10 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(flyingEye);
 
     for (
       let i = 0;
-      10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
-      i = i + 3
-    ) {
-      brick = new BrickLevelOne(
-        this.game,
-        10 * i * PARAMS.BLOCKWIDTH + 1200,
-        9 * PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(brick);
-    }
-
-    for (
-      let i = 0;
-      10 * i * PARAMS.BLOCKWIDTH + 2000 < this.game.mapMaxDistance;
-      i = i + 6
-    ) {
-      brick = new BlockLevelOne(
-        this.game,
-        5 * i * PARAMS.BLOCKWIDTH + 2000,
-        11 * PARAMS.BLOCKWIDTH,
-        PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(brick);
-    }
-
-    for (
-      let i = 0;
       6 * i * PARAMS.BLOCKWIDTH + 1600 < this.game.mapMaxDistance;
       i = i + 11
     ) {
-      brick = new Angel(
-        this.game,
-        6 * i * PARAMS.BLOCKWIDTH + 1550,
-        10 * PARAMS.BLOCKWIDTH
+      // brick = new Angel(
+      //   this.game,
+      //   6 * i * PARAMS.BLOCKWIDTH + 1550,
+      //   10 * PARAMS.BLOCKWIDTH
+      // );
+      this.game.addEntity(
+        new Angel(
+          this.game,
+          6 * i * PARAMS.BLOCKWIDTH + 1550,
+          10 * PARAMS.BLOCKWIDTH
+        )
       );
-      this.game.addEntity(brick);
     }
 
     brick = new BrickLevelOne(
@@ -195,7 +174,7 @@ class SceneManager {
 
     let skeleton = new Skeleton(
       this.game,
-      10 * PARAMS.BLOCKWIDTH,
+      21 * PARAMS.BLOCKWIDTH,
       10.85 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(skeleton);
@@ -215,7 +194,7 @@ class SceneManager {
     this.game.addEntity(skeleton);
 
     for (
-      let i = 0;
+      let i = 1;
       (17 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
       i = i + 60
     ) {
@@ -230,7 +209,14 @@ class SceneManager {
     //Zombie - Tung
     let zombie = new Zombie(
       this.game,
-      15 * PARAMS.BLOCKWIDTH,
+      25 * PARAMS.BLOCKWIDTH,
+      11.5 * PARAMS.BLOCKWIDTH
+    );
+    this.game.addEntity(zombie);
+
+    zombie = new Zombie(
+      this.game,
+      28 * PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
@@ -256,42 +242,14 @@ class SceneManager {
       this.game.addEntity(terrorists);
     }
 
-    // for (
-    //   let i = 0;
-    //   (37 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
-    //   i = i + 30
-    // ) {
-    //   zombie = new Zombie(
-    //     this.game,
-    //     (38 + i) * PARAMS.BLOCKWIDTH,
-    //     11.5 * PARAMS.BLOCKWIDTH
-    //   );
-    //   this.game.addEntity(zombie);
-    // }
-    // terrorists = new Terrorists(
-    //   this.game,
-    //   60 * PARAMS.BLOCKWIDTH,
-    //   11.2 * PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(terrorists);
-
-    // for (let i = 0; i < 30; i += 2) {
-    //   terrorists = new Terrorists(
-    //     this.game,
-    //     this.game.mapMaxDistance,
-    //     PARAMS.BLOCKWIDTH * 11.2
-    //   );
-    //   this.game.addEntity(terrorists);
-    // }
-
-    // terrorists = new Terrorists(
-    //   this.game,
-    //   this.game.mapMaxDistance + 800,
-    //   11.2 * PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(terrorists);
-
-
+    for (let i = 1; i < this.game.mapMaxDistance; i = i + 30) {
+      terrorists = new Terrorists(
+        this.game,
+        18 * i * PARAMS.BLOCKWIDTH,
+        11.2 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(terrorists);
+    }
     let flag = new Flag(
       this.game,
       this.game.mapMaxDistance + 600,
@@ -310,6 +268,7 @@ class SceneManager {
     this.game.currentLevel = 2;
     this.game.show = true;
     this.game.entities = [];
+    this.mapMaxDistance = 10000;
     this.x = 0;
 
     let background = new WallLevelTwo(this.game, 0, PARAMS.BLOCKWIDTH, 0);
@@ -577,38 +536,41 @@ class SceneManager {
     this.game.isFightingBoss = false;
     this.game.currentLevel = 3;
     this.game.entities = [];
+    this.mapMaxDistance = 11500;
     this.x = 0;
 
-    let background = new WallLevelTwo(this.game, 0, PARAMS.BLOCKWIDTH, 0);
-    this.game.addEntity(background);
+    let background = new Wall(this.game, 0, PARAMS.BLOCKWIDTH, 0, 2);
+    this.game.addEntity(background.getWall(2));
 
-    for (let i = 0; i < PARAMS.BLOCKWIDTH; i++) {
-      background = new WallLevelTwo(
+    for (let i = 0; i < 8; i++) {
+      background = new Wall(
         this.game,
         PARAMS.BLOCKWIDTH * 25 * i,
         PARAMS.BLOCKWIDTH,
-        25
+        25,
+        i
       );
-      this.game.addEntity(background);
+      this.game.addEntity(background.getWall(i));
     }
 
-    let ground = new Ground(this.game, 0, 14 * PARAMS.BLOCKWIDTH, 0);
+    let ground = new GroundLevelThree(this.game, 0, 14 * PARAMS.BLOCKWIDTH, 0);
     this.game.addEntity(ground);
     for (
       let i = 0;
       PARAMS.BLOCKWIDTH * i < this.game.mapMaxDistance + PARAMS.SCREEN_WIDTH;
       i++
     ) {
-      background = new Ground(
-        this.game,
-        PARAMS.BLOCKWIDTH * i,
-        14 * PARAMS.BLOCKWIDTH,
-        25
+      this.game.addEntity(
+        new GroundLevelThree(
+          this.game,
+          PARAMS.BLOCKWIDTH * i,
+          14 * PARAMS.BLOCKWIDTH,
+          25
+        )
       );
-      this.game.addEntity(background);
     }
 
-    let brick = new Brick(
+    let brick = new BrickLevelOne(
       this.game,
       10 * 0 * PARAMS.BLOCKWIDTH + 400,
       10 * PARAMS.BLOCKWIDTH
@@ -620,9 +582,9 @@ class SceneManager {
       10 * i * PARAMS.BLOCKWIDTH + 400 < this.game.mapMaxDistance;
       i = i + 3
     ) {
-      brick = new Brick(
+      brick = new BrickLevelOne(
         this.game,
-        10 * i * PARAMS.BLOCKWIDTH + 400,
+        12 * i * PARAMS.BLOCKWIDTH + 500,
         10 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(brick);
@@ -643,7 +605,7 @@ class SceneManager {
     ) {
       flyingEye = new FlyingEye(
         this.game,
-        10 * i * PARAMS.BLOCKWIDTH + 1200,
+        12 * i * PARAMS.BLOCKWIDTH + 1200,
         7 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(flyingEye);
@@ -656,7 +618,7 @@ class SceneManager {
     ) {
       flyingEye = new FlyingEye(
         this.game,
-        11 * i * PARAMS.BLOCKWIDTH + 1500,
+        13 * i * PARAMS.BLOCKWIDTH + 1500,
         5 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(flyingEye);
@@ -667,9 +629,9 @@ class SceneManager {
       10 * i * PARAMS.BLOCKWIDTH + 1200 < this.game.mapMaxDistance;
       i = i + 3
     ) {
-      brick = new Brick(
+      brick = new BrickLevelOne(
         this.game,
-        10 * i * PARAMS.BLOCKWIDTH + 1200,
+        12 * i * PARAMS.BLOCKWIDTH + 1300,
         9 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(brick);
@@ -682,7 +644,7 @@ class SceneManager {
     ) {
       brick = new Block(
         this.game,
-        5 * i * PARAMS.BLOCKWIDTH + 2000,
+        5 * i * PARAMS.BLOCKWIDTH + 2200,
         11 * PARAMS.BLOCKWIDTH,
         PARAMS.BLOCKWIDTH
       );
@@ -727,24 +689,24 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    brick = new Brick(
-      this.game,
-      this.game.mapMaxDistance,
-      PARAMS.BLOCKWIDTH * 10,
-      PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(brick);
-    brick = new Brick(
-      this.game,
-      this.game.mapMaxDistance + 300,
-      PARAMS.BLOCKWIDTH * 9,
-      PARAMS.BLOCKWIDTH
-    );
+    // brick = new BrickLevelOne(
+    //   this.game,
+    //   this.game.mapMaxDistance,
+    //   PARAMS.BLOCKWIDTH * 10,
+    //   PARAMS.BLOCKWIDTH
+    // );
+    // this.game.addEntity(brick);
+    // brick = new BrickLevelOne(
+    //   this.game,
+    //   this.game.mapMaxDistance + 300,
+    //   PARAMS.BLOCKWIDTH * 9,
+    //   PARAMS.BLOCKWIDTH
+    // );
     this.game.addEntity(brick);
 
     let skeleton = new Skeleton(
       this.game,
-      10 * PARAMS.BLOCKWIDTH,
+      11 * PARAMS.BLOCKWIDTH,
       10.85 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(skeleton);
@@ -779,7 +741,7 @@ class SceneManager {
     //Zombie - Tung
     let zombie = new Zombie(
       this.game,
-      15 * PARAMS.BLOCKWIDTH,
+      14 * PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
@@ -791,6 +753,18 @@ class SceneManager {
       11.2 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(terrorists);
+    for (
+      let i = 1;
+      (37 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
+      i = i + 30
+    ) {
+      terrorists = new Terrorists(
+        this.game,
+        15 * i * PARAMS.BLOCKWIDTH,
+        11.2 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(terrorists);
+    }
 
     for (
       let i = 0;
@@ -851,13 +825,18 @@ class SceneManager {
 
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
-    if ((this.game.currentLevel === 0 || this.sant.dead || this.game.isOnWinningPage) && this.game.click) {
+    if (
+      (this.game.currentLevel === 0 ||
+        this.sant.dead ||
+        this.game.isOnWinningPage) &&
+      this.game.click
+    ) {
       if (
         this.game.click &&
         this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&
         this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH
       ) {
-        console.log("!");
+        console.log('!');
         this.sant.revive();
         this.game.isOnWinningPage = false;
         this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
@@ -964,7 +943,11 @@ class SceneManager {
 
     if (this.game.isBulletCapacityVisible && this.game.isMagazine) {
       ctx.fillStyle = 'white';
-      ctx.fillText('health: ', 6.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
+      ctx.fillText(
+        'health: ',
+        6.5 * PARAMS.BLOCKWIDTH,
+        1.5 * PARAMS.BLOCKWIDTH
+      );
       var object1 = {
         x: 10 * PARAMS.BLOCKWIDTH,
         y: 1 * PARAMS.BLOCKWIDTH,
@@ -982,7 +965,12 @@ class SceneManager {
       }
       ctx.strokeStyle = 'grey';
       ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
-      ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
+      ctx.fillRect(
+        object1.x,
+        object1.y,
+        object1.width * percent,
+        object1.height
+      );
     }
 
     // this.coinAnimation.drawFrame(

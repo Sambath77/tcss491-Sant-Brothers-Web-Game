@@ -447,7 +447,11 @@ class Sant {
             that.game.addEntity(new Finish(that.game));
             that.isFirstTimeTouchedFlag = false;
             setTimeout(function () {
-              that.game.camera.loadLevel(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, that.game.currentLevel + 1);
+              that.game.camera.loadLevel(
+                2.5 * PARAMS.BLOCKWIDTH,
+                0 * PARAMS.BLOCKWIDTH,
+                that.game.currentLevel + 1
+              );
             }, 3000);
           }
           if (that.velocity.y > 0) {
@@ -458,6 +462,7 @@ class Sant {
                 entity instanceof Block ||
                 entity instanceof Brickmoved ||
                 entity instanceof GroundLevelOne ||
+                entity instanceof GroundLevelThree ||
                 entity instanceof BrickLevelOne ||
                 entity instanceof BlockLevelOne) && // landin
               that.lastBB.bottom <= entity.BB.top
@@ -537,7 +542,8 @@ class Sant {
             (entity instanceof Block ||
               entity instanceof Ground ||
               entity instanceof GroundLevelOne ||
-              entity instanceof BlockLevelOne) &&
+              entity instanceof BlockLevelOne ||
+              entity instanceof GroundLevelThree) &&
             that.BB.bottom > entity.BB.top
           ) {
             if (that.BB.collide(entity.leftBB)) {
@@ -551,7 +557,7 @@ class Sant {
           }
 
           // Auto upgrade the gun
-          if (entity instanceof Panda || entity instanceof Angel) {
+          if (entity instanceof Angel) {
             entity.removeFromWorld = true;
             console.log('touch panda');
             if (that.game.currentLevel === 2 || that.game.currentLevel === 3) {
@@ -587,10 +593,13 @@ class Sant {
           if (this.bullet instanceof SprayTwo) {
             this.health -= 1;
           }
-          if(this.health < 0) {
+          if (this.health < 0) {
             this.health = 0;
           }
-          if (this.bullet instanceof BulletTwo || this.bullet instanceof SprayTwo) {
+          if (
+            this.bullet instanceof BulletTwo ||
+            this.bullet instanceof SprayTwo
+          ) {
             this.bullet.removeFromWorld = true;
           }
         }
