@@ -38,6 +38,7 @@ class Sant {
     this.animations = [];
     this.random = 0;
     this.isFirstTimeTouchedFlag = true;
+    this.flashCounter = 0;
     //this.isMagazine = false;
     //this.weapon = WEAPON.selectedGun(0);
 
@@ -380,6 +381,8 @@ class Sant {
           if (this.state !== 7) {
             this.state = 4;
           }
+          //play jumping audio
+          ASSET_MANAGER.playAsset("./soundEffect/jumping.mp3");
         }
         if (this.game.attack) {
           if (this.state !== 4 && this.state !== 7) {
@@ -619,6 +622,7 @@ class Sant {
         if (this.hurtCooldownCounter > 1) {
           this.hurtCooldownCounter = 0.0;
           this.isEnabledHurtCooldown = false;
+          this.flashCounter = 0;
         }
       }
       if (this.changeGun === false || this.changeGun === true) {
@@ -730,7 +734,8 @@ class Sant {
         ctx,
         this.x - this.game.camera.x,
         this.y,
-        PARAMS.SCALE
+        PARAMS.SCALE,
+        this.isEnabledHurtCooldown && this.flashCounter++ % 2 === 0
       );
     }
     if (PARAMS.DEBUG) {

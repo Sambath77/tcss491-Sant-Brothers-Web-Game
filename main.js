@@ -1,5 +1,6 @@
 const ASSET_MANAGER = new AssetManager();
 
+//imagine
 ASSET_MANAGER.queueDownload('./sprites/luigi.png');
 ASSET_MANAGER.queueDownload('./sprites/enemies.png');
 ASSET_MANAGER.queueDownload('./sprites/tiles.png');
@@ -39,7 +40,17 @@ ASSET_MANAGER.queueDownload('./sprites/new_background.png');
 ASSET_MANAGER.queueDownload('./sprites/my_wall.png');
 ASSET_MANAGER.queueDownload('./sprites/my_ground.png');
 
+//music
+ASSET_MANAGER.queueDownload('./music/Revolution - AShamaluevMusic.mp3');
+
+//sound effect
+ASSET_MANAGER.queueDownload('./soundEffect/jumping.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/laser.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/multi.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/fireball.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/bullet.mp3');
 function loadGame(level) {
+  ASSET_MANAGER.autoRepeat('./music/Revolution - AShamaluevMusic.mp3');
   var gameEngine = new GameEngine();
 
   PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
