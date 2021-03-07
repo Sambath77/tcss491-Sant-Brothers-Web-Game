@@ -6,6 +6,7 @@ class Fireball {
       ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
       ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
     ];
+    //ASSET_MANAGER.playAsset("./soundEffect/fireball.mp3");
     this.initialX = x;
     this.paused = false;
     this.power = 2;
@@ -105,6 +106,7 @@ class Bullet {
       ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
       ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
     ];
+    //ASSET_MANAGER.playAsset("./soundEffect/bullet.mp3");
     this.initialX = x;
     this.power = 1;
     this.width = 8;
@@ -203,6 +205,7 @@ class MultileFire {
       ASSET_MANAGER.getAsset('./sprites/sant/fire_left.png'),
       ASSET_MANAGER.getAsset('./sprites/sant/fire_right.png'),
     ];
+    //ASSET_MANAGER.playAsset("./soundEffect/multi.mp3");
     this.initialX = x;
     this.power = 4;
     this.width = 8;
@@ -299,6 +302,7 @@ class Spray {
       ASSET_MANAGER.getAsset('./sprites/sant/spray_left.png'),
       ASSET_MANAGER.getAsset('./sprites/sant/spray_right.png'),
     ];
+    //ASSET_MANAGER.playAsset("./soundEffect/laser.mp3");
     this.initialX = x;
     this.power = 5;
     this.width = 8;
@@ -493,6 +497,7 @@ class SprayTwo {
       ASSET_MANAGER.getAsset('./sprites/sant/spray_left.png'),
       ASSET_MANAGER.getAsset('./sprites/sant/spray_right.png'),
     ];
+    
     this.initialX = x;
     this.power = 5;
     this.width = 8;
@@ -594,6 +599,18 @@ class Weapon {
     ];
   }
   seletedGun(number) {
+    if(number === 0) {
+      ASSET_MANAGER.playAsset("./soundEffect/bullet.mp3");
+    }
+    else if(number === 1){
+      ASSET_MANAGER.playAsset("./soundEffect/fireball.mp3");
+    }
+    else if(number === 2){
+      ASSET_MANAGER.playAsset("./soundEffect/multi.mp3");
+    }
+    else{
+      ASSET_MANAGER.playAsset("./soundEffect/laser.mp3");
+    }
     return this.gun[number];
   }
 }
