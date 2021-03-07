@@ -708,7 +708,7 @@ class SceneManager {
 
     let skeleton = new Skeleton(
       this.game,
-      11 * PARAMS.BLOCKWIDTH,
+      15 * PARAMS.BLOCKWIDTH,
       10.85 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(skeleton);
@@ -743,7 +743,7 @@ class SceneManager {
     //Zombie - Tung
     let zombie = new Zombie(
       this.game,
-      14 * PARAMS.BLOCKWIDTH,
+      18 * PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
@@ -762,7 +762,7 @@ class SceneManager {
     ) {
       terrorists = new Terrorists(
         this.game,
-        15 * i * PARAMS.BLOCKWIDTH,
+        20 * i * PARAMS.BLOCKWIDTH,
         11.2 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(terrorists);
@@ -797,6 +797,20 @@ class SceneManager {
       this.game.addEntity(terrorists);
     }
 
+    let gunner = new Gunner(
+      this.game,
+      25 * PARAMS.BLOCKWIDTH,
+      11.6 * PARAMS.BLOCKWIDTH
+    );
+
+    for (let i = 1; i < this.game.mapMaxDistance; i = i + 2) {
+      gunner = new Gunner(
+        this.game,
+        25 * i * PARAMS.BLOCKWIDTH,
+        11.6 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(gunner);
+    }
     //Mafia
     let mafia = new Mafia(
       this.game,
@@ -826,19 +840,23 @@ class SceneManager {
   }
 
   updateAudio() {
-    var mute = document.getElementById("mute").checked;
-    var volume = document.getElementById("volume").value;
+    var mute = document.getElementById('mute').checked;
+    var volume = document.getElementById('volume').value;
 
     ASSET_MANAGER.muteAudio(mute);
     ASSET_MANAGER.adjustVolume(volume);
-
-};
+  }
 
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
 
     this.updateAudio();
-    if ((this.game.currentLevel === 0 || this.sant.dead || this.game.isOnWinningPage) && this.game.click) {
+    if (
+      (this.game.currentLevel === 0 ||
+        this.sant.dead ||
+        this.game.isOnWinningPage) &&
+      this.game.click
+    ) {
       if (
         this.game.click &&
         this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&
