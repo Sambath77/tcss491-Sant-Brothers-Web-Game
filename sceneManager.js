@@ -837,16 +837,8 @@ class SceneManager {
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
 
-    if (
-      (this.game.currentLevel === 0 ||
-        this.sant.dead ||
-        this.game.isOnWinningPage) &&
-      this.game.click
-    ) {
-
     this.updateAudio();
     if ((this.game.currentLevel === 0 || this.sant.dead || this.game.isOnWinningPage) && this.game.click) {
-
       if (
         this.game.click &&
         this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&

@@ -27,27 +27,6 @@ class Mafia {
     this.isFirstTimeTriggered = true;
   }
 
-    constructor(game, x, y) {
-      Object.assign(this, { game, x, y });
-      this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-      this.animationModes = ["walkleft", "walkright", "attackleft", "attackright", "deathleft", "deathright"];
-      this.currentMode = this.animationModes[0];
-      this.assetsMapLeft = this.constructAssetMapLeft();
-      this.assetsMapRight = this.constructAssetMapRight();
-      this.animations = this.animationModes.map((mode) =>
-        this.createMafiaAnimator(mode)
-      );
-      this.health = (this.game.currentLevel === 1) ? 20 : 70;
-      this.paused = true;
-      this.deadCounter = 0;
-      this.attackCounter = 0;
-      this.updateBoundingBox();
-      this.isFacingLeft = true;
-      this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
-      this.isFirstTimeTriggered = true;
-    }
-
-
   constructAssetMapLeft() {
     const assetMapLeft = new Map();
     this.animationModes.forEach((mode) =>
