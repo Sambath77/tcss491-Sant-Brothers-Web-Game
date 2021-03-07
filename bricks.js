@@ -144,6 +144,68 @@ class GroundLevelOne {
   }
 }
 
+class GroundLevelThree {
+  constructor(game, x, y, w) {
+    Object.assign(this, { game, x, y, w });
+
+    this.spritesheet = ASSET_MANAGER.getAsset('./sprites/my_ground.png');
+
+    this.BB = new BoundingBox(
+      this.x,
+      this.y,
+      this.w * 25 * PARAMS.BLOCKWIDTH,
+      PARAMS.BLOCKWIDTH * 2
+    );
+    this.leftBB = new BoundingBox(
+      this.x,
+      this.y,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH * 2
+    );
+    this.rightBB = new BoundingBox(
+      this.x + this.w + PARAMS.BLOCKWIDTH * 25,
+      this.y,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH * 2
+    );
+  }
+
+  update() {}
+
+  drawMinimap(ctx, mmX, mmY) {
+    ctx.fillStyle = 'Brown';
+    ctx.fillRect(
+      mmX + this.x / PARAMS.BITWIDTH,
+      mmY + this.y / PARAMS.BITWIDTH,
+      this.w / PARAMS.BITWIDTH,
+      PARAMS.SCALE * 2
+    );
+  }
+  draw(ctx) {
+    ctx.drawImage(
+      this.spritesheet,
+      1,
+      101,
+      510,
+      50,
+      this.x - this.game.camera.x + PARAMS.BLOCKWIDTH * this.w,
+      this.y,
+      PARAMS.BLOCKWIDTH * 25,
+      PARAMS.BLOCKWIDTH * 2
+    );
+
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Red';
+      ctx.strokeRect(
+        this.BB.x - this.game.camera.x,
+        this.BB.y,
+        this.BB.width,
+        this.BB.height
+      );
+    }
+  }
+}
+
 class Panda {
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });

@@ -36,6 +36,9 @@ ASSET_MANAGER.queueDownload('./sprites/terrorists_right.png');
 ASSET_MANAGER.queueDownload('./sprites/zombies.png');
 ASSET_MANAGER.queueDownload('./sprites/gunners-left.png');
 ASSET_MANAGER.queueDownload('./sprites/gunners-right.png');
+ASSET_MANAGER.queueDownload('./sprites/new_background.png');
+ASSET_MANAGER.queueDownload('./sprites/my_wall.png');
+ASSET_MANAGER.queueDownload('./sprites/my_ground.png');
 
 //music
 ASSET_MANAGER.queueDownload('./music/Revolution - AShamaluevMusic.mp3');
