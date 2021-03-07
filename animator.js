@@ -8,7 +8,7 @@ class Animator {
 
     };
 
-    drawFrame(tick, ctx, x, y, scale) {
+    drawFrame(tick, ctx, x, y, scale, isHidden) {
         this.elapsedTime += tick;
 
         if (this.isDone()) {
@@ -21,21 +21,25 @@ class Animator {
 
         let frame = this.currentFrame();
         if (this.reverse) frame = this.frameCount - frame - 1;
-        ctx.drawImage(
-          this.spritesheet,
-          this.xStart + frame * (this.width + this.framePadding),
-          this.yStart, //source from sheet
-          this.width,
-          this.height,
-          x,
-          y,
-          this.width * scale,
-          this.height * scale
-        );
+        if (isHidden) {
+            ctx.drawImage(this.spritesheet, 0, 0, 0, 0);
+        } else {
+            ctx.drawImage(
+            this.spritesheet,
+            this.xStart + frame * (this.width + this.framePadding),
+            this.yStart, //source from sheet
+            this.width,
+            this.height,
+            x,
+            y,
+            this.width * scale,
+            this.height * scale
+            );
 
-        if (PARAMS.DEBUG) {
-            ctx.strokeStyle = 'Green';
-            ctx.strokeRect(x, y, this.width * scale, this.height * scale);
+            if (PARAMS.DEBUG) {
+                ctx.strokeStyle = 'Green';
+                ctx.strokeRect(x, y, this.width * scale, this.height * scale);
+            }
         }
     };
 

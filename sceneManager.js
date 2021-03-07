@@ -962,7 +962,7 @@ class SceneManager {
       }
     }
 
-    if (this.game.isBulletCapacityVisible && this.game.isMagazine) {
+    if (!this.game.isOnWinningPage && this.game.currentLevel >= 1) {
       ctx.fillStyle = 'white';
       ctx.fillText('health: ', 6.5 * PARAMS.BLOCKWIDTH, 1.5 * PARAMS.BLOCKWIDTH);
       var object1 = {
