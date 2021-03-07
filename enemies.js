@@ -930,7 +930,7 @@ class Gunner {
     this.animations = this.animationModes.map((mode) =>
       this.createGunnerAnimator(mode)
     );
-    this.health = 1;
+    this.health = 10;
     this.paused = true;
     this.deadCounter = 0;
     this.attackCounter = 0;
