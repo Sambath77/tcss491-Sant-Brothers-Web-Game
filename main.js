@@ -40,6 +40,12 @@ ASSET_MANAGER.queueDownload('./sprites/gunners-right.png');
 //music
 ASSET_MANAGER.queueDownload('./music/Revolution - AShamaluevMusic.mp3');
 
+//sound effect
+ASSET_MANAGER.queueDownload('./soundEffect/jumping.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/laser.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/multi.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/fireball.mp3');
+ASSET_MANAGER.queueDownload('./soundEffect/bullet.mp3');
 function loadGame(level) {
   ASSET_MANAGER.autoRepeat('./music/Revolution - AShamaluevMusic.mp3');
   var gameEngine = new GameEngine();

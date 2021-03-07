@@ -380,6 +380,8 @@ class Sant {
           if (this.state !== 7) {
             this.state = 4;
           }
+          //play jumping audio
+          ASSET_MANAGER.playAsset("./soundEffect/jumping.mp3");
         }
         if (this.game.attack) {
           if (this.state !== 4 && this.state !== 7) {
