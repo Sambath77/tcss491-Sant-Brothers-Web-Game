@@ -826,13 +826,12 @@ class SceneManager {
   }
 
   updateAudio() {
-    var mute = document.getElementById("mute").checked;
-    var volume = document.getElementById("volume").value;
+    var mute = document.getElementById('mute').checked;
+    var volume = document.getElementById('volume').value;
 
     ASSET_MANAGER.muteAudio(mute);
     ASSET_MANAGER.adjustVolume(volume);
-
-};
+  }
 
   update() {
     PARAMS.DEBUG = document.getElementById('debug').checked;
@@ -843,33 +842,37 @@ class SceneManager {
         this.game.isOnWinningPage) &&
       this.game.click
     ) {
-
-    this.updateAudio();
-    if ((this.game.currentLevel === 0 || this.sant.dead || this.game.isOnWinningPage) && this.game.click) {
-
+      this.updateAudio();
       if (
-        this.game.click &&
-        this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&
-        this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH
+        (this.game.currentLevel === 0 ||
+          this.sant.dead ||
+          this.game.isOnWinningPage) &&
+        this.game.click
       ) {
-        console.log('!');
-        this.sant.revive();
-        this.game.isOnWinningPage = false;
-        this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+        if (
+          this.game.click &&
+          this.game.click.y > 9 * PARAMS.BLOCKWIDTH &&
+          this.game.click.y < 9.5 * PARAMS.BLOCKWIDTH
+        ) {
+          console.log('!');
+          this.sant.revive();
+          this.game.isOnWinningPage = false;
+          this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+        }
       }
+
+      let midpoint = PARAMS.CANVAS_WIDTH / 2 - PARAMS.BLOCKWIDTH / 2;
+
+      if (this.x < this.sant.x - midpoint) this.x = this.sant.x - midpoint;
+
+      if (this.x >= this.game.mapMaxDistance) {
+        this.x = this.game.mapMaxDistance;
+      }
+      // if (this.sant.dead && this.sant.y > PARAMS.BLOCKWIDTH * 16) {
+      //   this.sant.dead = false;
+      //   this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
+      // }
     }
-
-    let midpoint = PARAMS.CANVAS_WIDTH / 2 - PARAMS.BLOCKWIDTH / 2;
-
-    if (this.x < this.sant.x - midpoint) this.x = this.sant.x - midpoint;
-
-    if (this.x >= this.game.mapMaxDistance) {
-      this.x = this.game.mapMaxDistance;
-    }
-    // if (this.sant.dead && this.sant.y > PARAMS.BLOCKWIDTH * 16) {
-    //   this.sant.dead = false;
-    //   this.loadLevelOne(2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH);
-    // }
   }
 
   draw(ctx) {

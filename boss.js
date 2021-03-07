@@ -1,5 +1,4 @@
 class Mafia {
-
   constructor(game, x, y) {
     Object.assign(this, { game, x, y });
     this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
@@ -27,26 +26,32 @@ class Mafia {
     this.isFirstTimeTriggered = true;
   }
 
-    constructor(game, x, y) {
-      Object.assign(this, { game, x, y });
-      this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
-      this.animationModes = ["walkleft", "walkright", "attackleft", "attackright", "deathleft", "deathright"];
-      this.currentMode = this.animationModes[0];
-      this.assetsMapLeft = this.constructAssetMapLeft();
-      this.assetsMapRight = this.constructAssetMapRight();
-      this.animations = this.animationModes.map((mode) =>
-        this.createMafiaAnimator(mode)
-      );
-      this.health = (this.game.currentLevel === 1) ? 20 : 70;
-      this.paused = true;
-      this.deadCounter = 0;
-      this.attackCounter = 0;
-      this.updateBoundingBox();
-      this.isFacingLeft = true;
-      this.spritesheet = ASSET_MANAGER.getAsset("./sprites/finish.png");
-      this.isFirstTimeTriggered = true;
-    }
-
+  // constructor(game, x, y) {
+  //   Object.assign(this, { game, x, y });
+  //   this.velocity = { x: -PARAMS.BITWIDTH, y: 0 }; // pixels per second
+  //   this.animationModes = [
+  //     'walkleft',
+  //     'walkright',
+  //     'attackleft',
+  //     'attackright',
+  //     'deathleft',
+  //     'deathright',
+  //   ];
+  //   this.currentMode = this.animationModes[0];
+  //   this.assetsMapLeft = this.constructAssetMapLeft();
+  //   this.assetsMapRight = this.constructAssetMapRight();
+  //   this.animations = this.animationModes.map((mode) =>
+  //     this.createMafiaAnimator(mode)
+  //   );
+  //   this.health = this.game.currentLevel === 1 ? 20 : 70;
+  //   this.paused = true;
+  //   this.deadCounter = 0;
+  //   this.attackCounter = 0;
+  //   this.updateBoundingBox();
+  //   this.isFacingLeft = true;
+  //   this.spritesheet = ASSET_MANAGER.getAsset('./sprites/finish.png');
+  //   this.isFirstTimeTriggered = true;
+  // }
 
   constructAssetMapLeft() {
     const assetMapLeft = new Map();
@@ -345,7 +350,6 @@ class Mafia {
     };
     ctx.fillStyle = 'white';
     if (this.game.isFightingBoss) {
-
       ctx.fillText("Boss's health: ", 60, 150);
       var maxHealth = this.game.currentLevel === 1 ? 20 : 40;
       var percent = this.health / maxHealth;
@@ -365,24 +369,24 @@ class Mafia {
         object1.height
       );
 
-        ctx.fillText(
-            "Boss's health: ",
-            60,
-            150
-        );
-        var maxHealth = (this.game.currentLevel === 1) ? 20 : 70;
-        var percent = this.health / maxHealth;
-        if(percent >= 0.7) {
-            ctx.fillStyle = "green";
-        } else if (percent < 0.7 && percent >= 0.4) {
-            ctx.fillStyle = "yellow";
-        } else  {
-            ctx.fillStyle = "red";
-        }
-        ctx.strokeStyle = "grey";
-        ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
-        ctx.fillRect(object1.x, object1.y, object1.width * percent, object1.height);
-
+      ctx.fillText("Boss's health: ", 60, 150);
+      var maxHealth = this.game.currentLevel === 1 ? 20 : 70;
+      var percent = this.health / maxHealth;
+      if (percent >= 0.7) {
+        ctx.fillStyle = 'green';
+      } else if (percent < 0.7 && percent >= 0.4) {
+        ctx.fillStyle = 'yellow';
+      } else {
+        ctx.fillStyle = 'red';
+      }
+      ctx.strokeStyle = 'grey';
+      ctx.strokeRect(object1.x, object1.y, object1.width, object1.height);
+      ctx.fillRect(
+        object1.x,
+        object1.y,
+        object1.width * percent,
+        object1.height
+      );
     }
 
     if (PARAMS.DEBUG) {
