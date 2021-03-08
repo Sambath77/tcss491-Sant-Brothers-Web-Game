@@ -326,7 +326,7 @@ class Mafia {
     if (this.game.isFightingBoss) {
 
       ctx.fillText("Boss's health: ", 60, 150);
-      var maxHealth = this.game.currentLevel === 1 ? 20 : 40;
+      var maxHealth = 70;
       var percent = this.health / maxHealth;
       if (percent >= 0.7) {
         ctx.fillStyle = 'green';
