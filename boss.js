@@ -17,7 +17,7 @@ class Mafia {
     this.animations = this.animationModes.map((mode) =>
       this.createMafiaAnimator(mode)
     );
-    this.health = this.game.currentLevel === 1 ? 20 : 40;
+    this.health = this.game.currentLevel === 1 ? 20 : 70;
     this.paused = true;
     this.deadCounter = 0;
     this.attackCounter = 0;
