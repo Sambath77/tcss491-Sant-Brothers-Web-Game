@@ -400,7 +400,7 @@ class BulletTwo {
       ASSET_MANAGER.getAsset('./sprites/sant/sant-left.png'),
       ASSET_MANAGER.getAsset('./sprites/sant/sant-right.png'),
     ];
-
+    this.initialX = x;
     this.width = 8;
     this.height = 2;
     this.paused = false;
@@ -430,6 +430,14 @@ class BulletTwo {
 
   update() {
     this.x += this.velocity * (this.isFacingLeft ? -1 : 1);
+    this.updateBoundingBox();
+    if (this.x < this.initialX - 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    } else if (this.x > this.initialX + 500) {
+      this.removeFromWorld = true;
+      this.updateBoundingBox();
+    }
     if (!this.paused) {
       this.updateBoundingBox();
       const that = this;
@@ -447,13 +455,7 @@ class BulletTwo {
         }
       });
     }
-    if (this.x < this.initialX - 500) {
-      this.removeFromWorld = true;
-      this.updateBoundingBox();
-    } else if (this.x > this.initialX + 500) {
-      this.removeFromWorld = true;
-      this.updateBoundingBox();
-    }
+ 
     this.updateBoundingBox();
   }
 
