@@ -934,7 +934,7 @@ class Terrorists {
                   that.game.currentLevel === 2
                 ) {
                   that.game.addEntity(
-                    new Terrorists(that.game, that.x + 600, that.y)
+                    new Terrorists(that.game, that.x + 800, that.y)
                   );
                 } else if (
                   that.currentMode == 'death' &&

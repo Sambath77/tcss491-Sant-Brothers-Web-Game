@@ -135,7 +135,7 @@ class SceneManager {
     //flying eyes
     let flyingEye = new FlyingEye(
       this.game,
-      18 * PARAMS.BLOCKWIDTH,
+      22 * PARAMS.BLOCKWIDTH,
       10 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(flyingEye);
@@ -176,7 +176,7 @@ class SceneManager {
 
     let skeleton = new Skeleton(
       this.game,
-      21 * PARAMS.BLOCKWIDTH,
+      25 * PARAMS.BLOCKWIDTH,
       10.85 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(skeleton);
@@ -224,14 +224,14 @@ class SceneManager {
     //Zombie - Tung
     let zombie = new Zombie(
       this.game,
-      25 * PARAMS.BLOCKWIDTH,
+      24 * PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
 
     zombie = new Zombie(
       this.game,
-      28 * PARAMS.BLOCKWIDTH,
+      30 * PARAMS.BLOCKWIDTH,
       11.5 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(zombie);
@@ -260,7 +260,7 @@ class SceneManager {
     for (let i = 1; i < this.game.mapMaxDistance; i = i + 30) {
       terrorists = new Terrorists(
         this.game,
-        18 * i * PARAMS.BLOCKWIDTH,
+        20 * i * PARAMS.BLOCKWIDTH,
         11.2 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(terrorists);
@@ -283,7 +283,7 @@ class SceneManager {
     this.game.currentLevel = 2;
     this.game.show = true;
     this.game.entities = [];
-    this.mapMaxDistance = 10000;
+    //this.mapMaxDistance = 10000;
     this.x = 0;
 
     let background = new WallLevelTwo(this.game, 0, PARAMS.BLOCKWIDTH, 0);
@@ -527,6 +527,14 @@ class SceneManager {
     //   );
     //   this.game.addEntity(terrorists);
     // }
+    for (let i = 1; i < this.game.mapMaxDistance; i = i + 30) {
+      terrorists = new Terrorists(
+        this.game,
+        22 * i * PARAMS.BLOCKWIDTH,
+        11.2 * PARAMS.BLOCKWIDTH
+      );
+      this.game.addEntity(terrorists);
+    }
 
     let flag = new Flag(
       this.game,
@@ -551,7 +559,7 @@ class SceneManager {
     this.game.isFightingBoss = false;
     this.game.currentLevel = 3;
     this.game.entities = [];
-    this.mapMaxDistance = 11500;
+    //this.mapMaxDistance = 11500;
     this.x = 0;
 
     let background = new Wall(this.game, 0, PARAMS.BLOCKWIDTH, 0, 2);
