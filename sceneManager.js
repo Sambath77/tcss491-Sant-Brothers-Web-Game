@@ -166,6 +166,13 @@ class SceneManager {
       PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(brick);
+
+    // brick = new Gunner(
+    //   this.game,
+    //   PARAMS.BLOCKWIDTH * 10,
+    //   PARAMS.BLOCKWIDTH * 11.6
+    // );
+    // this.game.addEntity(brick);
     brick = new BrickLevelOne(
       this.game,
       this.game.mapMaxDistance + 300,
@@ -519,14 +526,14 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
-    // for (let i = 0; i < 30; i += 2) {
-    //   terrorists = new Terrorists(
-    //     this.game,
-    //     this.game.mapMaxDistance,
-    //     PARAMS.BLOCKWIDTH * 11.2
-    //   );
-    //   this.game.addEntity(terrorists);
-    // }
+    for (let i = 1; i < 30; i += 2) {
+      terrorists = new Terrorists(
+        this.game,
+        24 * i * PARAMS.BLOCKWIDTH,
+        PARAMS.BLOCKWIDTH * 11.2
+      );
+      this.game.addEntity(terrorists);
+    }
 
     let flag = new Flag(
       this.game,
@@ -704,72 +711,18 @@ class SceneManager {
       this.game.addEntity(brick);
     }
 
-    // brick = new BrickLevelOne(
-    //   this.game,
-    //   this.game.mapMaxDistance,
-    //   PARAMS.BLOCKWIDTH * 10,
-    //   PARAMS.BLOCKWIDTH
-    // );
-    // this.game.addEntity(brick);
-    // brick = new BrickLevelOne(
-    //   this.game,
-    //   this.game.mapMaxDistance + 300,
-    //   PARAMS.BLOCKWIDTH * 9,
-    //   PARAMS.BLOCKWIDTH
-    // );
-    this.game.addEntity(brick);
-
-    let skeleton = new Skeleton(
-      this.game,
-      11 * PARAMS.BLOCKWIDTH,
-      10.85 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(skeleton);
-
-    skeleton = new Skeleton(
-      this.game,
-      this.game.mapMaxDistance + 200,
-      PARAMS.BLOCKWIDTH * 10.85
-    );
-    this.game.addEntity(skeleton);
-
-    skeleton = new Skeleton(
-      this.game,
-      this.game.mapMaxDistance + 400,
-      PARAMS.BLOCKWIDTH * 10.85
-    );
-    this.game.addEntity(skeleton);
-
-    for (
-      let i = 0;
-      (17 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
-      i = i + 60
-    ) {
-      skeleton = new Skeleton(
-        this.game,
-        (17 + i) * PARAMS.BLOCKWIDTH,
-        10.85 * PARAMS.BLOCKWIDTH
-      );
-      this.game.addEntity(skeleton);
-    }
-
-    //Zombie - Tung
-    let zombie = new Zombie(
-      this.game,
-      14 * PARAMS.BLOCKWIDTH,
-      11.5 * PARAMS.BLOCKWIDTH
-    );
-    this.game.addEntity(zombie);
-
     let gunner = new Gunner(
       this.game,
-      21 * PARAMS.BLOCKWIDTH,
-      11.6 * PARAMS.BLOCKWIDTH
+      PARAMS.BLOCKWIDTH * 10,
+      PARAMS.BLOCKWIDTH * 11.6
     );
     this.game.addEntity(gunner);
-
-    for (let i = 1; i < this.game.mapMaxDistance; i++) {
-      gunner = new Gunner(this.game, 20 * i * PARAMS.BLOCKWIDTH, 11.6 * PARAMS);
+    for (let i = 1; i < this.game.mapMaxDistance; i = i + 5) {
+      gunner = new Gunner(
+        this.game,
+        12 * i * PARAMS.BLOCKWIDTH,
+        11.6 * PARAMS.BLOCKWIDTH
+      );
       this.game.addEntity(gunner);
     }
 
@@ -780,11 +733,7 @@ class SceneManager {
       11.2 * PARAMS.BLOCKWIDTH
     );
     this.game.addEntity(terrorists);
-    for (
-      let i = 1;
-      (37 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
-      i = i + 30
-    ) {
+    for (let i = 1; i < this.game.mapMaxDistance; i = i + 7) {
       terrorists = new Terrorists(
         this.game,
         15 * i * PARAMS.BLOCKWIDTH,
@@ -793,14 +742,10 @@ class SceneManager {
       this.game.addEntity(terrorists);
     }
 
-    for (
-      let i = 0;
-      (37 + i) * PARAMS.BLOCKWIDTH < this.game.mapMaxDistance;
-      i = i + 30
-    ) {
+    for (let i = 1; i < this.game.mapMaxDistance; i = i + 8) {
       terrorists = new Terrorists(
         this.game,
-        (37 + i) * PARAMS.BLOCKWIDTH,
+        27 * i * PARAMS.BLOCKWIDTH,
         11.2 * PARAMS.BLOCKWIDTH
       );
       this.game.addEntity(terrorists);
@@ -813,7 +758,7 @@ class SceneManager {
     );
     this.game.addEntity(terrorists);
 
-    for (let i = 0; i < 30; i += 2) {
+    for (let i = 1; i < 30; i += 2) {
       terrorists = new Terrorists(
         this.game,
         this.game.mapMaxDistance,
